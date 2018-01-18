@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Credigas.Views;
 
 namespace Credigas
 {
@@ -8,7 +9,7 @@ namespace Credigas
         {
             InitializeComponent();
 
-            MainPage = new CredigasPage();
+            MainPage = new SigninPage();
         }
 
         protected override void OnStart()
