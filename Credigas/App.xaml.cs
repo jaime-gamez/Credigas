@@ -9,7 +9,7 @@ namespace Credigas
         {
             InitializeComponent();
 
-            MainPage = new SigninPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
