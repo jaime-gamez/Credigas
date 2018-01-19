@@ -112,6 +112,7 @@
       <DependentUpon>SyncRoutePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Statistics.cs" />
+    <Compile Include="Models\SigninModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

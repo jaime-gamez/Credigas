@@ -20,6 +20,17 @@
                 <Setter Property="BorderRadius" Value="0"/>
                 <Setter Property="FontSize" Value="40" />
             </Style>
+            <Style x:Key="purppleButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#551a8b"/>
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="FontSize" Value="20" />
+                <Style.Triggers>
+                     <Trigger  TargetType="Button" Property="IsEnabled" Value="False">
+                       <Setter Property="BackgroundColor" Value="#551a" />
+                    </Trigger>
+               </Style.Triggers>
+            </Style>
             <Style x:Key="statisticsLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="30" />
@@ -43,29 +54,31 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="credigas_logo.jpg" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" HorizontalOptions="Center"></Image>
                 <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Image Source="credigas_logo.jpg" WidthRequest="32" Margin="5"/>
-                    <Entry Placeholder="Usuario" HorizontalOptions="FillAndExpand"/>
+                    <Image Source="user_secret.png" WidthRequest="32" Margin="5"/>
+                    <Entry x:Name="userEntry" Placeholder="Usuario" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Image Source="credigas_logo.jpg" WidthRequest="32"  Margin="5"/>
-                    <Entry Placeholder="Contraseña" HorizontalOptions="FillAndExpand"/>
+                    <Image Source="mfg_lock.png" WidthRequest="32"  Margin="5"/>
+                    <Entry x:Name="passwordEntry" Placeholder="Contraseña" HorizontalOptions="FillAndExpand" IsPassword="true" Keyboard="Text"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Image Source="credigas_logo.jpg" WidthRequest="32"  Margin="5"/>
-                    <Picker HorizontalOptions="FillAndExpand" SelectedIndex="0" Title="Seleccione Ciudad">
+                    <Image Source="icon_pin.png" WidthRequest="32"  Margin="5"/>
+                    <Picker x:Name="cityPicker"  HorizontalOptions="FillAndExpand" SelectedIndex="0" Title="Seleccione Ciudad">
                         <Picker.Items>
-                            <x:String>Mazatlán</x:String> 
                             <x:String>Culiacán</x:String>
+                            <x:String>Escuinapa</x:String>
+                            <x:String>Mazatlán</x:String>
+                            <x:String>Rosario</x:String>
                         </Picker.Items>
                     </Picker>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Switch WidthRequest="50" HorizontalOptions="Start" VerticalOptions="Center" />
-                    <Label   VerticalOptions="Center" HorizontalTextAlignment="Center" Text="Iniciar Sesión Automáticamente" HorizontalOptions="FillAndExpand" FontSize="12" />
+                    <Switch x:Name="sessionSwitch" WidthRequest="50" HorizontalOptions="Start" VerticalOptions="Center" />
+                    <Label  VerticalOptions="Center" HorizontalTextAlignment="Center" Text="Iniciar Sesión Automáticamente" HorizontalOptions="FillAndExpand" FontSize="12" />
                 </StackLayout>
-                <Button x:Name="signingButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  Text = "Iniciar Sesión"  HorizontalOptions="FillAndExpand" BackgroundColor="Silver" Margin="10"/>
+                <Button x:Name="signinButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  Text = "Iniciar Sesión"  HorizontalOptions="FillAndExpand" BackgroundColor="Purple" Margin="10" Style="{StaticResource purppleButton}"/>
                 <Label Grid.Row="6" Grid.Column="0" Text = "No tienes cuenta?" HorizontalTextAlignment="End" VerticalOptions="Center"  HorizontalOptions="End" FontSize="15" />
-                <Button Grid.Row="6" Grid.Column="1" x:Name="signupButton" Text = "Registrarse"   VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Button  Grid.Row="6" Grid.Column="1" x:Name="signupButton" Text = "Registrate"   VerticalOptions="Center" HorizontalOptions="Center"/>
                 
             </Grid>
 	</ContentPage.Content>
