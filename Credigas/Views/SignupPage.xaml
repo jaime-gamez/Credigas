@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Credigas.Views.SignupPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Credigas.Views.SignupPage"
+    Title="Registro">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
           <OnPlatform.iOS>0,20,0,0</OnPlatform.iOS>
@@ -35,8 +38,7 @@
                 <Style.Triggers>
                      <Trigger  TargetType="Button" Property="IsEnabled" Value="False">
                        <Setter Property="BackgroundColor" Value="#551a" />
-                    </Trigger>
-               </Style.Triggers>
+                    </Trigger>               </Style.Triggers>
             </Style>
             <Style x:Key="statisticsLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />

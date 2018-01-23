@@ -1,5 +1,6 @@
 ﻿using System;
 using Credigas.Models;
+using Credigas.Views;
 using Xamarin.Forms;
 
 namespace Credigas.ViewModels
@@ -87,7 +88,9 @@ namespace Credigas.ViewModels
         void ExecuteSigninCommand()
         {
             // TODO: Implement logic to persist Entry in a later chapter.
-            Application.Current.MainPage.DisplayAlert("Singup", "Singin Command", "Ok");
+            //Application.Current.MainPage.DisplayAlert("Singup", "Singin Command", "Ok");
+            MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
+            current.Detail = new NavigationPage(new SigninPage());
         }
 
         Command _signupCommand;

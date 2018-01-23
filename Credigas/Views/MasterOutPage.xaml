@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="Credigas.Views.MasterOutPage"
-    Title="Crédigas"
+    Title="Crédigas" BackgroundColor="#903899"
+
     Icon="icons8_menu.png">
     <ContentPage.Padding>
             <OnPlatform x:TypeArguments="Thickness">
@@ -31,16 +32,27 @@
                 <Setter Property="BorderRadius" Value="0"/>
                 <Setter Property="FontSize" Value="40" />
             </Style>
-            <Style x:Key="purppleButton" TargetType="Button">
+            <Style x:Key="purpple2Button" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#551a8b"/>
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="0"/>
                 <Setter Property="FontSize" Value="20" />
-                <Style.Triggers>
-                     <Trigger  TargetType="Button" Property="IsEnabled" Value="False">
-                       <Setter Property="BackgroundColor" Value="#551a" />
-                    </Trigger>
-               </Style.Triggers>
+            </Style>
+            <Style x:Key="purppleButton" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
+            </Style>
+            <Style x:Key="welcomeLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="30" />
+            </Style>
+            <Style x:Key="userLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="15" />
             </Style>
             <Style x:Key="statisticsLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
@@ -52,45 +64,36 @@
         <Grid x:Name="StatisticsGrid" RowSpacing="10" ColumnSpacing="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Source="credigas_logo.jpg" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" HorizontalOptions="Center"></Image>
-                <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Image Source="user_secret.png" WidthRequest="32" Margin="5"/>
-                    <Entry x:Name="userEntry" Placeholder="Usuario" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
+                <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="White">
+                    <Image  WidthRequest="70" Source="icons8_user_male_circle_filled.png"  HorizontalOptions="Start"></Image>
+                    <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="1" Spacing="0" Padding="10" HorizontalOptions="FillAndExpand">
+                        <Label x:Name="welcomeLabel" Text="Bienvenido" Style="{StaticResource welcomeLabel}"/>
+                        <Label x:Name="nameLabel" Text="Inicie sesión por favor" Style="{StaticResource userLabel}" />
+                        <Label x:Name="loginLabel" Text="Su usuario" Style="{StaticResource userLabel}" />
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Image Source="mfg_lock.png" WidthRequest="32"  Margin="5"/>
-                    <Entry x:Name="passwordEntry" Placeholder="Contraseña" HorizontalOptions="FillAndExpand" IsPassword="true" Keyboard="Text"/>
+                <Button x:Name="loadRouteButton" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="1"   Text = "Cargar Ruta"  Style="{StaticResource purppleButton}" />
+                <Button x:Name="workRouteButton" Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="1"   Text = "Trabajar Ruta"  Style="{StaticResource purppleButton}"  />
+                <Button x:Name="syncRouteButton" Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="1"   Text = "Sincronizar Ruta"  Style="{StaticResource purppleButton}"  />
+                <Button x:Name="loadPaymentsButton" Grid.Row="4" Grid.Column="0"  Grid.ColumnSpan="1"   Text = "Consultar Pagos"  Style="{StaticResource purppleButton}" />
+                <Image  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Source="credigas_logo.jpg"/>
+                <StackLayout Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" >
+                    <BoxView Color="White" HeightRequest="2" VerticalOptions="Fill" HorizontalOptions="Fill" />
+
+                    <Button  x:Name="signinButton" Text = "Iniciar sesión"   VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" TextColor="White" FontSize="25"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Image Source="icon_pin.png" WidthRequest="32"  Margin="5"/>
-                    <Picker x:Name="cityPicker"  HorizontalOptions="FillAndExpand" SelectedIndex="0" Title="Seleccione Ciudad">
-                        <Picker.Items>
-                            <x:String>Culiacán</x:String>
-                            <x:String>Escuinapa</x:String>
-                            <x:String>Mazatlán</x:String>
-                            <x:String>Rosario</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
-                    <Switch x:Name="sessionSwitch" WidthRequest="100" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
-                    <Label  VerticalOptions="Center" HorizontalTextAlignment="Start" Text="Iniciar Sesión Automáticamente" HorizontalOptions="FillAndExpand" FontSize="12" />
-                </StackLayout>
-                <Button x:Name="signinButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  Text = "Iniciar Sesión"  HorizontalOptions="FillAndExpand" BackgroundColor="Purple" Margin="10" Style="{StaticResource purppleButton}"/>
-                <Label Grid.Row="6" Grid.Column="0" Text = "No tienes cuenta?" HorizontalTextAlignment="End" VerticalOptions="Center"  HorizontalOptions="End" FontSize="15" />
-                <Button  Grid.Row="6" Grid.Column="1" x:Name="signupButton" Text = "Registrate"   VerticalOptions="Center" HorizontalOptions="Center"/>
-                
+
             </Grid>
 	</ContentPage.Content>
 </ContentPage>

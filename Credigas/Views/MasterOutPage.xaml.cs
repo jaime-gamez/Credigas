@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Credigas.ViewModels;
 using Xamarin.Forms;
 
 namespace Credigas.Views
@@ -9,7 +9,10 @@ namespace Credigas.Views
     {
         public MasterOutPage()
         {
+            BindingContext = new MasterOutViewModel();
             InitializeComponent();
+
+            signinButton.SetBinding(Button.CommandProperty, "SigninCommand");
         }
     }
 }
