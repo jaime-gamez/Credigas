@@ -94,7 +94,10 @@ namespace Credigas.ViewModels
         void ExecuteSigninCommand()
         {
             // TODO: Implement logic to persist Entry in a later chapter.
-            Application.Current.MainPage.DisplayAlert("Singin", "Singin Command", "Ok");
+            //Application.Current.MainPage.DisplayAlert("Singin", "Singin Command", "Ok");
+            MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
+            //current.Master = new SigninMasterPage();
+            current.Detail = new NavigationPage(new MainPage());
         }
 
         Command _signupCommand;

@@ -1,5 +1,6 @@
 ﻿using System;
 using Credigas.Models;
+using Credigas.Views;
 using Xamarin.Forms;
 
 namespace Credigas.ViewModels
@@ -15,6 +16,8 @@ namespace Credigas.ViewModels
                 OutstandingBalance = 35000.00F,
                 ClosedCards = 25
             };
+
+
         }
 
         private Statistics _statistics;

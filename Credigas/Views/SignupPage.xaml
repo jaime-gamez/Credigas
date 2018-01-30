@@ -2,11 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="Credigas.Views.SignupPage"
+    BackgroundColor="White"
     Title="Registro">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
           <OnPlatform.iOS>0,20,0,0</OnPlatform.iOS>
-          <OnPlatform.Android>0,0,0,0</OnPlatform.Android>
+          <OnPlatform.Android>0,5,0,0</OnPlatform.Android>
           <OnPlatform.WinPhone>0,0,0,0</OnPlatform.WinPhone>
         </OnPlatform>
       </ContentPage.Padding>
@@ -34,11 +35,12 @@
                 <Setter Property="BackgroundColor" Value="#551a8b"/>
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="0"/>
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="20" />                
                 <Style.Triggers>
                      <Trigger  TargetType="Button" Property="IsEnabled" Value="False">
                        <Setter Property="BackgroundColor" Value="#551a" />
-                    </Trigger>               </Style.Triggers>
+                    </Trigger>
+               </Style.Triggers>
             </Style>
             <Style x:Key="statisticsLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
@@ -64,15 +66,15 @@
                 <Image Source="credigas_logo.jpg" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" HorizontalOptions="Center"></Image>
                 <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
                     <Image Source="user_secret.png" WidthRequest="32" Margin="5"/>
-                    <Entry x:Name="userEntry" Placeholder="Usuario" HorizontalOptions="FillAndExpand" Keyboard="Text"/>
+                    <Entry x:Name="userEntry" Placeholder="Usuario" HorizontalOptions="FillAndExpand" Keyboard="Text" TextColor="Black" PlaceholderColor="Silver"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
                     <Image Source="mfg_lock.png" WidthRequest="32"  Margin="5"/>
-                    <Entry x:Name="passwordEntry" Placeholder="Contraseña" HorizontalOptions="FillAndExpand" IsPassword="true" Keyboard="Text"/>
+                    <Entry x:Name="passwordEntry" Placeholder="Contraseña" HorizontalOptions="FillAndExpand" IsPassword="true" Keyboard="Text" PlaceholderColor="Silver"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
                     <Image Source="mfg_lock.png" WidthRequest="32"  Margin="5"/>
-                    <Entry x:Name="password2Entry" Placeholder="Repite la Contraseña" HorizontalOptions="FillAndExpand" IsPassword="true" Keyboard="Text"/>
+                    <Entry x:Name="password2Entry" Placeholder="Repite la Contraseña" HorizontalOptions="FillAndExpand" IsPassword="true" Keyboard="Text" PlaceholderColor="Silver"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="10">
                     <Image Source="icon_pin.png" WidthRequest="32"  Margin="5"/>
@@ -86,9 +88,9 @@
                     </Picker>
                 </StackLayout>
 
-                <Button x:Name="signupButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  Text = "Registrarme"  HorizontalOptions="FillAndExpand" BackgroundColor="Purple" Margin="10" Style="{StaticResource purppleButton}"/>
-                <Label Grid.Row="6" Grid.Column="0" Text = "Ya tienes cuenta?" HorizontalTextAlignment="End" VerticalOptions="Center"  HorizontalOptions="End" FontSize="15" />
-                <Button  Grid.Row="6" Grid.Column="1" x:Name="signinButton" Text = "Iniciar Sesión"   VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Button x:Name="signupButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  Text = "Registrarme"  HorizontalOptions="FillAndExpand" BackgroundColor="Purple" Margin="10,0,10,0" Style="{StaticResource purppleButton}"/>
+                <Label Grid.Row="6" Grid.Column="0" Text = "Ya tienes cuenta?" HorizontalTextAlignment="End" VerticalOptions="Center"  HorizontalOptions="End" FontSize="15" BackgroundColor="White" TextColor="Blue"/>
+                <Button  Grid.Row="6" Grid.Column="1" x:Name="signinButton" Text = "Iniciar Sesión"   VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Blue"/>
                 
             </Grid>
     </ContentPage.Content>

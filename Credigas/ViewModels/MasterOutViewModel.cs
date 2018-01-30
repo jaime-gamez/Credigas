@@ -70,6 +70,29 @@ namespace Credigas.ViewModels
             current.MasterBehavior = MasterBehavior.Default;
     }
 
+        Command _signoutCommand;
+        public Command SignoutCommand
+        {
+            get
+            {
+                return _signoutCommand ?? (_signoutCommand = new Command(ExecuteSignoutCommand, () => true));
+            }
+        }
+        void ExecuteSignoutCommand()
+        {
+            // TODO: Implement logic to persist Entry in a later chapter.
+            //Application.Current.MainPage.DisplayAlert("Singup", "Singin Command", "Ok");
+            MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
+            MasterOutPage page = current.Master as MasterOutPage;
+            page.SignedOut();
+            current.Detail = new NavigationPage(new SigninPage());
+            //current.MasterBehavior = MasterBehavior.Default;
+
+
+
+
+        }
+
     bool CanSave()
     {
         bool result = true;

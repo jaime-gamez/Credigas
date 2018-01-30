@@ -12,7 +12,22 @@ namespace Credigas.Views
             BindingContext = new MasterOutViewModel();
             InitializeComponent();
 
-            signinButton.SetBinding(Button.CommandProperty, "SigninCommand");
+            signoutButton.SetBinding(Button.CommandProperty, "SignoutCommand");
+        }
+
+        public void SignedIn(){
+            //MasterOutViewModel data = this.BindingContext as MasterOutViewModel;
+            this.welcomeLabel.Text = "Jaime Gámez";
+            this.nameLabel.Text = "JAGALU";
+            this.loginLabel.Text = "Mazatlán";
+        }
+
+        public void SignedOut()
+        {
+            //MasterOutViewModel data = this.BindingContext as MasterOutViewModel;
+            this.welcomeLabel.Text = "Bienvenido";
+            this.nameLabel.Text = "Inicie sesión por favor";
+            this.loginLabel.Text = "Su usuario";
         }
     }
 }

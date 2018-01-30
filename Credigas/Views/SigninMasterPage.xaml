@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Credigas.Views.MasterOutPage"
+    x:Class="Credigas.Views.SigninMasterPage"
     Title="Crédigas" BackgroundColor="#903899"
-
     Icon="icons8_menu.png">
-    <ContentPage.Padding>
+	<ContentPage.Padding>
             <OnPlatform x:TypeArguments="Thickness">
               <OnPlatform.iOS>0,20,0,0</OnPlatform.iOS>
               <OnPlatform.Android>0,20,0,0</OnPlatform.Android>
@@ -92,9 +91,9 @@
                 <StackLayout Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" >
                     <BoxView Color="White" HeightRequest="2" VerticalOptions="Fill" HorizontalOptions="Fill" />
 
-                    <Button  x:Name="signoutButton" Text = "Cerrar sesión" Style="{StaticResource purppleButton}"  VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" TextColor="White" FontSize="25"/>
+                    <Button  x:Name="signinButton" Text = "Cerrar sesión" Style="{StaticResource purppleButton}"  VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" TextColor="White" FontSize="25"/>
                 </StackLayout>
 
             </Grid>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

@@ -78,6 +78,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\SigninMasterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -136,6 +140,10 @@
       <DependentUpon>MasterOutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MasterOutViewModel.cs" />
+    <Compile Include="Views\SigninMasterPage.xaml.cs">
+      <DependentUpon>SigninMasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SigninMasterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

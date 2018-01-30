@@ -24,6 +24,12 @@ namespace Credigas.Views
             workRouteButton.SetBinding(Button.CommandProperty, "WorkRouteCommand");
             syncRouteButton.SetBinding(Button.CommandProperty, "SyncRouteCommand");
             loadPaymentsButton.SetBinding(Button.CommandProperty, "LoadPaymentsCommand");
+
+            MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
+            MasterOutPage page = current.Master as MasterOutPage;
+            page.SignedIn();
+
+
         }
 
 
