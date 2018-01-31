@@ -1,6 +1,7 @@
-﻿using System;
-namespace Credigas.Models
+﻿namespace Credigas.Models
 {
+    using System;
+
     public class Statistics
     {
         private DateTime _date;

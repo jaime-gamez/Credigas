@@ -3,9 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="Credigas.Views.MasterOutPage"
     Title="Crédigas" BackgroundColor="#903899"
-
     Icon="icons8_menu.png">
-    <ContentPage.Padding>
+        <ContentPage.Padding>
             <OnPlatform x:TypeArguments="Thickness">
               <OnPlatform.iOS>0,20,0,0</OnPlatform.iOS>
               <OnPlatform.Android>0,20,0,0</OnPlatform.Android>
@@ -79,9 +78,9 @@
                 <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="White">
                     <Image  WidthRequest="70" Source="icons8_user_male_circle_filled.png"  HorizontalOptions="Start"></Image>
                     <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="1" Spacing="0" Padding="10" HorizontalOptions="FillAndExpand">
-                        <Label x:Name="welcomeLabel" Text="Bienvenido" Style="{StaticResource welcomeLabel}"/>
-                        <Label x:Name="nameLabel" Text="Inicie sesión por favor" Style="{StaticResource userLabel}" />
-                        <Label x:Name="loginLabel" Text="Su usuario" Style="{StaticResource userLabel}" />
+                        <Label x:Name="nameLabel" Text="Bienvenido" Style="{StaticResource welcomeLabel}"/>
+                        <Label x:Name="loginLabel" Text="Inicie sesión por favor" Style="{StaticResource userLabel}" />
+                        <Label x:Name="cityLabel" Text="Su usuario" Style="{StaticResource userLabel}" />
                     </StackLayout>
                 </StackLayout>
                 <Button x:Name="loadRouteButton" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="1"   Text = "Cargar Ruta"  Style="{StaticResource purppleButton}" />

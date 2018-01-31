@@ -1,15 +1,28 @@
-﻿using System;
-using Credigas.Models;
-using Credigas.Views;
-using Xamarin.Forms;
-
-namespace Credigas.ViewModels
+﻿namespace Credigas.ViewModels
 {
+
+    using Credigas.Models;
+    using Credigas.Services;
+    using System;
+    using System.Collections.ObjectModel;
+    using Xamarin.Forms;
+    using Credigas.Interfaces;
+
     public class MainViewModel: BaseViewModel
     {
+        #region Services
+        NavigationService navigationService;
+        #endregion
+
+        #region Constructors
         public MainViewModel()
         {
-            Statistics = new Statistics { 
+            instance = this;
+
+            navigationService = new NavigationService();
+
+            CurrentStatistics = new Statistics
+            {
                 Date = DateTime.Today,
                 Portfolio = 50000.00F,
                 Collected = 15000.00F,
@@ -17,11 +30,69 @@ namespace Credigas.ViewModels
                 ClosedCards = 25
             };
 
+            Login = new LoginViewModel();
+            LoadMenu();
+        }
+        #endregion
+
+        #region Properties
+        public ObservableCollection<Models.Menu> MyMenu
+        {
+            get;
+            set;
+        }
+
+        public LoginViewModel Login
+        {
+            get;
+            set;
+        }
+
+        public LoadRouteViewModel LoadRoute
+        {
+            get;
+            set;
+        }
+
+        public WorkRouteViewModel WorkRoute
+        {
+            get;
+            set;
+        }
+
+        public SyncRouteViewModel SyncRoute
+        {
+            get;
+            set;
+        }
+
+        public PaymentsViewModel Payments
+        {
+            get;
+            set;
+        }
+
+        public PasswordRecoveryViewModel PasswordRecovery
+        {
+            get;
+            set;
+        }
+
+        public NewUserViewModel NewUser
+        {
+            get;
+            set;
+        }
+
+        public TokenResponse Token
+        {
+            get;
+            set;
 
         }
 
         private Statistics _statistics;
-        public Statistics Statistics
+        public Statistics CurrentStatistics
         {
             get => _statistics;
             set { 
@@ -30,68 +101,69 @@ namespace Credigas.ViewModels
             }
         }
 
-        Command _loadRouteCommand;
-        public Command LoadRouteCommand
+        #endregion
+
+        #region Methods
+        public void RegisterDevice()
         {
-            get
+            var register = DependencyService.Get<IRegisterDevice>();
+            register.RegisterDevice();
+        }
+
+        void LoadMenu()
+        {
+            MyMenu = new ObservableCollection<Models.Menu>();
+
+            MyMenu.Add(new Models.Menu
             {
-                return _loadRouteCommand ?? (_loadRouteCommand = new Command(ExecuteLoadRouteCommand, CanSave));
-            }
-        }
-        void ExecuteLoadRouteCommand()
-        {
-            // TODO: Implement logic to persist Entry in a later chapter.
-            Application.Current.MainPage.DisplayAlert("MainPage", "Load Route Command", "Ok");
-        }
+                Icon = "ic_settings",
+                PageName = "LoadRouteView",
+                Title = "Cargar Ruta",
+            });
 
-
-        Command _workRouteCommand;
-        public Command WorkRouteCommand
-        {
-            get
+            MyMenu.Add(new Models.Menu
             {
-                return _workRouteCommand ?? (_workRouteCommand = new Command(ExecuteWorkRouteCommand, CanSave));
-            }
-        }
+                Icon = "ic_map",
+                PageName = "WorkRouteView",
+                Title = "Trabajar Ruta",
+            });
 
-        void ExecuteWorkRouteCommand()
-        {
-            // TODO: Implement logic to persist Entry in a later chapter.
-            Application.Current.MainPage.DisplayAlert("MainPage", "Work Route Command", "Ok");
-        }
-
-        Command _syncRouteCommand;
-        public Command SyncRouteCommand
-        {
-            get
+            MyMenu.Add(new Models.Menu
             {
-                return _syncRouteCommand ?? (_syncRouteCommand = new Command(ExecuteSyncRouteCommand, CanSave));
-            }
-        }
+                Icon = "ic_sync",
+                PageName = "SyncRouteView",
+                Title = "Sincronizar Ruta",
+            });
 
-        void ExecuteSyncRouteCommand()
-        {
-            // TODO: Implement logic to persist Entry in a later chapter.
-            Application.Current.MainPage.DisplayAlert("MainPage", "Sync Route Command", "Ok");
-        }
-
-        Command _loadPaymentsCommand;
-        public Command LoadPaymentsCommand
-        {
-            get
+            MyMenu.Add(new Models.Menu
             {
-                return _loadPaymentsCommand ?? (_loadPaymentsCommand = new Command(ExecuteLoadPaymentsCommand, CanSave));
-            }
-        }
+                Icon = "ic_sync",
+                PageName = "PaymentsView",
+                Title = "Consultar Abonos",
+            });
 
-        void ExecuteLoadPaymentsCommand()
+            MyMenu.Add(new Models.Menu
+            {
+                Icon = "ic_exit_to_app",
+                PageName = "LoginView",
+                Title = "Cerrar sesion",
+            });
+        }
+        #endregion
+
+        #region Sigleton
+        static MainViewModel instance;
+
+        public static MainViewModel GetInstance()
         {
-            // TODO: Implement logic to persist Entry in a later chapter.
-            Application.Current.MainPage.DisplayAlert("MainPage", "Load Payments Command", "Ok");
+            if (instance == null)
+            {
+                return new MainViewModel();
+            }
+
+            return instance;
         }
-
-
-        bool CanSave() => true;
+        #endregion
 
     }
 }

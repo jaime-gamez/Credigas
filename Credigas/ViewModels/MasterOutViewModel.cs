@@ -84,8 +84,19 @@ namespace Credigas.ViewModels
             //Application.Current.MainPage.DisplayAlert("Singup", "Singin Command", "Ok");
             MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
             MasterOutPage page = current.Master as MasterOutPage;
-            page.SignedOut();
+            page.SignedOut(
+                new SigninModel
+                {
+                    UserName = "Bienvenido",
+                    User = "Inicie sesión por favor",
+                    Password = "",
+                    City = "Sin Ciudad",
+                    AutomaticSession = false
+                }
+            );
+
             current.Detail = new NavigationPage(new SigninPage());
+
             //current.MasterBehavior = MasterBehavior.Default;
 
 

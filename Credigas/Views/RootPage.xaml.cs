@@ -11,7 +11,7 @@ namespace Credigas.Views
         {
             InitializeComponent();
 
-            Master = new MasterOutPage();
+            Master = new MasterOutPage(this);
             Detail = new NavigationPage(new SigninPage());
         }
     }

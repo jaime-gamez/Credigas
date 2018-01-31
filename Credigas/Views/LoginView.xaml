@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Credigas.Views.LoginView"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    Title="Login">
+	<ContentPage.Content>
+        <StackLayout
+            BindingContext="{Binding Login}"
+            Padding="8"
+            Spacing="16">
+            <Label
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                TextColor="{StaticResource FontColor}"
+                Text="Crédigas">
+            </Label>
+            <Grid
+                Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="Usuario:"
+                    TextColor="{StaticResource FontColor}"
+                    VerticalOptions="Center">
+                </Label>
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Keyboard="Text"
+                    Placeholder="Capture su usuario..."
+                    Text="{Binding User, Mode=TwoWay}">
+                </Entry>
+
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    TextColor="{StaticResource FontColor}"
+                    Text="Contraseña:"
+                    VerticalOptions="Center">
+                </Label>
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    IsPassword="true"
+                    Placeholder="Captura tu constraseña..."
+                    Text="{Binding Password, Mode=TwoWay}">
+                </Entry>
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    TextColor="{StaticResource FontColor}"
+                    Text="Ciudad:"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker 
+                    Grid.Column="1"
+                    Grid.Row="2" 
+                    x:Name="cityPicker"  
+                    HorizontalOptions="FillAndExpand" 
+                    SelectedIndex="0" 
+                    Title="Seleccione una Ciudad" 
+                    SelectedItemProperty="{Binding City, Mode=TwoWay}">
+                        <Picker.Items>
+                            <x:String>Culiacán</x:String>
+                            <x:String>Escuinapa</x:String>
+                            <x:String>Mazatlán</x:String>
+                            <x:String>Rosario</x:String>
+                        </Picker.Items>
+                    </Picker>
+            </Grid>
+            <StackLayout
+                HorizontalOptions="Center"
+                Orientation="Horizontal">
+                <Label
+                    TextColor="{StaticResource FontColor}"
+                    Text="Recordarme "
+                    VerticalOptions="Center">
+                </Label>
+                <Switch
+                    IsToggled="{Binding IsToggled, Mode=TwoWay}">
+                </Switch>
+            </StackLayout>
+            <Label
+                HorizontalOptions="Center"
+                Text="Olvidaste tu contraseña?"
+                TextColor="{StaticResource MainColor}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RecoverPasswordCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}">
+            </ActivityIndicator>
+            <StackLayout
+                Margin="20,0">
+                <Button
+                    Command="{Binding LoginCommand}"
+                    BackgroundColor="{StaticResource AccentColor1}"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Login"
+                    TextColor="White">
+                </Button>
+                <Button
+                    Command="{Binding RegisterNewUserCommand}"
+                    BackgroundColor="{StaticResource AccentColor2}"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Crear nuevo usuario"
+                    TextColor="White">
+                </Button>
+                <Button
+                    Command="{Binding LoginWithFacebookCommand}"
+                    BackgroundColor="Blue"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Login with Facebook"
+                    TextColor="White">
+                </Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

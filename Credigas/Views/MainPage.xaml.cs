@@ -9,7 +9,7 @@ namespace Credigas.Views
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage( SigninModel model )
         {
             BindingContext = new MainViewModel();
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace Credigas.Views
 
             MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
             MasterOutPage page = current.Master as MasterOutPage;
-            page.SignedIn();
+            page.SignedIn(model);
 
 
         }

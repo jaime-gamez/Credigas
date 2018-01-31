@@ -64,11 +64,25 @@ namespace Credigas.Models
 
     public class SigninModel
     {
+        private string _userName;
+        public string UserName
+        {
+            get => _userName;
+            set => _userName = value;
+        }
+
         private string _user;
         public string User
         {
             get => _user;
             set => _user = value;
+        }
+
+        private string _city;
+        public string City
+        {
+            get => _city;
+            set => _city = value;
         }
 
         private string _password;
@@ -78,12 +92,7 @@ namespace Credigas.Models
             set => _password = value;
         }
 
-        private CitiesEnum _city;
-        public CitiesEnum City
-        {
-            get => _city;
-            set => _city = value;
-        }
+
 
         private bool _automaticSession;
         public bool AutomaticSession

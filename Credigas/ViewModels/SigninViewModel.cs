@@ -97,7 +97,16 @@ namespace Credigas.ViewModels
             //Application.Current.MainPage.DisplayAlert("Singin", "Singin Command", "Ok");
             MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
             //current.Master = new SigninMasterPage();
-            current.Detail = new NavigationPage(new MainPage());
+            current.Detail = new NavigationPage(new MainPage(
+                new SigninModel
+                {
+                    UserName = "Jaime Gámez",
+                    User = this.User,
+                    Password = this.Password,
+                    City = this.City,
+                    AutomaticSession = this.AutomaticSession
+                }
+            ));
         }
 
         Command _signupCommand;

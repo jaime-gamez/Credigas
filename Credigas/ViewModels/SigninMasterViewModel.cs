@@ -65,7 +65,7 @@ namespace Credigas.ViewModels
             // TODO: Implement logic to persist Entry in a later chapter.
             //Application.Current.MainPage.DisplayAlert("Singup", "Singin Command", "Ok");
             MasterDetailPage current = Application.Current.MainPage as MasterDetailPage;
-            current.Master = new MasterOutPage();
+            //current.Master = new MasterOutPage();
             current.Detail = new NavigationPage(new SigninPage());
             current.MasterBehavior = MasterBehavior.Default;
         }
