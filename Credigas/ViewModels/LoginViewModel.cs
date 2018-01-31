@@ -300,7 +300,9 @@
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = response;
             mainViewModel.RegisterDevice();
-            mainViewModel.CurrentStatistics = new Statistics
+            mainViewModel.Home = new HomeViewModel();
+
+            mainViewModel.Home.CurrentStatistics = new Statistics
             {
                 Date = DateTime.Today,
                 Portfolio = 50000.00F,

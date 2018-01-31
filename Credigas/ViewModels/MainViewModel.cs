@@ -21,14 +21,7 @@
 
             navigationService = new NavigationService();
 
-            CurrentStatistics = new Statistics
-            {
-                Date = DateTime.Today,
-                Portfolio = 50000.00F,
-                Collected = 15000.00F,
-                OutstandingBalance = 35000.00F,
-                ClosedCards = 25
-            };
+
 
             Login = new LoginViewModel();
             LoadMenu();
@@ -43,6 +36,12 @@
         }
 
         public LoginViewModel Login
+        {
+            get;
+            set;
+        }
+
+        public HomeViewModel Home
         {
             get;
             set;
@@ -91,15 +90,7 @@
 
         }
 
-        private Statistics _statistics;
-        public Statistics CurrentStatistics
-        {
-            get => _statistics;
-            set { 
-                _statistics = value; 
-                OnPropertyChanged();
-            }
-        }
+
 
         #endregion
 

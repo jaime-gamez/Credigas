@@ -4,6 +4,7 @@
     using Credigas.Services;
     using Credigas.ViewModels;
     using Credigas.Views;
+    using System;
     using Xamarin.Forms;
 
     public partial class App : Application
@@ -48,7 +49,17 @@
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = token;
                 mainViewModel.RegisterDevice();
-                //mainViewModel.Categories = new CategoriesViewModel();
+                mainViewModel.Home = new HomeViewModel();
+
+                mainViewModel.Home.CurrentStatistics = new Statistics
+                {
+                    Date = DateTime.Today,
+                    Portfolio = 50000.00F,
+                    Collected = 15000.00F,
+                    OutstandingBalance = 35000.00F,
+                    ClosedCards = 25
+                };
+
                 navigationService.SetMainPage("MasterView");
             }
             else
