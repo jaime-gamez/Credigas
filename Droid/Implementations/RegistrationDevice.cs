@@ -1,11 +1,11 @@
 ﻿using Xamarin.Forms;
 
-[assembly: Dependency(typeof(Products1.Droid.Implementations.RegistrationDevice))]
+[assembly: Dependency(typeof(Credigas.Droid.Implementations.RegistrationDevice))]
 
 namespace Credigas.Droid.Implementations
 {
     using Android.Util;
-    using Gcm.Client;
+    //using Gcm.Client;
     using Interfaces;
 
     public class RegistrationDevice : IRegisterDevice
@@ -13,12 +13,12 @@ namespace Credigas.Droid.Implementations
         #region Methods
         public void RegisterDevice()
         {
-            var mainActivity = MainActivity.GetInstance();
-            GcmClient.CheckDevice(mainActivity);
-            GcmClient.CheckManifest(mainActivity);
+            //var mainActivity = MainActivity.GetInstance();
+            //GcmClient.CheckDevice(mainActivity);
+            //GcmClient.CheckManifest(mainActivity);
 
             Log.Info("MainActivity", "Registering...");
-            GcmClient.Register(mainActivity, Droid.Constants.SenderID);
+            //GcmClient.Register(mainActivity, Droid.Constants.SenderID);
         }
         #endregion
     }

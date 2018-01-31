@@ -1,6 +1,8 @@
 ﻿namespace Credigas
 {
+    using Credigas.Models;
     using Credigas.Services;
+    using Credigas.ViewModels;
     using Credigas.Views;
     using Xamarin.Forms;
 
@@ -39,7 +41,20 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
-            navigationService.SetMainPage("LoginView");
+            TokenResponse token = new TokenResponse();
+
+            if( 1 == 1)
+            {
+                var mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Token = token;
+                mainViewModel.RegisterDevice();
+                //mainViewModel.Categories = new CategoriesViewModel();
+                navigationService.SetMainPage("MasterView");
+            }
+            else
+            {
+                navigationService.SetMainPage("LoginView");
+            }
         }
         #endregion
 

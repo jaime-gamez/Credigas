@@ -1,4 +1,4 @@
-﻿namespace Credigas.ViewModels
+﻿namespace Credigas.Views
 {
     using Xamarin.Forms;
 

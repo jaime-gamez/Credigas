@@ -6,7 +6,7 @@
     BackgroundColor="{StaticResource BackgroundColor}"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
     Title="Login">
-	<ContentPage.Content>
+    <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Login}"
             Padding="8"
@@ -19,7 +19,7 @@
                 Text="Crédigas">
             </Label>
             <Grid
-                Margin="20,10">
+                Margin="0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2*"/>
@@ -68,7 +68,7 @@
                     HorizontalOptions="FillAndExpand" 
                     SelectedIndex="0" 
                     Title="Seleccione una Ciudad" 
-                    SelectedItemProperty="{Binding City, Mode=TwoWay}">
+                    SelectedItem="{Binding City, Mode=TwoWay}">
                         <Picker.Items>
                             <x:String>Culiacán</x:String>
                             <x:String>Escuinapa</x:String>
@@ -101,7 +101,7 @@
                 IsRunning="{Binding IsRunning, Mode=TwoWay}">
             </ActivityIndicator>
             <StackLayout
-                Margin="20,0">
+                Margin="0,0">
                 <Button
                     Command="{Binding LoginCommand}"
                     BackgroundColor="{StaticResource AccentColor1}"

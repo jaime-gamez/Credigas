@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-[assembly: Dependency(typeof(Products1.Droid.Implementations.Config))]
+[assembly: Dependency(typeof(Credigas.Droid.Implementations.Config))]
 
 namespace Credigas.Droid.Implementations
 {
