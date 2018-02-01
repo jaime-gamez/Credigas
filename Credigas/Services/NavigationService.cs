@@ -46,6 +46,10 @@
                     await App.Navigator.PushAsync(
                         new PaymentsView());
                     break;
+                case "PaymentsClientView":
+                    await App.Navigator.PushAsync(
+                        new PaymentsClientView());
+                    break;
             }
         }
 

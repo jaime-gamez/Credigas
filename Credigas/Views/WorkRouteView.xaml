@@ -20,10 +20,7 @@
                         <ViewCell>
                             
                             <Grid>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavigateCommand3}"/>
-
-                                </Grid.GestureRecognizers>
+                                
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
@@ -34,9 +31,7 @@
                                     HeightRequest="70"
                                     Source="{Binding Icon}" 
                                     WidthRequest="70">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding NavigateCommand2}"/>
-                                    </Image.GestureRecognizers>
+    
                                 </Image>
                                 <StackLayout
                                     Margin="0"
@@ -58,12 +53,12 @@
                                         </Label>
                                  </StackLayout>
                                  <Image 
-                                    
+                                    Grid.Column="2"
                                     HorizontalOptions="End" 
                                     Source="ic_chevron_right">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding NavigateCommand}"/>
-                                    </Image.GestureRecognizers>
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavigateCommand}"/>
+                                        </Image.GestureRecognizers>
                                 </Image>
                             </Grid>
                         </ViewCell>
