@@ -2194,26 +2194,26 @@ namespace Credigas.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020120
-			public const int avd_hide_password_1 = 2130837792;
-			
-			// aapt resource value: 0x7f020121
-			public const int avd_hide_password_2 = 2130837793;
-			
 			// aapt resource value: 0x7f020122
-			public const int avd_hide_password_3 = 2130837794;
+			public const int avd_hide_password_1 = 2130837794;
+			
+			// aapt resource value: 0x7f020123
+			public const int avd_hide_password_2 = 2130837795;
+			
+			// aapt resource value: 0x7f020124
+			public const int avd_hide_password_3 = 2130837796;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f020123
-			public const int avd_show_password_1 = 2130837795;
-			
-			// aapt resource value: 0x7f020124
-			public const int avd_show_password_2 = 2130837796;
-			
 			// aapt resource value: 0x7f020125
-			public const int avd_show_password_3 = 2130837797;
+			public const int avd_show_password_1 = 2130837797;
+			
+			// aapt resource value: 0x7f020126
+			public const int avd_show_password_2 = 2130837798;
+			
+			// aapt resource value: 0x7f020127
+			public const int avd_show_password_3 = 2130837799;
 			
 			// aapt resource value: 0x7f020055
 			public const int credigas_logo = 2130837589;
@@ -2800,11 +2800,11 @@ namespace Credigas.Droid
 			// aapt resource value: 0x7f020117
 			public const int notification_icon_background = 2130837783;
 			
-			// aapt resource value: 0x7f02011e
-			public const int notification_template_icon_bg = 2130837790;
+			// aapt resource value: 0x7f020120
+			public const int notification_template_icon_bg = 2130837792;
 			
-			// aapt resource value: 0x7f02011f
-			public const int notification_template_icon_low_bg = 2130837791;
+			// aapt resource value: 0x7f020121
+			public const int notification_template_icon_low_bg = 2130837793;
 			
 			// aapt resource value: 0x7f020118
 			public const int notification_tile_bg = 2130837784;
@@ -2819,10 +2819,16 @@ namespace Credigas.Droid
 			public const int security = 2130837787;
 			
 			// aapt resource value: 0x7f02011c
-			public const int user = 2130837788;
+			public const int semaphore_green = 2130837788;
 			
 			// aapt resource value: 0x7f02011d
-			public const int user_secret = 2130837789;
+			public const int semaphore_red = 2130837789;
+			
+			// aapt resource value: 0x7f02011e
+			public const int user = 2130837790;
+			
+			// aapt resource value: 0x7f02011f
+			public const int user_secret = 2130837791;
 			
 			static Drawable()
 			{

@@ -2,13 +2,13 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Credigas.Views.SyncRouteView"
+    x:Class="Credigas.Views.NewUserView"
     BackgroundColor="{StaticResource BackgroundColor}"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Title="Sincronizar Ruta">
-	<ContentPage.Content>
+    Title="Registrar Usuario">
+    <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding SyncRoute}"
+            BindingContext="{Binding NewUser}"
             Padding="8"
             Spacing="16">
                 <Label
@@ -16,7 +16,7 @@
                     FontSize="Large"
                     HorizontalOptions="Center"
                     TextColor="{StaticResource FontColor}"
-                    Text="Sincronizar Ruta">
+                    Text="Registrar Usuario">
                 </Label>
                 <Button
                     Command="{Binding CloseCommand}"
@@ -29,5 +29,5 @@
                     TextColor="White">
                 </Button>
         </StackLayout>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

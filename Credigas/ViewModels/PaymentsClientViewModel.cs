@@ -1,6 +1,7 @@
 ﻿namespace Credigas.ViewModels
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
     using Credigas.Models;
@@ -8,7 +9,7 @@
     using Services;
     using Xamarin.Forms;
 
-    public class NewUserViewModel: INotifyPropertyChanged
+    public class PaymentsClientViewModel: INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,43 +23,37 @@
         #endregion
 
         #region Constructors
-        public NewUserViewModel()
+        public PaymentsClientViewModel()
         {
             apiService = new ApiService();
             dataService = new DataService();
             dialogService = new DialogService();
             navigationService = new NavigationService();
+
+
         }
         #endregion
 
         #region Properties
-        private Statistics _statistics;
-        public Statistics CurrentStatistics
+        private Customer _customer;
+        public Customer CurrentCustomer
         {
-            get => _statistics;
+            get => _customer;
             set
             {
-                _statistics = value;
+                _customer = value;
                 PropertyChanged?.Invoke(
                         this,
-                    new PropertyChangedEventArgs(nameof(CurrentStatistics)));
+                    new PropertyChangedEventArgs(nameof(CurrentCustomer)));
             }
         }
         #endregion
 
         #region Commands
-        public ICommand CloseCommand
-        {
-            get
-            {
-                return new RelayCommand(Close);
-            }
-        }
 
-        async void Close()
-        {
-            await navigationService.BackOnLogin();
-        }
+        #endregion
+
+        #region Methods
         #endregion
     }
 }

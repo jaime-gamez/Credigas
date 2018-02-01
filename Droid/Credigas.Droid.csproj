@@ -175,6 +175,8 @@
     <AndroidResource Include="Resources\drawable\ic_map.png" />
     <AndroidResource Include="Resources\drawable\ic_settings.png" />
     <AndroidResource Include="Resources\drawable\ic_sync.png" />
+    <AndroidResource Include="Resources\drawable\semaphore_green.png" />
+    <AndroidResource Include="Resources\drawable\semaphore_red.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Implementations\" />

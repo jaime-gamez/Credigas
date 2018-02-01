@@ -83,6 +83,12 @@
             set;
         }
 
+        public PaymentsClientViewModel PaymentsClient
+        {
+            get;
+            set;
+        }
+
         public TokenResponse Token
         {
             get;

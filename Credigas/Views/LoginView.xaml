@@ -122,16 +122,6 @@
                     Text="Crear nuevo usuario"
                     TextColor="White">
                 </Button>
-                <Button
-                    Command="{Binding LoginWithFacebookCommand}"
-                    BackgroundColor="Blue"
-                    BorderRadius="23"
-                    FontAttributes="Bold"
-                    HeightRequest="46"
-                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Text="Login with Facebook"
-                    TextColor="White">
-                </Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

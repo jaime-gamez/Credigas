@@ -34,6 +34,10 @@
                     await App.Navigator.PushAsync(
                         new LoadRouteView());
                     break;
+                case "WorkRouteView":
+                    await App.Navigator.PushAsync(
+                        new WorkRouteView());
+                    break;
                 case "SyncRouteView":
                     await App.Navigator.PushAsync(
                         new SyncRouteView());
@@ -49,9 +53,9 @@
         {
             switch (pageName)
             {
-                case "RegisterView":
+                case "NewUserView":
                     await Application.Current.MainPage.Navigation.PushAsync(
-                        new RegisterView());
+                        new NewUserView());
                     break;
             }
         }

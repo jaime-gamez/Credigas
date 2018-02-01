@@ -1,9 +1,10 @@
 ﻿namespace Credigas.Views
 {
     using Xamarin.Forms;
-    public partial class RegisterView : ContentPage
+
+    public partial class NewUserView : ContentPage
     {
-        public RegisterView()
+        public NewUserView()
         {
             InitializeComponent();
         }

@@ -44,7 +44,7 @@
 
             TokenResponse token = new TokenResponse();
 
-            if( 1 == 1)
+            if( 1 == 1 ) 
             {
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = token;

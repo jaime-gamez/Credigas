@@ -20,7 +20,7 @@
                     <Button
                         Grid.Column="0"
                         Grid.Row="0"
-                        Command="{Binding LoginCommand}"
+                        Command="{Binding LoadRouteCommand}"
                         BackgroundColor="{StaticResource FontColor}"
                         BorderRadius="5"
                         FontAttributes="Bold"
@@ -32,7 +32,7 @@
                     <Button
                         Grid.Column="1"
                         Grid.Row="0"
-                        Command="{Binding LoginCommand}"
+                        Command="{Binding WorkRouteCommand}"
                         BackgroundColor="{StaticResource FontColor}"
                         BorderRadius="5"
                         FontAttributes="Bold"
@@ -44,7 +44,7 @@
                     <Button
                         Grid.Column="0"
                         Grid.Row="1"
-                        Command="{Binding LoginCommand}"
+                        Command="{Binding SyncRouteCommand}"
                         BackgroundColor="{StaticResource FontColor}"
                         BorderRadius="5"
                         FontAttributes="Bold"
@@ -56,7 +56,7 @@
                     <Button
                         Grid.Column="1"
                         Grid.Row="1"
-                        Command="{Binding LoginCommand}"
+                        Command="{Binding PaymentsCommand}"
                         BackgroundColor="{StaticResource FontColor}"
                         BorderRadius="5"
                         FontAttributes="Bold"
@@ -112,7 +112,8 @@
                         Grid.Row="3"
                         Text="{Binding Portfolio, StringFormat='{0:C2}'}"
                         TextColor="{StaticResource FontColor}"
-                        VerticalOptions="Center">
+                        VerticalOptions="Center"
+                        HorizontalOptions="EndAndExpand">
                     </Label>
                     <Label
                         Grid.Column="0"
@@ -124,9 +125,10 @@
                     <Label
                         Grid.Column="1"
                         Grid.Row="4"
-                        Text="{Binding Collected StringFormat='{0:C2}'}"
+                        Text="{Binding Collected, StringFormat='{0:C2}'}"
                         TextColor="{StaticResource FontColor}"
-                        VerticalOptions="Center">
+                        VerticalOptions="Center"
+                        HorizontalOptions="EndAndExpand">
                     </Label>
                     <Label
                         Grid.Column="0"
@@ -138,9 +140,10 @@
                     <Label
                         Grid.Column="1"
                         Grid.Row="5"
-                        Text="{Binding OutstandingBalance StringFormat='{0:C2}'}"
+                        Text="{Binding OutstandingBalance, StringFormat='{0:C2}'}"
                         TextColor="{StaticResource FontColor}"
-                        VerticalOptions="Center">
+                        VerticalOptions="Center"
+                        HorizontalOptions="EndAndExpand">
                     </Label>
                     <Label
                         Grid.Column="0"
@@ -154,7 +157,8 @@
                         Grid.Row="6"
                         Text="{Binding ClosedCards}"
                         TextColor="{StaticResource FontColor}"
-                        VerticalOptions="Center">
+                        VerticalOptions="Center"
+                        HorizontalOptions="EndAndExpand">
                     </Label>
                 </Grid>
         </StackLayout>

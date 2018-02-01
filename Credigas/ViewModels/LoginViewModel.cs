@@ -213,7 +213,7 @@
         async void RegisterNewUser()
         {
             MainViewModel.GetInstance().NewUser = new NewUserViewModel();
-            await navigationService.NavigateOnLogin("NewCustomerView");
+            await navigationService.NavigateOnLogin("NewUserView");
         }
 
 
