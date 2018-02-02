@@ -9,11 +9,6 @@
     using Services;
     using Xamarin.Forms;
 
-    public class Employee
-    {
-        public string DisplayName { get; set; }
-    }
-
     public class PaymentsClientViewModel: INotifyPropertyChanged
     {
         #region Events
