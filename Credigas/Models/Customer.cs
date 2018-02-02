@@ -21,7 +21,16 @@
 
         public string City { get; set; }
 
-        public string OrderId { get; set; }
+        public Order Order { get; set; }
+
+        public string OrderId { 
+            get{
+                if (Order != null)
+                    return Order.OrderId;
+                else
+                    return "SINORDEN";
+            } 
+        }
 
         public string Phone1 { get; set; }
 
@@ -35,6 +44,8 @@
             }
         }
 
+
+
         public string Semaphore
         {
             get
@@ -43,6 +54,17 @@
                     return "semaphore_green";
                 else
                     return "semaphore_red";
+            }
+        }
+
+        public string Phones
+        {
+            get
+            {
+                if (Phone2 != null && Phone2.Length > 0)
+                    return Phone1?.ToString() + " -- " + Phone2.ToString();
+                else
+                    return Phone1?.ToString();
             }
         }
 

@@ -235,6 +235,8 @@
       <DependentUpon>PaymentsClientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PaymentsClientViewModel.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Payment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

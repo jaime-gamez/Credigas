@@ -9,6 +9,11 @@
     using Services;
     using Xamarin.Forms;
 
+    public class Employee
+    {
+        public string DisplayName { get; set; }
+    }
+
     public class PaymentsClientViewModel: INotifyPropertyChanged
     {
         #region Events
@@ -29,7 +34,6 @@
             dataService = new DataService();
             dialogService = new DialogService();
             navigationService = new NavigationService();
-
 
         }
         #endregion

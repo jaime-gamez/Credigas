@@ -31,6 +31,8 @@
             navigationService = new NavigationService();
 
             LoadClients();
+
+
         }
         #endregion
 
@@ -76,24 +78,91 @@
         void LoadClients()
         {
             Clients = new ObservableCollection<Customer>();
+            ObservableCollection<Payment> Payments = new ObservableCollection<Payment>();
 
-            Clients.Add(new Models.Customer
+            Payments.Add(new Payment
             {
-                FullName = "Jaime Gámez Luna",
-                City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
-                Icon = "icons8_user_male_circle_filled.png",
-                Collected = false,
+                PaymentId = 1,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 29),//DateTime.Parse("01/29/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 2,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 22),//DateTime.Parse("01/22/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 3,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 15),//DateTime.Parse("01/15/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 4,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 8),//DateTime.Parse("01/08/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 5,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 1),//DateTime.Parse("01/01/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 6,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 25),//DateTime.Parse("12/25/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 7,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 18),//DateTime.Parse("12/18/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 8,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 11),//DateTime.Parse("12/10/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 9,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 4),//DateTime.Parse("12/02/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 10,
+                Total = 100.0,
+                Date = new DateTime(2017, 11, 27),//DateTime.Parse("11/25/2017"),
             });
 
             Clients.Add(new Models.Customer
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -102,10 +171,173 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
+                Phone1 = "81 1600 4236",
+                Phone2 = "81 1043 0434"
+            });
+
+            //***
+            Payments.Add(new Payment
+            {
+                PaymentId = 1,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 29),//DateTime.Parse("01/29/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 2,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 22),//DateTime.Parse("01/22/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 3,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 15),//DateTime.Parse("01/15/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 4,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 8),//DateTime.Parse("01/08/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 5,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 1),//DateTime.Parse("01/01/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 6,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 25),//DateTime.Parse("12/25/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 7,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 18),//DateTime.Parse("12/18/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 8,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 11),//DateTime.Parse("12/10/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 9,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 4),//DateTime.Parse("12/02/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 10,
+                Total = 100.0,
+                Date = new DateTime(2017, 11, 27),//DateTime.Parse("11/25/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 1,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 29),//DateTime.Parse("01/29/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 2,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 22),//DateTime.Parse("01/22/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 3,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 15),//DateTime.Parse("01/15/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 4,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 8),//DateTime.Parse("01/08/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 5,
+                Total = 100.0,
+                Date = new DateTime(2018, 1, 1),//DateTime.Parse("01/01/2018"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 6,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 25),//DateTime.Parse("12/25/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 7,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 18),//DateTime.Parse("12/18/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 8,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 11),//DateTime.Parse("12/10/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 9,
+                Total = 100.0,
+                Date = new DateTime(2017, 12, 4),//DateTime.Parse("12/02/2017"),
+            });
+
+            Payments.Add(new Payment
+            {
+                PaymentId = 10,
+                Total = 100.0,
+                Date = new DateTime(2017, 11, 27),//DateTime.Parse("11/25/2017"),
+            });
+
+            Clients.Add(new Models.Customer
+            {
+                FullName = "Jaime Gámez Luna",
+                City = "García",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
+                Icon = "icons8_user_male_circle_filled.png",
+                Collected = false,
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -114,10 +346,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -126,10 +363,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -138,9 +380,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
-                OrderId = "170-0001",
+                Collected = false,
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -149,10 +397,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -161,10 +414,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -173,10 +431,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -185,10 +448,14 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
-                Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -197,10 +464,15 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });
@@ -209,10 +481,83 @@
             {
                 FullName = "Jaime Gámez Luna",
                 City = "García",
-                Address = "Constanza 110, Mitras Poniente Sector Jordan",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
                 Icon = "icons8_user_male_circle_filled.png",
                 Collected = false,
-                OrderId = "170-0001",
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
+                Phone1 = "81 1600 4236",
+                Phone2 = "81 1043 0434"
+            });
+
+            Clients.Add(new Models.Customer
+            {
+                FullName = "Jaime Gámez Luna",
+                City = "García",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
+                Icon = "icons8_user_male_circle_filled.png",
+                Collected = false,
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
+                Phone1 = "81 1600 4236",
+                Phone2 = "81 1043 0434"
+            });
+
+            Clients.Add(new Models.Customer
+            {
+                FullName = "Jaime Gámez Luna",
+                City = "García",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
+                Icon = "icons8_user_male_circle_filled.png",
+                Collected = false,
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
+                Phone1 = "81 1600 4236",
+                Phone2 = "81 1043 0434"
+            });
+
+            Clients.Add(new Models.Customer
+            {
+                FullName = "Jaime Gámez Luna",
+                City = "García",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
+                Icon = "icons8_user_male_circle_filled.png",
+                Collected = false,
+                Order = new Order
+                {
+                    OrderId = "170-0001",
+                    Total = 1560.0,
+                    Payments = Payments
+                },
+                Phone1 = "81 1600 4236",
+                Phone2 = "81 1043 0434"
+            });
+
+            Clients.Add(new Models.Customer
+            {
+                FullName = "Jaime Gámez Luna",
+                City = "García",
+                Address = "Constanza 1100, Mitras Poniente Sector Jordan",
+                Icon = "icons8_user_male_circle_filled.png",
+                Collected = false,
+                Order = new Order
+               {
+                   OrderId = "170-0001",
+                   Total = 1560.0,
+                   Payments = Payments
+               },
                 Phone1 = "81 1600 4236",
                 Phone2 = "81 1043 0434"
             });

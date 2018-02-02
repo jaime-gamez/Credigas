@@ -1,57 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Credigas.Views.PaymentsClientView"
-    BackgroundColor="{StaticResource BackgroundColor}"
-    BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Title="Abonos Cliente">
-	<ContentPage.Content>
-        <StackLayout
-            BindingContext="{Binding PaymentsClient}"
-            Padding="0,0">
-                <Grid BindingContext="{Binding CurrentClient}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Credigas.Views.PaymentsClientView" BackgroundColor="{StaticResource BackgroundColor}" BindingContext="{Binding Main, Source={StaticResource Locator}}" Title="Abonos Cliente">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding PaymentsClient}" Padding="0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid BindingContext="{Binding CurrentCustomer}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Margin="0" Grid.Row="0" Grid.Column="0" Padding="5">
+                    <Image Grid.Column="0" HeightRequest="40" Source="{Binding Icon}" WidthRequest="40">
+                    </Image>
+                    <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding OrderId}" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                    </Label>
+                </StackLayout>
+                <StackLayout Margin="0" Grid.Row="0" Grid.Column="1"  Padding="5">
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding FullName}" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                    </Label>
+                    <Label Margin="0" FontSize="10" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding FullAddress}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                    </Label>
+                    <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding Phones}" TextColor="{StaticResource MainColor}" HorizontalTextAlignment="Start" VerticalOptions="Center">
+                    </Label>
+                </StackLayout>
+                <StackLayout Padding="10,0,10,0" Margin="0" Grid.Row="1" Grid.Column="1" BindingContext="{Binding Order}" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="Crédito" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                    </Label>
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding Total, StringFormat='{0:C2}'}" TextColor="{StaticResource AccentColor1}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                    </Label>
+                </StackLayout>
+                <StackLayout Padding="10,0,10,0" Margin="0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BindingContext="{Binding Order}">
+                    <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding Payments}" RowHeight="20">
+                        <ListView.Header>
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource FontColor}">
+                                <Label Text="Fecha" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="Start"/>
+                                <Label Text="Monto" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" WidthRequest="100" Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                                        </Label>
+                                        <Label Grid.Column="1" Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding Total, StringFormat='{0:C2}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalTextAlignment="End">
+                                        </Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+                <StackLayout Padding="10,0,10,0" Margin="0" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BindingContext="{Binding Order}"  Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="Abonos" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                    </Label>
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding Collected, StringFormat='{0:C2}'}" TextColor="{StaticResource AccentColor2}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                    </Label>
+                </StackLayout>
+                <StackLayout Padding="10,0,10,0" Margin="0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" BindingContext="{Binding Order}">
+                    <Button Command="{Binding AddPaymentCommand}" BackgroundColor="{StaticResource AccentColor1}" BorderRadius="23" FontAttributes="Bold" HeightRequest="46" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Text="Registrar Abono" TextColor="White" VerticalOptions="CenterAndExpand">
+                    </Button>
+                </StackLayout>
+
+            </Grid>
+            <Grid BindingContext="{Binding CurrentCustomer}" VerticalOptions="EndAndExpand" Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackLayout
-                        Margin="0"
-                        Grid.Column="0">
-                        <Image 
-                            Grid.Column="0"  
-                            HeightRequest="70"
-                            Source="{Binding Icon}" 
-                            WidthRequest="70">
-                        </Image>
-                        <Label 
-                                Margin="0"
-                                FontSize="9"
-                                Text="{Binding OrderId}"
-                                TextColor="{StaticResource FontColor}" 
-                                VerticalOptions="Start">
+                        <StackLayout  Margin="0" Grid.Column="0" BindingContext="{Binding Order}" Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand">
+                            <Label FontSize="14" FontAttributes="Bold" Text="ADEUDO" TextColor="{StaticResource FontColor}" >
+                            </Label>
+                            <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding OutstandingBalance, StringFormat='{0:C2}'}" TextColor="{StaticResource AccentColor1}" HorizontalTextAlignment="Center" >
                             </Label>
                     </StackLayout>
-                    <StackLayout
-                        Margin="0"
-                        Grid.Column="1">
-                            <Label 
-                                Margin="0"
-                                FontSize="14"
-                                FontAttributes="Bold"
-                                Text="{Binding FullName}"
-                                TextColor="{StaticResource FontColor}" 
-                                VerticalOptions="Center">
-                            </Label>
-                            <Label 
-                                Margin="0"
-                                FontSize="9"
-                                Text="{Binding FullAddress}"
-                                TextColor="{StaticResource FontColor}" 
-                                VerticalOptions="Start">
-                            </Label>
-                     </StackLayout>
                 </Grid>
         </StackLayout>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>
