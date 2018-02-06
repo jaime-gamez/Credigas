@@ -1,9 +1,11 @@
 ﻿namespace Credigas.Models
 {
+    using System;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using Services;
     using ViewModels;
+    using System.Linq;
 
     public class Customer
     {
@@ -65,6 +67,27 @@
                     return Phone1?.ToString() + " -- " + Phone2.ToString();
                 else
                     return Phone1?.ToString();
+            }
+        }
+
+        public double TodayPayment
+        {
+            get
+            {
+                if (Order != null)
+                {
+                    var payment = (from p in this.Order.Payments
+                                  where p.Date.Year == DateTime.Today.Year
+                                  && p.Date.Month == DateTime.Today.Month
+                                  && p.Date.Day == DateTime.Today.Day
+                                   select p).FirstOrDefault<Payment>();
+                    if (payment != null)
+                        return payment.Total;
+                    else
+                        return 0.0;
+                }
+                else
+                    return 0.0;
             }
         }
 

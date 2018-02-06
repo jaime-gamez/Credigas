@@ -30,7 +30,7 @@
             navigationService = new NavigationService();
 
             IsEnabled = true;
-            IsRunning = true;
+            IsRunning = false;
             IsLoaded = false;
             Date = System.DateTime.Today;
         }

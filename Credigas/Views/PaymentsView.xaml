@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Credigas.Views.PaymentsView"
-    BackgroundColor="{StaticResource BackgroundColor}"
-    BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Title="Consultar Abonos">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Credigas.Views.PaymentsView" BackgroundColor="{StaticResource BackgroundColor}" BindingContext="{Binding Main, Source={StaticResource Locator}}" Title="Consultar Abonos">
     <ContentPage.Content>
-        <StackLayout
-            BindingContext="{Binding Payments}"
-            Padding="8"
-            Spacing="16">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="Large"
-                    HorizontalOptions="Center"
-                    TextColor="{StaticResource FontColor}"
-                    Text="Consultar Abonos">
-                </Label>
-                <Button
-                    Command="{Binding CloseCommand}"
-                    BackgroundColor="{StaticResource AccentColor1}"
-                    BorderRadius="23"
-                    FontAttributes="Bold"
-                    HeightRequest="46"
-                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Text="Cerrar"
-                    TextColor="White">
-                </Button>
+        <StackLayout BindingContext="{Binding Payments}" Padding="8" Spacing="16">
+            <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding Clients}" HasUnevenRows="True" SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" HeightRequest="50" Source="{Binding Icon}" WidthRequest="50">
+                                </Image>
+                                <StackLayout Margin="0" Grid.Column="1">
+                                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding FullName}" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                                    </Label>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Margin="0" FontSize="14" Text="Tarjeta:" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                                        </Label>
+                                        <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding OrderId}" TextColor="{StaticResource AccentColor1}" VerticalOptions="Start">
+                                        </Label>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                            <Label Margin="0" FontSize="14" Text="Abono de:" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                                            </Label>
+                                            <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding TodayPayment, StringFormat='{0:C2}' }" TextColor="{StaticResource AccentColor2}" VerticalOptions="Start">
+                                            </Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
