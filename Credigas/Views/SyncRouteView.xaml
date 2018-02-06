@@ -11,23 +11,53 @@
             BindingContext="{Binding SyncRoute}"
             Padding="8"
             Spacing="16">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="Large"
-                    HorizontalOptions="Center"
-                    TextColor="{StaticResource FontColor}"
-                    Text="Sincronizar Ruta">
-                </Label>
+                <Grid
+                    Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="Fecha:"
+                        TextColor="{StaticResource FontColor}"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Keyboard="Text"
+                        IsEnabled="false"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}', Mode=TwoWay}">
+                    </Entry>
+                </Grid>
                 <Button
-                    Command="{Binding CloseCommand}"
+                    Command="{Binding SyncRouteCommand}"
                     BackgroundColor="{StaticResource AccentColor1}"
                     BorderRadius="23"
                     FontAttributes="Bold"
                     HeightRequest="46"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Text="Cerrar"
+                    Text="Sincronizar Ruta"
                     TextColor="White">
                 </Button>
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="200"
+                    WidthRequest="200">
+                </ActivityIndicator>
+                <Label
+                    VerticalOptions="EndAndExpand"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    TextColor="{StaticResource FontColor}"
+                    IsVisible="{Binding IsLoaded, Mode=TwoWay}"
+                    Text="Ruta Sincronizada">
+                </Label>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

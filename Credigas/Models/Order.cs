@@ -7,6 +7,9 @@
     using System;
     using ViewModels;
     using System.ComponentModel;
+    using Credigas.Popups;
+    using System.Threading.Tasks;
+    using Rg.Plugins.Popup.Services;
 
     public class Order : INotifyPropertyChanged
     {
@@ -67,14 +70,15 @@
 
         async void AddPayment()
         {
-            await dialogService.ShowMessage(
-                    "Crédigas",
-                    "Agregar Abono.");
+            double result = await OpenCancellableMoneyInputAlertDialog();
 
+            if (result == 0.0)
+                return;
+            
             this.Payments.Add(new Payment
             {
                 PaymentId = 100,
-                Total = 50.0,
+                Total = result,
                 Date = DateTime.Today,
             });
 
@@ -87,5 +91,52 @@
                 new PropertyChangedEventArgs(nameof(OutstandingBalance)));
         }
         #endregion
+
+        #region Methods
+        private async Task<double> OpenCancellableMoneyInputAlertDialog()
+        {
+            // create the TextInputView
+            var inputView = new MoneyInputCancellableView(
+                "De cuanto es el abono?", "Capturelo aquí...", "Grabar", "Cancelar", "Ops! Debe ser una cantidad mayor a cero!");
+
+            // create the Transparent Popup Page
+            // of type string since we need a string return
+            var popup = new InputAlertDialogBase<double>(inputView);
+
+            // subscribe to the TextInputView's Button click event
+            inputView.SaveButtonEventHandler +=
+                (sender, obj) =>
+                {
+                if ( ((MoneyInputCancellableView)sender).MoneyInputResult > 0.0)
+                    {
+                    ((MoneyInputCancellableView)sender).IsValidationLabelVisible = false;
+                    popup.PageClosedTaskCompletionSource.SetResult(((MoneyInputCancellableView)sender).MoneyInputResult);
+                    }
+                    else
+                    {
+                    ((MoneyInputCancellableView)sender).IsValidationLabelVisible = true;
+                    }
+                };
+
+            // subscribe to the TextInputView's Button click event
+            inputView.CancelButtonEventHandler +=
+                (sender, obj) =>
+                {
+                    popup.PageClosedTaskCompletionSource.SetResult(0.0);
+                };
+
+            // Push the page to Navigation Stack
+            await PopupNavigation.PushAsync(popup);
+
+            // await for the user to enter the text input
+            var result = await popup.PageClosedTask;
+
+            // Pop the page from Navigation Stack
+            await PopupNavigation.PopAsync();
+
+            // return user inserted text value
+            return result;
+        }
+#endregion
     }
 }

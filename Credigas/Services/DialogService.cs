@@ -10,7 +10,7 @@
             await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
-                "Accept");
+                "Acceptar");
         }
 
         public async Task<bool> ShowConfirm(string title, string message)
@@ -18,7 +18,7 @@
             return await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
-                "Yes",
+                "Si",
                 "No");
         }
 
@@ -26,7 +26,7 @@
         {
             return await Application.Current.MainPage.DisplayActionSheet(
                 "Where do you take the image?",
-                "Cancel",
+                "Cancelar",
                 null,
                 "From Gallery",
                 "From Camera");
