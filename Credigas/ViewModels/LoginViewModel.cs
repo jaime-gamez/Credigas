@@ -272,11 +272,11 @@
                 Password,
                 ToCity());
 
-            if (response.AccessToken.Length == 0)
+            if (response == null)
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage("Error",response.ErrorDescription);
+                await dialogService.ShowMessage("Error","No se puede contactar al servidor.");
                 Password = null;
                 return;
             }

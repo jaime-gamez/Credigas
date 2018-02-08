@@ -8,7 +8,7 @@
     using Xamarin.Forms;
     using Credigas.Interfaces;
 
-    public class MainViewModel: BaseViewModel
+    public class MainViewModel
     {
         #region Services
         NavigationService navigationService;

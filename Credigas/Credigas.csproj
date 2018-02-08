@@ -30,58 +30,6 @@
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
     <EmbeddedResource Include="CredigasPage.xaml" />
-    <EmbeddedResource Include="Views\SplashPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SigninPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\LoadRoutePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\WorksRoutePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\PaymentsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AddPaymentPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ListPaymentsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SyncRoutePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SignupPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\RootPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MasterOutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SigninMasterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\MasterView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -110,10 +58,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\NewUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -134,6 +78,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HomeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -143,59 +91,13 @@
       <DependentUpon>CredigasPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\SigninViewModel.cs" />
     <Compile Include="ViewModels\LoadRouteViewModel.cs" />
     <Compile Include="ViewModels\WorkRouteViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
-    <Compile Include="ViewModels\AddPaymentViewModel.cs" />
-    <Compile Include="ViewModels\ListPaymentsViewModel.cs" />
     <Compile Include="ViewModels\SyncRouteViewModel.cs" />
-    <Compile Include="Views\SplashPage.xaml.cs">
-      <DependentUpon>SplashPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SigninPage.xaml.cs">
-      <DependentUpon>SigninPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\LoadRoutePage.xaml.cs">
-      <DependentUpon>LoadRoutePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WorksRoutePage.xaml.cs">
-      <DependentUpon>WorksRoutePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PaymentsPage.xaml.cs">
-      <DependentUpon>PaymentsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AddPaymentPage.xaml.cs">
-      <DependentUpon>AddPaymentPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ListPaymentsPage.xaml.cs">
-      <DependentUpon>ListPaymentsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SyncRoutePage.xaml.cs">
-      <DependentUpon>SyncRoutePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\SigninModel.cs" />
-    <Compile Include="Views\SignupPage.xaml.cs">
-      <DependentUpon>SignupPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\SignupViewModel.cs" />
-    <Compile Include="Views\RootPage.xaml.cs">
-      <DependentUpon>RootPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MasterOutPage.xaml.cs">
-      <DependentUpon>MasterOutPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\MasterOutViewModel.cs" />
-    <Compile Include="Views\SigninMasterPage.xaml.cs">
-      <DependentUpon>SigninMasterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\SigninMasterViewModel.cs" />
     <Compile Include="Infraestructure\InstanceLocator.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\DataService.cs" />
@@ -234,9 +136,6 @@
     <Compile Include="Models\FacebookResponse.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Models\UserRequest.cs" />
-    <Compile Include="Views\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Views\NewUserView.xaml.cs">
       <DependentUpon>NewUserView.xaml</DependentUpon>
@@ -260,6 +159,9 @@
       <DependentUpon>MoneyInputCancellableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight">

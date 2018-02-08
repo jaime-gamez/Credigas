@@ -190,8 +190,7 @@
                 client.BaseAddress = new Uri(urlBase);
                 var response = await client.PostAsync("token",content);
                 var resultJSON = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<TokenResponse>(
-                    resultJSON);
+                var result = JsonConvert.DeserializeObject<TokenResponse>(resultJSON);
                 return result;
             }
             catch(Exception)
