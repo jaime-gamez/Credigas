@@ -155,7 +155,7 @@
                     return null;
                 }
 
-                var tokenResponse = await GetToken(urlBase, profile.Id, profile.Id);
+                var tokenResponse = await GetToken(urlBase, profile.Id, profile.Id, "");
                 return tokenResponse;
             }
             catch
@@ -168,23 +168,33 @@
         public async Task<TokenResponse> GetToken(
             string urlBase,
             string username,
-            string password)
+            string password,
+            string city)
         {
             try
             {
+                var data = new
+                {
+                    login = username,
+                    pwd = password,
+                    city = city
+                };
+
+                var request = JsonConvert.SerializeObject(data);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(urlBase);
-                var response = await client.PostAsync("Token",
-                    new StringContent(string.Format(
-                    "grant_type=password&username={0}&password={1}",
-                    username, password),
-                    Encoding.UTF8, "application/x-www-form-urlencoded"));
+                var response = await client.PostAsync("token",content);
                 var resultJSON = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<TokenResponse>(
                     resultJSON);
                 return result;
             }
-            catch
+            catch(Exception)
             {
                 return null;
             }

@@ -231,7 +231,7 @@
             {
                 await dialogService.ShowMessage(
                     "Error",
-                    "You must enter an email.");
+                    "Debe capturar su usuario.");
                 return;
             }
 
@@ -239,7 +239,7 @@
             {
                 await dialogService.ShowMessage(
                     "Error",
-                    "You must enter a password.");
+                    "Debe capturar su contraseña.");
                 return;
             }
 
@@ -247,7 +247,7 @@
             {
                 await dialogService.ShowMessage(
                     "Error",
-                    "You must enter a City.");
+                    "Debe seleccionar una ciudad.");
                 return;
             }
 
@@ -269,15 +269,14 @@
             var response = await apiService.GetToken(
                 urlAPI,
                 User,
-                Password);
+                Password,
+                ToCity());
 
-            if (response == null)
+            if (response.AccessToken.Length == 0)
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage(
-                    "Error",
-                    "The service is not available, please try latter.");
+                await dialogService.ShowMessage("Error",response.ErrorDescription);
                 Password = null;
                 return;
             }
@@ -286,9 +285,7 @@
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.ErrorDescription);
+                await dialogService.ShowMessage("Error",response.ErrorDescription);
                 Password = null;
                 return;
             }
@@ -317,6 +314,27 @@
 
             IsRunning = false;
             IsEnabled = true;
+        }
+        #endregion
+
+        #region Methods
+        private string ToCity(){
+            string result = "";
+
+            switch (City)
+            {
+                case "Mazatlán":
+                    result = "MAZATLAN";
+                    break;
+                case "Culiacán":
+                    result = "CULIACAN";
+                    break;
+                default:
+                    result = City.ToUpper();
+                    break;
+            }
+
+            return result;
         }
         #endregion
     }

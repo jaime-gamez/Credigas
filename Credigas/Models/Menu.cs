@@ -43,8 +43,8 @@
             {
                 case "LoginView":
                     var mainViewModel = MainViewModel.GetInstance();
-                    //mainViewModel.Token.IsRemembered = false;
-                    //dataService.Update(mainViewModel.Token);
+                    mainViewModel.Token.IsRemembered = false;
+                    dataService.Update(mainViewModel.Token);
                     mainViewModel.Login = new LoginViewModel();
                     navigationService.SetMainPage(PageName);
                     break;

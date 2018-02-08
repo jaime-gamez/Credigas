@@ -42,9 +42,9 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
-            TokenResponse token = new TokenResponse();
+            TokenResponse token = dataService.First<TokenResponse>(false);
 
-            if( 1 == 1 ) 
+            if( token != null && token.IsRemembered && token.Expires > DateTime.Now ) 
             {
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = token;

@@ -6,7 +6,6 @@
     using Interfaces;
     using Models;
     using SQLite.Net;
-    using SQLiteNetExtensions.Extensions;
     using Xamarin.Forms;
 
     public class DataAccess : IDisposable
@@ -16,9 +15,8 @@
         public DataAccess()
         {
             var config = DependencyService.Get<IConfig>();
-            connection = new SQLiteConnection(config.Platform,
-                System.IO.Path.Combine(config.DirectoryDB, "Credigas.db3"));
-            //connection.CreateTable<Category>();
+            connection = new SQLiteConnection(config.Platform, System.IO.Path.Combine(config.DirectoryDB, "Credigas.db3"));
+            connection.CreateTable<Usuario>();
             //connection.CreateTable<Product>();
             connection.CreateTable<TokenResponse>();
         }
@@ -40,11 +38,11 @@
 
         public T First<T>(bool WithChildren) where T : class
         {
-            if (WithChildren)
-            {
-                return connection.GetAllWithChildren<T>().FirstOrDefault();
-            }
-            else
+            //if (WithChildren)
+            //{
+            //    return connection.GetAllWithChildren<T>().FirstOrDefault();
+            //}
+            //else
             {
                 return connection.Table<T>().FirstOrDefault();
             }
@@ -52,11 +50,11 @@
 
         public List<T> GetList<T>(bool WithChildren) where T : class
         {
-            if (WithChildren)
-            {
-                return connection.GetAllWithChildren<T>().ToList();
-            }
-            else
+            //if (WithChildren)
+            //{
+            //    return connection.GetAllWithChildren<T>().ToList();
+            //}
+            //else
             {
                 return connection.Table<T>().ToList();
             }
@@ -64,12 +62,12 @@
 
         public T Find<T>(int pk, bool WithChildren) where T : class
         {
-            if (WithChildren)
-            {
-                return connection.GetAllWithChildren<T>()
-                                 .FirstOrDefault(m => m.GetHashCode() == pk);
-            }
-            else
+            //if (WithChildren)
+            //{
+            //    return connection.GetAllWithChildren<T>()
+            //                     .FirstOrDefault(m => m.GetHashCode() == pk);
+            //}
+            //else
             {
                 return connection.Table<T>()
                                  .FirstOrDefault(m => m.GetHashCode() == pk);

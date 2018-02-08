@@ -10,6 +10,8 @@
     using Credigas.Popups;
     using System.Threading.Tasks;
     using Rg.Plugins.Popup.Services;
+    using SQLite;
+    using Newtonsoft.Json;
 
     public class Order : INotifyPropertyChanged
     {
@@ -24,6 +26,10 @@
         #endregion
 
         #region Properties
+        [PrimaryKey, AutoIncrement]
+        [JsonProperty(PropertyName = "access_token")]
+        public int TokenResponseId { get; set; }
+
         public string OrderId { get; set; }
         public double Total { get; set; }
         public double Collected
