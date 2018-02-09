@@ -32,7 +32,7 @@
                     break;
                 case "LoadRouteView":
                     await App.Navigator.PushAsync(
-                        new LoadRouteView());
+                        new LoadRouteView2());
                     break;
                 case "WorkRouteView":
                     await App.Navigator.PushAsync(

@@ -12,6 +12,8 @@
     using Rg.Plugins.Popup.Services;
     using SQLite;
     using Newtonsoft.Json;
+    using SQLiteNetExtensions.Attributes;
+    using System.Collections.Generic;
 
     public class Order : INotifyPropertyChanged
     {
@@ -23,24 +25,58 @@
         DataService dataService;
         NavigationService navigationService;
         DialogService dialogService;
+        private readonly double EPSILON = 0;
         #endregion
 
         #region Properties
-        [PrimaryKey, AutoIncrement]
-        [JsonProperty(PropertyName = "access_token")]
-        public int TokenResponseId { get; set; }
+        [PrimaryKey]
+        [JsonProperty(PropertyName = "id_pedido")]
+        public long OrderId { get; set; }
 
-        public string OrderId { get; set; }
+        [JsonProperty(PropertyName = "no_tarjeta")]
+        public string CardId { get; set; }
+
+        [ForeignKey(typeof(Customer))]
+        [JsonProperty(PropertyName = "fk_cliente")]
+        public long CustomerId { get; set; }
+
+        [JsonProperty(PropertyName = "fecha")]
+        public DateTime Date { get; set; }
+
+        [JsonProperty(PropertyName = "precio")]
         public double Total { get; set; }
+
+        [JsonProperty(PropertyName = "fk_tipo_venta")]
+        public int OrderType { get; set; }
+
+        [JsonProperty(PropertyName = "fk_cobrador")]
+        public double DebCollector { get; set; }
+
+        [JsonProperty(PropertyName = "estatus")]
+        public string Status { get; set; }
+
+        [JsonProperty(PropertyName = "observaciones")]
+        public string Notes { get; set; }
+
+        [JsonProperty(PropertyName = "fk_municipio")]
+        public long Municipio { get; set; }
+
+        [JsonProperty(PropertyName = " pagada")]
+        public string Closed { get; set; }
+
+
+
         public double Collected
         {
             get
             {
                 double total = 0.0;
+                /*
                 foreach (var payment in Payments)
                 {
                     total += payment.Total;
                 }
+                */
                 return total;
             }
         }
@@ -51,7 +87,11 @@
                 return Total - Collected;
             }
         }
-        public ObservableCollection<Payment> Payments { get; set; }
+
+        [OneToMany]
+        public List<Payment> Payments { get; set; }
+
+        //public ObservableCollection<Payment> Payments { get; set; }
         #endregion
 
         #region Constructors
@@ -61,7 +101,7 @@
             navigationService = new NavigationService();
             dialogService = new DialogService();
 
-            Payments = new ObservableCollection<Payment>();
+            //Payments = new ObservableCollection<Payment>();
         }
         #endregion
 
@@ -78,15 +118,16 @@
         {
             double result = await OpenCancellableMoneyInputAlertDialog();
 
-            if (result == 0.0)
+            if (Math.Abs(result) <= EPSILON)
                 return;
-            
+            /*
             this.Payments.Add(new Payment
             {
                 PaymentId = 100,
                 Total = result,
                 Date = DateTime.Today,
             });
+            */
 
             PropertyChanged?.Invoke(
                         this,
@@ -95,6 +136,7 @@
             PropertyChanged?.Invoke(
                         this,
                 new PropertyChangedEventArgs(nameof(OutstandingBalance)));
+            return;
         }
         #endregion
 

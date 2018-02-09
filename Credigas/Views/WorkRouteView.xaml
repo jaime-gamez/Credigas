@@ -47,7 +47,7 @@
                                         <Label 
                                             Margin="0"
                                             FontSize="10"
-                                            Text="{Binding FullAddress}"
+                                            Text="{Binding Address}"
                                             TextColor="{StaticResource FontColor}" 
                                             VerticalOptions="Start">
                                         </Label>

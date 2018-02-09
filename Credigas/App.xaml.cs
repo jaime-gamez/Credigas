@@ -48,6 +48,9 @@
             {
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = token;
+
+                Models.User currentUser = dataService.First<Models.User>(false);
+                mainViewModel.User = currentUser;
                 mainViewModel.RegisterDevice();
                 mainViewModel.Home = new HomeViewModel();
 

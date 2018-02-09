@@ -23,7 +23,7 @@
                 <StackLayout Margin="0" Grid.Row="0" Grid.Column="1"  Padding="5">
                     <Label Margin="0" FontSize="14" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding FullName}" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                     </Label>
-                    <Label Margin="0" FontSize="10" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding FullAddress}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                    <Label Margin="0" FontSize="10" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding Address}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
                     </Label>
                     <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding Phones}" TextColor="{StaticResource MainColor}" HorizontalTextAlignment="Start" VerticalOptions="Center">
                     </Label>

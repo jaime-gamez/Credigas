@@ -6,6 +6,8 @@
     using Services;
     using ViewModels;
     using System.Linq;
+    using SQLite;
+    using Newtonsoft.Json;
 
     public class Customer
     {
@@ -15,16 +17,73 @@
         #endregion
 
         #region Properties
-        public string FullName { get; set; }
+        [PrimaryKey]
+        [JsonProperty(PropertyName = "id_cliente")]
+        public long CustomerId { get; set; }
 
-        public string Address { get; set; }
+        [JsonProperty(PropertyName = "ape_paterno")]
+        public string LastName { get; set; }
 
-        public string Icon { get; set; }
+        [JsonProperty(PropertyName = "ape_materno")]
+        public string MiddleName { get; set; }
 
+        [JsonProperty(PropertyName = "nombre")]
+        public string Name { get; set; }
+
+        [Ignore]
+        public string FullName { 
+            get{
+                return Name?.ToString() + " " + LastName?.ToString() +" " + MiddleName?.ToString();
+            } 
+        }
+
+        [JsonProperty(PropertyName = "calle")]
+        public string Street { get; set; }
+
+        [JsonProperty(PropertyName = "no_exterior")]
+        public string InteriorNumber { get; set; }
+
+        [JsonProperty(PropertyName = "no_interior")]
+        public string ExteriorNumber { get; set; }
+
+        [JsonProperty(PropertyName = "colonia")]
+        public string Street2 { get; set; }
+
+        [JsonProperty(PropertyName = "entre_calle1")]
+        public string Street3 { get; set; }
+
+        [JsonProperty(PropertyName = "entre_calle2")]
+        public string Street4 { get; set; }
+
+        [JsonProperty(PropertyName = "cp")]
+        public string Zip { get; set; }
+
+        [JsonProperty(PropertyName = "observaciones")]
+        public string Notes { get; set; }
+
+        [Ignore]
+        public string Address { 
+            get{
+                return Street?.ToString() + " " + InteriorNumber?.ToString() + " " + ExteriorNumber?.ToString()
+                              + " " + Street2?.ToString() + " " + Street3?.ToString() + " " + Street4?.ToString()
+                              + " " + Zip?.ToString();
+            } 
+        }
+
+        public string Icon { 
+            get
+            {
+                return "icons8_user_male_circle_filled.png";
+            }
+        }
+
+        [JsonProperty(PropertyName = "city")]
         public string City { get; set; }
-
+        /*
+        [Ignore]
         public Order Order { get; set; }
 
+        [Ignore]
         public string OrderId { 
             get{
                 if (Order != null)
@@ -33,32 +92,18 @@
                     return "SINORDEN";
             } 
         }
+        */
 
+        [JsonProperty(PropertyName = "telefono")]
         public string Phone1 { get; set; }
 
+        [JsonProperty(PropertyName = "movil")]
         public string Phone2 { get; set; }
 
+        [Ignore]
         public bool Collected { get; set; }
 
-        public string FullAddress { 
-            get{
-                return Address + "," + City;
-            }
-        }
-
-
-
-        public string Semaphore
-        {
-            get
-            {
-                if( Collected )
-                    return "semaphore_green";
-                else
-                    return "semaphore_red";
-            }
-        }
-
+        [Ignore]
         public string Phones
         {
             get
@@ -70,6 +115,8 @@
             }
         }
 
+        /*
+        [Ignore]
         public double TodayPayment
         {
             get
@@ -90,6 +137,7 @@
                     return 0.0;
             }
         }
+        */
 
         #endregion
 
@@ -102,6 +150,7 @@
         #endregion
 
         #region Commands
+        [Ignore]
         public ICommand NavigateCommand
         {
             get

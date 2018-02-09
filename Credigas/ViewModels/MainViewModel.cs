@@ -47,7 +47,7 @@
             set;
         }
 
-        public LoadRouteViewModel LoadRoute
+        public LoadRouteViewModel2 LoadRoute
         {
             get;
             set;
@@ -90,6 +90,13 @@
         }
 
         public TokenResponse Token
+        {
+            get;
+            set;
+
+        }
+
+        public User User
         {
             get;
             set;

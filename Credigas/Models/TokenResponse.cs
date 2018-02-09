@@ -22,6 +22,12 @@
         [JsonProperty(PropertyName = "userName")]
         public string UserName { get; set; }
 
+        [JsonProperty(PropertyName = "login")]
+        public string Login { get; set; }
+
+        [JsonProperty(PropertyName = "city")]
+        public string City { get; set; }
+
         [JsonProperty(PropertyName = ".issued")]
         public DateTime Issued { get; set; }
 

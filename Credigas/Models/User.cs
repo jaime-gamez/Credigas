@@ -3,12 +3,12 @@
     using System;
     using Newtonsoft.Json;
     using SQLite.Net.Attributes;
-    public class Usuario
+    public class User
     {
         #region Properties
         [PrimaryKey]
         [JsonProperty(PropertyName = "id_usuario")]
-        public int UsuarioId { get; set; }
+        public long UsuarioId { get; set; }
 
         [JsonProperty(PropertyName = "login")]
         public string Login { get; set; }
@@ -17,10 +17,13 @@
         public string Nombre { get; set; }
 
         [JsonProperty(PropertyName = "ape_paterno")]
-        public int ApellidoPaterno { get; set; }
+        public string ApellidoPaterno { get; set; }
 
         [JsonProperty(PropertyName = "ape_materno")]
         public string ApellidoMaterno { get; set; }
+
+        [JsonProperty(PropertyName = "id_cobrador")]
+        public long CobradorId { get; set; }
         #endregion
 
         #region Methods

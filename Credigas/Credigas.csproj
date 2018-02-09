@@ -82,6 +82,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\LoadRouteView2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -158,10 +162,14 @@
     <Compile Include="Popups\MoneyInputCancellableView.xaml.cs">
       <DependentUpon>MoneyInputCancellableView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoadRouteView2.xaml.cs">
+      <DependentUpon>LoadRouteView2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LoadRouteViewModel2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight">

@@ -10,7 +10,7 @@
     using Services;
     using Xamarin.Forms;
 
-    public class LoadRouteViewModel : INotifyPropertyChanged
+    public class LoadRouteViewModel2: INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,69 +23,15 @@
         NavigationService navigationService;
         #endregion
 
-        #region Constructors
-        public LoadRouteViewModel()
-        {
-            apiService = new ApiService();
-            dataService = new DataService();
-            dialogService = new DialogService();
-            navigationService = new NavigationService();
-
-            IsEnabled = true;
-            IsRunning = false;
-            IsLoaded = false;
-            Date = System.DateTime.Today;
-            Status = "Presione Cargar Ruta";
-        }
-        #endregion
-
         #region Attributes
-        bool _isRunning;
-        bool _isEnabled;
-        bool _isLoaded;
         string _status;
         DateTime _date;
+        bool _isToggled;
+        bool _isRunning;
+        bool _isEnabled;
         #endregion
 
         #region Properties
-        public DateTime Date
-        {
-            get
-            {
-                return _date;
-            }
-            set
-            {
-                if (_date != value)
-                {
-                    _date = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(Date)));
-                }
-            }
-        }
-
-        public bool IsLoaded
-        {
-            get
-            {
-                return _isLoaded;
-
-            }
-            set
-            {
-                if (_isLoaded != value)
-                {
-                    _isLoaded = value; ;
-                    _isLoaded = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(IsLoaded)));
-                }
-            }
-        }
-
         public bool IsEnabled
         {
             get
@@ -122,6 +68,42 @@
             }
         }
 
+        public bool IsToggled
+        {
+            get
+            {
+                return _isToggled;
+            }
+            set
+            {
+                if (_isToggled != value)
+                {
+                    _isToggled = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsToggled)));
+                }
+            }
+        }
+
+        public DateTime Date
+        {
+            get
+            {
+                return _date;
+            }
+            set
+            {
+                if (_date != value)
+                {
+                    _date = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(Date)));
+                }
+            }
+        }
+
         public string Status
         {
             get
@@ -145,47 +127,111 @@
         private List<Payment> Payments { get; set; }
         #endregion
 
+        #region Constructors
+        public LoadRouteViewModel2()
+        {
+            apiService = new ApiService();
+            dataService = new DataService();
+            dialogService = new DialogService();
+            navigationService = new NavigationService();
+
+            IsEnabled = true;
+            IsToggled = true;
+            Date = System.DateTime.Today;
+            Status = "Presione Cargar Ruta";
+        }
+        #endregion
+
         #region Commands
-        public ICommand LoadRouteCommand
+        public ICommand RecoverPasswordCommand
         {
             get
             {
-                return new RelayCommand(LoadRoute);
+                return new RelayCommand(RecoverPassword);
             }
         }
 
-        async void LoadRoute()
+        async void RecoverPassword()
+        {
+            MainViewModel.GetInstance().PasswordRecovery = new PasswordRecoveryViewModel();
+            await navigationService.NavigateOnLogin("PasswordRecoveryView");
+        }
+
+
+        public ICommand LoginWithFacebookCommand
+        {
+            get
+            {
+                return new RelayCommand(LoginWithFacebook);
+            }
+        }
+
+        async void LoginWithFacebook()
+        {
+            await navigationService.NavigateOnLogin("LoginFacebookView");
+        }
+
+        public ICommand RegisterNewUserCommand
+        {
+            get
+            {
+                return new RelayCommand(RegisterNewUser);
+            }
+        }
+
+        async void RegisterNewUser()
+        {
+            MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+            await navigationService.NavigateOnLogin("NewUserView");
+        }
+
+
+        public ICommand LoginCommand
+        {
+            get
+            {
+                return new RelayCommand(Login);
+            }
+        }
+
+        async void Login()
         {
             IsRunning = true;
             IsEnabled = false;
-            Status = "...";
 
-            var res = await LoadClients();
-
-            if (res.Equals(true))
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
             {
-                var res2 = await LoadOrders();
-                if (res2.Equals(true))
-                { 
-                    var res3 = await LoadPayments();
-                }
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
             }
+            /*
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
 
+            var response = await apiService.GetToken(
+                urlAPI,
+                "pancholin",
+                "12345678",
+                "mazatlan");
+            */
+            var res = await LoadClients();
+            res = await LoadOrders();
+            res = await LoadPayments();
+
+            Status = "Ruta cargada al 100%";
+
+            await dialogService.ShowMessage( "Crédigas", "Carga completada");
 
             IsRunning = false;
-            IsLoaded = true;
-            Status = "Proceso Terminado OK";
-
-            await navigationService.BackOnMaster();
-
-            return;
-
+            IsEnabled = false;
         }
         #endregion
 
         #region Methods
-
-        async Task<bool> LoadClients(){
+        async Task<bool> LoadClients()
+        {
             Status = "Validando conexión...";
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
@@ -228,12 +274,12 @@
             }
 
             Clients = (List<Customer>)response.Result;
-            SaveClientsOnDB();
+            //await SaveClientsOnDB();
 
             return true;
         }
 
-        void SaveClientsOnDB()
+        async Task<bool> SaveClientsOnDB()
         {
             Status = "Copiando clientes...";
             dataService.DeleteAll<Customer>();
@@ -242,6 +288,7 @@
                 dataService.Insert(client);
             }
             Status = "Clientes copiados..";
+            return true;
         }
 
         async Task<bool> LoadOrders()
@@ -288,12 +335,12 @@
             }
 
             Orders = (List<Order>)response.Result;
-            SaveOrdersOnDB();
+            //await SaveOrdersOnDB();
 
             return true;
         }
 
-        void SaveOrdersOnDB()
+        async Task<bool> SaveOrdersOnDB()
         {
             Status = "Copiando pedidos...";
             dataService.DeleteAll<Order>();
@@ -302,6 +349,7 @@
                 dataService.Insert(order);
             }
             Status = "Pedidos copiados..";
+            return true;
         }
 
         async Task<bool> LoadPayments()
@@ -348,12 +396,12 @@
             }
 
             Payments = (List<Payment>)response.Result;
-            SavePaymentsOnDB();
+            //await SavePaymentsOnDB();
 
             return true;
         }
 
-        void SavePaymentsOnDB()
+        async Task<bool> SavePaymentsOnDB()
         {
             Status = "Copiando abonos...";
             dataService.DeleteAll<Payment>();
@@ -362,6 +410,7 @@
                 dataService.Insert(payment);
             }
             Status = "Abonos copiados..";
+            return true;
         }
         #endregion
     }

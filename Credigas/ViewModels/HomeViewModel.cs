@@ -58,7 +58,7 @@
 
         async void LoadRoute()
         {
-            MainViewModel.GetInstance().LoadRoute = new LoadRouteViewModel();
+            MainViewModel.GetInstance().LoadRoute = new LoadRouteViewModel2();
             await navigationService.NavigateOnMaster("LoadRouteView");
         }
 

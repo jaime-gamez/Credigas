@@ -7,6 +7,7 @@
     using Models;
     using SQLite.Net;
     using Xamarin.Forms;
+    using SQLiteNetExtensions.Extensions;
 
     public class DataAccess : IDisposable
     {
@@ -16,9 +17,22 @@
         {
             var config = DependencyService.Get<IConfig>();
             connection = new SQLiteConnection(config.Platform, System.IO.Path.Combine(config.DirectoryDB, "Credigas.db3"));
-            connection.CreateTable<Usuario>();
-            //connection.CreateTable<Product>();
+            //connection.DropTable<TokenResponse>();
             connection.CreateTable<TokenResponse>();
+
+            //connection.DropTable<User>();
+            connection.CreateTable<User>();
+
+            connection.DropTable<Customer>();
+            connection.CreateTable<Customer>();
+
+            connection.DropTable<Order>();
+            connection.CreateTable<Order>();
+
+            connection.DropTable<Payment>();
+            connection.CreateTable<Payment>();
+
+
         }
 
         public void Insert<T>(T model)
@@ -50,11 +64,12 @@
 
         public List<T> GetList<T>(bool WithChildren) where T : class
         {
-            //if (WithChildren)
-            //{
-            //    return connection.GetAllWithChildren<T>().ToList();
-            //}
-            //else
+            /*
+            if (WithChildren)
+            {
+                return connection.GetWithChildren<T>().ToList();
+            }
+            else*/
             {
                 return connection.Table<T>().ToList();
             }

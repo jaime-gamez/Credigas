@@ -1,63 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Credigas.Views.LoadRouteView"
-    BackgroundColor="{StaticResource BackgroundColor}"
-    BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Title="Cargar Ruta">
-	<ContentPage.Content>
-        <StackLayout
-            BindingContext="{Binding LoadRoute}"
-            Padding="8"
-            Spacing="16">
-                <Grid
-                    Margin="0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Text="Fecha:"
-                        TextColor="{StaticResource FontColor}"
-                        VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        Keyboard="Text"
-                        IsEnabled="false"
-                        HorizontalTextAlignment="End"
-                        Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}', Mode=TwoWay}">
-                    </Entry>
-                </Grid>
-                <Button
-                    Command="{Binding LoadRouteCommand}"
-                    BackgroundColor="{StaticResource AccentColor1}"
-                    BorderRadius="23"
-                    FontAttributes="Bold"
-                    HeightRequest="46"
-                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Text="Cargar Ruta"
-                    TextColor="White">
-                </Button>
-                <ActivityIndicator
-                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                    HorizontalOptions="FillAndExpand"
-                    HeightRequest="200"
-                    WidthRequest="200">
-                </ActivityIndicator>
-                <Label
-                    VerticalOptions="EndAndExpand"
-                    FontAttributes="Bold"
-                    FontSize="Large"
-                    HorizontalOptions="Center"
-                    TextColor="{StaticResource FontColor}"
-                    IsVisible="{Binding IsLoaded, Mode=TwoWay}"
-                    Text="Rutas Cargadas">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Credigas.Views.LoadRouteView" BackgroundColor="{StaticResource BackgroundColor}" BindingContext="{Binding Main, Source={StaticResource Locator}}" Title="Cargar Ruta">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding LoadRoute}" Padding="8" Spacing="16">
+            <Grid Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Text="Fecha:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
+                <Entry Grid.Column="1" Grid.Row="0" HorizontalTextAlignment="End" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}">
+                </Entry>
+            </Grid>
+            <Button Command="{Binding LoadRouteCommand}" BackgroundColor="{StaticResource AccentColor1}" BorderRadius="23" FontAttributes="Bold" HeightRequest="46" IsEnabled="{Binding IsEnabled}" Text="Cargar Ruta" TextColor="White">
+            </Button>
+            <ActivityIndicator IsRunning="{Binding IsRunning}" HorizontalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200">
+            </ActivityIndicator>
+            <Label VerticalOptions="EndAndExpand" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" TextColor="{StaticResource FontColor}" Text="{Binding Status}">
+            </Label>
         </StackLayout>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

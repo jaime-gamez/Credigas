@@ -205,7 +205,7 @@
             string controller,
             string tokenType,
             string accessToken,
-            int id)
+            object id)
         {
             try
             {
@@ -214,7 +214,7 @@
                     new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
                 var url = string.Format(
-                    "{0}{1}/{2}",
+                    "{0}/{1}/{2}",
                     servicePrefix,
                     controller,
                     id);
@@ -261,7 +261,7 @@
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
-                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var url = string.Format("{0}/{1}", servicePrefix, controller);
                 var response = await client.GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
 
@@ -298,7 +298,7 @@
             string controller,
             string tokenType,
             string accessToken,
-            int id)
+            object id)
         {
             try
             {
@@ -307,7 +307,7 @@
                     new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
                 var url = string.Format(
-                    "{0}{1}/{2}",
+                    "{0}/{1}/{2}",
                     servicePrefix,
                     controller,
                     id);

@@ -294,8 +294,35 @@
             response.Password = Password;
             dataService.DeleteAllAndInsert(response);
 
+
+
+            //Get all data for current user
+            var userResponse = await apiService.Get<Models.User>(urlAPI, "users", response.City, response.TokenType, response.AccessToken, response.Login);
+
+            if (userResponse == null)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", "No se puede contactar al servidor.");
+                Password = null;
+                return;
+            }
+
+            if (!userResponse.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", userResponse.Message);
+                Password = null;
+                return;
+            }
+
+            Models.User CurrentUser = (Models.User)userResponse.Result;
+            dataService.DeleteAllAndInsert(CurrentUser);
+                  
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = response;
+            mainViewModel.User = CurrentUser;
             mainViewModel.RegisterDevice();
             mainViewModel.Home = new HomeViewModel();
 

@@ -49,7 +49,7 @@
                     navigationService.SetMainPage(PageName);
                     break;
                 case "LoadRouteView":
-                    MainViewModel.GetInstance().LoadRoute = new LoadRouteViewModel();
+                    MainViewModel.GetInstance().LoadRoute = new LoadRouteViewModel2();
                     await navigationService.NavigateOnMaster(PageName);
                     break;
                 case "WorkRouteView":
