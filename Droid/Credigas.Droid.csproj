@@ -38,7 +38,7 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <Commandlineparameters></Commandlineparameters>
-    <AndroidKeyStore></AndroidKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

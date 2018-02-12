@@ -10,8 +10,9 @@
             <!-- Locator -->
             <infra:InstanceLocator x:Key="Locator"/>
 
-            <!-- Parameters -->
-            <x:String x:Key="URLAPI">http://192.168.1.80:8080/api/rest.php/</x:String>   
+            <!-- Parameters -->mazatlan/
+            <x:String x:Key="URLAPIDEV">http://192.168.1.80:8080/api/rest.php/</x:String>   
+            <x:String x:Key="URLAPI">http://www.credigas.com.mx/api/rest.php/</x:String>
 
             <!-- Colors -->
             <Color x:Key="MainColor">#1CA5B8</Color>
