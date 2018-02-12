@@ -352,6 +352,14 @@
             }
         }
 
+        public long GetNextIdForPayment()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetNextIdForPayment();
+            }
+        }
+
         public List<Customer> GetAllCustomers()
         {
             using (var da = new DataAccess())

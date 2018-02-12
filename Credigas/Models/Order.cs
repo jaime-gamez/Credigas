@@ -137,9 +137,10 @@
             Payment next = new Payment
             {
                 OrderId = OrderId,
-                PaymentId = 100,
+                PaymentId = dataService.GetNextIdForPayment(),
                 Total = result,
                 Date = DateTime.Today,
+                //Order = this,
             };
 
             dataService.Insert<Payment>(next);

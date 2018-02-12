@@ -157,6 +157,15 @@
             }
         }
 
+        [Ignore]
+        public String CardId
+        {
+            get{
+                return Order?.CardId;
+            }
+
+        }
+
 
         [Ignore]
         public double TodayPayment

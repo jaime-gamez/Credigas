@@ -28,5 +28,37 @@
         [JsonProperty(PropertyName = "fecha")]
         public DateTime Date { get; set; }
         #endregion
+
+        #region Ignore
+        [Ignore]
+        public String CardId
+        {
+            get
+            {
+                return Order?.CardId;
+            }
+
         }
+
+        [Ignore]
+        public String FullName
+        {
+            get
+            {
+                return Order?.Customer?.FullName;
+            }
+
+        }
+
+        [Ignore]
+        public String Icon
+        {
+            get
+            {
+                return Order?.Customer?.Icon;
+            }
+
+        }
+        #endregion
+    }
 }

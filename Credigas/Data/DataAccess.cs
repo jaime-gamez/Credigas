@@ -161,6 +161,14 @@
             return list.FirstOrDefault();
         }
 
+        public long GetNextIdForPayment()
+        {
+
+            var list = connection.Query<Payment>("SELECT * FROM [Payment] ORDER BY PaymentId DESC");
+            var payment = list.FirstOrDefault();
+            return payment.PaymentId >= 0 ? payment.PaymentId  + 1: 1;
+        }
+
         public Customer GetCustomer(object pk)
         {
 
