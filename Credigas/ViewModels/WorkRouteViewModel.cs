@@ -79,7 +79,7 @@
         void LoadClients()
         {
             Clients = new ObservableCollection<Customer>();
-            var clients = dataService.Get<Customer>(false);
+            var clients = dataService.GetAllCustomers();
             CopyClientsToObservableCollection(clients);
 
 

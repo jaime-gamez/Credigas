@@ -1,6 +1,7 @@
 ﻿namespace Credigas.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
@@ -53,6 +54,13 @@
             get;
             set;
         }
+
+        public ObservableCollection<Payment> PaymentsForView
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Commands
@@ -77,10 +85,17 @@
         void LoadClients()
         {
             Clients = new ObservableCollection<Customer>();
-            ObservableCollection<Payment> Payments = new ObservableCollection<Payment>();
-
-
+            PaymentsForView = new ObservableCollection<Payment>();
+            List<Payment> payments = dataService.GetNewPaymentsWithChildren(DateTime.Today);
+            PaymentsForView.Clear();
+            Clients.Clear();
+            foreach (var item in payments)
+            {
+                Clients.Add(item.Order.Customer);
+                PaymentsForView.Add(item);
+            }
         }
+
         #endregion
     }
 }

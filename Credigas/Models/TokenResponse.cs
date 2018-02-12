@@ -2,7 +2,8 @@
 {
     using System;
     using Newtonsoft.Json;
-    using SQLite.Net.Attributes;
+    using SQLite;
+    //using SQLite.Net.Attributes;
 
     public class TokenResponse
     {

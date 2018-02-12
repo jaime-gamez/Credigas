@@ -236,7 +236,7 @@
         void SaveClientsOnDB()
         {
             Status = "Copiando clientes...";
-            dataService.DeleteAll<Customer>();
+            dataService.DeleteAllCustomers();
             foreach (var client in Clients)
             {
                 dataService.Insert(client);
@@ -296,7 +296,7 @@
         void SaveOrdersOnDB()
         {
             Status = "Copiando pedidos...";
-            dataService.DeleteAll<Order>();
+            dataService.DeleteAllOrders();
             foreach (var order in Orders)
             {
                 dataService.Insert(order);
@@ -356,7 +356,7 @@
         void SavePaymentsOnDB()
         {
             Status = "Copiando abonos...";
-            dataService.DeleteAll<Payment>();
+            dataService.DeleteAllPayments();
             foreach (var payment in Payments)
             {
                 dataService.Insert(payment);

@@ -6,12 +6,12 @@ namespace Credigas.iOS.Implementations
 {
     using System;
     using Interfaces;
-    using SQLite.Net.Interop;
+    //using SQLite.Net.Interop;
 
     public class Config : IConfig
     {
         string directoryDB;
-        ISQLitePlatform platform;
+        //ISQLitePlatform platform;
 
         public string DirectoryDB
         {
@@ -30,7 +30,7 @@ namespace Credigas.iOS.Implementations
                 return directoryDB;
             }
         }
-
+        /*
         public ISQLitePlatform Platform
         {
             get
@@ -44,5 +44,6 @@ namespace Credigas.iOS.Implementations
                 return platform;
             }
         }
+        */
     }
 }

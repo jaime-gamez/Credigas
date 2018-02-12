@@ -292,7 +292,7 @@
 
             response.IsRemembered = IsToggled;
             response.Password = Password;
-            dataService.DeleteAllAndInsert(response);
+            dataService.DeleteAllTokensAndInsert(response);
 
 
 
@@ -318,7 +318,7 @@
             }
 
             Models.User CurrentUser = (Models.User)userResponse.Result;
-            dataService.DeleteAllAndInsert(CurrentUser);
+            dataService.DeleteAllUsersAndInsert(CurrentUser);
                   
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = response;

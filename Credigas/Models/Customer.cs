@@ -8,9 +8,16 @@
     using System.Linq;
     using SQLite;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using SQLiteNetExtensions.Attributes;
 
-    public class Customer
+    public class Customer: INotifyPropertyChanged
     {
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
         #region Services
         DataService dataService;
         NavigationService navigationService;
@@ -31,10 +38,12 @@
         public string Name { get; set; }
 
         [Ignore]
-        public string FullName { 
-            get{
-                return Name?.ToString() + " " + LastName?.ToString() +" " + MiddleName?.ToString();
-            } 
+        public string FullName
+        {
+            get
+            {
+                return Name?.ToString() + " " + LastName?.ToString() + " " + MiddleName?.ToString();
+            }
         }
 
         [JsonProperty(PropertyName = "calle")]
@@ -62,15 +71,18 @@
         public string Notes { get; set; }
 
         [Ignore]
-        public string Address { 
-            get{
+        public string Address
+        {
+            get
+            {
                 return Street?.ToString() + " " + InteriorNumber?.ToString() + " " + ExteriorNumber?.ToString()
                               + " " + Street2?.ToString() + " " + Street3?.ToString() + " " + Street4?.ToString()
                               + " " + Zip?.ToString();
-            } 
+            }
         }
 
-        public string Icon { 
+        public string Icon
+        {
             get
             {
                 return "icons8_user_male_circle_filled.png";
@@ -115,7 +127,37 @@
             }
         }
 
-        /*
+
+        private List<Order> _orders;
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]      // One to many relationship with Orders
+        public List<Order> Orders
+        {
+            get => _orders;
+            set
+            {
+                _orders = value;
+                PropertyChanged?.Invoke(
+                        this,
+                    new PropertyChangedEventArgs(nameof(Orders)));
+            }
+        }
+
+        private Order _order;
+        [Ignore]
+        public Order Order
+        {
+            get => _order;
+            set
+            {
+                _order = value;
+                PropertyChanged?.Invoke(
+                        this,
+                    new PropertyChangedEventArgs(nameof(Order)));
+            }
+        }
+
+
         [Ignore]
         public double TodayPayment
         {
@@ -137,7 +179,7 @@
                     return 0.0;
             }
         }
-        */
+
 
         #endregion
 
@@ -146,6 +188,8 @@
         {
             dataService = new DataService();
             navigationService = new NavigationService();
+
+            _orders = new List<Order>();
         }
         #endregion
 
@@ -161,9 +205,15 @@
 
         async void Navigate()
         {
-            MainViewModel.GetInstance().PaymentsClient = new PaymentsClientViewModel();
-            MainViewModel.GetInstance().PaymentsClient.CurrentCustomer = this;
+            MainViewModel.GetInstance().PaymentsClient = new PaymentsClientViewModel(this);
+            //MainViewModel.GetInstance().PaymentsClient.CurrentCustomer = this;
             await navigationService.NavigateOnMaster("PaymentsClientView");
+        }
+        #endregion
+
+        #region Methods
+        public string ClassName(){
+            return "Customer";
         }
         #endregion
 

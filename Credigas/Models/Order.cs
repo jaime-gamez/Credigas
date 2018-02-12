@@ -36,9 +36,12 @@
         [JsonProperty(PropertyName = "no_tarjeta")]
         public string CardId { get; set; }
 
-        [ForeignKey(typeof(Customer))]
+        [ForeignKey(typeof(Customer))]  // Specify the foreign key
         [JsonProperty(PropertyName = "fk_cliente")]
         public long CustomerId { get; set; }
+
+        [ManyToOne]      // Many to one relationship with Stock
+        public Customer Customer { get; set; }
 
         [JsonProperty(PropertyName = "fecha")]
         public DateTime Date { get; set; }
@@ -71,12 +74,12 @@
             get
             {
                 double total = 0.0;
-                /*
+
                 foreach (var payment in Payments)
                 {
                     total += payment.Total;
                 }
-                */
+
                 return total;
             }
         }
@@ -88,10 +91,20 @@
             }
         }
 
-        [OneToMany]
-        public List<Payment> Payments { get; set; }
+        public List<Payment> _payments;
+        [OneToMany(CascadeOperations = CascadeOperation.All)]      // One to many relationship with Valuation
+        public List<Payment> Payments {
+            get => _payments; 
+            set{
+                _payments = value;
+                CopyPayments();
+                PropertyChanged?.Invoke( this,
+                                        new PropertyChangedEventArgs(nameof(Payments)));
+            } 
+        }
 
-        //public ObservableCollection<Payment> Payments { get; set; }
+        [Ignore]
+        public ObservableCollection<Payment> PaymentsView { get; set; }
         #endregion
 
         #region Constructors
@@ -101,7 +114,7 @@
             navigationService = new NavigationService();
             dialogService = new DialogService();
 
-            //Payments = new ObservableCollection<Payment>();
+            PaymentsView = new ObservableCollection<Payment>();
         }
         #endregion
 
@@ -120,14 +133,25 @@
 
             if (Math.Abs(result) <= EPSILON)
                 return;
-            /*
-            this.Payments.Add(new Payment
+
+            Payment next = new Payment
             {
+                OrderId = OrderId,
                 PaymentId = 100,
                 Total = result,
                 Date = DateTime.Today,
-            });
-            */
+            };
+
+            dataService.Insert<Payment>(next);
+            
+            this.Payments.Add(next);
+
+            CopyPayments();
+
+            PropertyChanged?.Invoke(
+                        this,
+                new PropertyChangedEventArgs(nameof(Payments)));
+
 
             PropertyChanged?.Invoke(
                         this,
@@ -141,6 +165,15 @@
         #endregion
 
         #region Methods
+
+        public void CopyPayments(){
+            PaymentsView.Clear();
+            foreach (var item in this.Payments)
+            {
+                PaymentsView.Add(item);
+            }
+        }
+
         private async Task<double> OpenCancellableMoneyInputAlertDialog()
         {
             // create the TextInputView

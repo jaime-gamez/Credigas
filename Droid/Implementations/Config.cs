@@ -5,12 +5,12 @@
 namespace Credigas.Droid.Implementations
 {
     using Interfaces;
-    using SQLite.Net.Interop;
+    //using SQLite.Net.Interop;
 
     public class Config : IConfig
     {
         string directoryDB;
-        ISQLitePlatform platform;
+        //ISQLitePlatform platform;
 
         public string DirectoryDB
         {
@@ -26,6 +26,7 @@ namespace Credigas.Droid.Implementations
             }
         }
 
+        /*
         public ISQLitePlatform Platform
         {
             get
@@ -39,5 +40,6 @@ namespace Credigas.Droid.Implementations
                 return platform;
             }
         }
+        */
     }
 }

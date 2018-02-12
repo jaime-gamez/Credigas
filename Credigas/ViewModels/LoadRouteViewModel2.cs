@@ -274,7 +274,7 @@
             }
 
             Clients = (List<Customer>)response.Result;
-            //await SaveClientsOnDB();
+            await SaveClientsOnDB();
 
             return true;
         }
@@ -282,12 +282,12 @@
         async Task<bool> SaveClientsOnDB()
         {
             Status = "Copiando clientes...";
-            dataService.DeleteAll<Customer>();
-            foreach (var client in Clients)
-            {
-                dataService.Insert(client);
-            }
+            dataService.DeleteAllCustomers();
+            dataService.InsertAll<Customer>(Clients);
+
+            //var clients = dataService.GetAllCustomers();
             Status = "Clientes copiados..";
+
             return true;
         }
 
@@ -335,7 +335,7 @@
             }
 
             Orders = (List<Order>)response.Result;
-            //await SaveOrdersOnDB();
+            await SaveOrdersOnDB();
 
             return true;
         }
@@ -343,11 +343,8 @@
         async Task<bool> SaveOrdersOnDB()
         {
             Status = "Copiando pedidos...";
-            dataService.DeleteAll<Order>();
-            foreach (var order in Orders)
-            {
-                dataService.Insert(order);
-            }
+            dataService.DeleteAllOrders();
+            dataService.InsertAll<Order>(Orders);
             Status = "Pedidos copiados..";
             return true;
         }
@@ -396,7 +393,7 @@
             }
 
             Payments = (List<Payment>)response.Result;
-            //await SavePaymentsOnDB();
+            await SavePaymentsOnDB();
 
             return true;
         }
@@ -404,11 +401,8 @@
         async Task<bool> SavePaymentsOnDB()
         {
             Status = "Copiando abonos...";
-            dataService.DeleteAll<Payment>();
-            foreach (var payment in Payments)
-            {
-                dataService.Insert(payment);
-            }
+            dataService.DeleteAllPayments();
+            dataService.InsertAll<Payment>(Payments);
             Status = "Abonos copiados..";
             return true;
         }

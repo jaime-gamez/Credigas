@@ -17,8 +17,10 @@
                 <StackLayout Margin="0" Grid.Row="0" Grid.Column="0" Padding="5">
                     <Image Grid.Column="0" HeightRequest="40" Source="{Binding Icon}" WidthRequest="40">
                     </Image>
-                    <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding OrderId}" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                   <StackLayout BindingContext="{Binding Order}">
+                    <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding CardId}" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
                     </Label>
+                        </StackLayout>
                 </StackLayout>
                 <StackLayout Margin="0" Grid.Row="0" Grid.Column="1"  Padding="5">
                     <Label Margin="0" FontSize="14" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding FullName}" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
@@ -35,7 +37,7 @@
                     </Label>
                 </StackLayout>
                 <StackLayout Padding="10,0,10,0" Margin="0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BindingContext="{Binding Order}">
-                    <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding Payments}" RowHeight="20">
+                    <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding PaymentsView}" RowHeight="20">
                         <ListView.Header>
                             <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource FontColor}">
                                 <Label Text="Fecha" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="Start"/>

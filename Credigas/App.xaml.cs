@@ -42,14 +42,14 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
-            TokenResponse token = dataService.First<TokenResponse>(false);
+            TokenResponse token = dataService.GetTokenResponse();
 
             if( token != null && token.IsRemembered && token.Expires > DateTime.Now ) 
             {
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = token;
 
-                Models.User currentUser = dataService.First<Models.User>(false);
+                Models.User currentUser = dataService.GetUser();
                 mainViewModel.User = currentUser;
                 mainViewModel.RegisterDevice();
                 mainViewModel.Home = new HomeViewModel();
