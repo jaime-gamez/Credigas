@@ -1,6 +1,8 @@
 ﻿namespace Credigas.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
     using Credigas.Models;
@@ -33,6 +35,7 @@
             IsRunning = false;
             IsLoaded = false;
             Date = System.DateTime.Today;
+            LoadClients();
         }
         #endregion
 
@@ -117,6 +120,18 @@
                 }
             }
         }
+
+        public ObservableCollection<Customer> Clients
+        {
+            get;
+            set;
+        }
+
+        public ObservableCollection<Payment> PaymentsForView
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Commands
@@ -130,13 +145,40 @@
 
         async void SyncRoute()
         {
-            IsRunning = false;
-            IsLoaded = true;
+            IsRunning = true;
+
+            foreach (var item in PaymentsForView)
+            {
+             
+                PaymentsForView.Remove(item);
+            }
+
             await dialogService.ShowMessage(
                     "Crédigas",
                     "Valide no queden pendientes.");
-            await navigationService.BackOnMaster();
+            IsLoaded = true;
+            IsRunning = false;
+            IsEnabled = false;
+
+            //await navigationService.BackOnMaster();
         }
+        #endregion
+
+        #region Methods
+        void LoadClients()
+        {
+            Clients = new ObservableCollection<Customer>();
+            PaymentsForView = new ObservableCollection<Payment>();
+            List<Payment> payments = dataService.GetPendingPaymentsWithChildren(DateTime.Today);
+            PaymentsForView.Clear();
+            Clients.Clear();
+            foreach (var item in payments)
+            {
+                Clients.Add(item.Order.Customer);
+                PaymentsForView.Add(item);
+            }
+        }
+
         #endregion
 
     }

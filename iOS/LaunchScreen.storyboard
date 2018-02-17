@@ -1,27 +1,65 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
-	<dependencies>
-		<deployment identifier="iOS" />
-		<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530" />
-	</dependencies>
-	<scenes>
-		<!--View Controller-->
-		<scene sceneID="EHf-IW-A2E">
-			<objects>
-				<viewController id="01J-lp-oVM" sceneMemberID="viewController">
-					<layoutGuides>
-						<viewControllerLayoutGuide type="top" id="Llm-lL-Icb" />
-						<viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok" />
-					</layoutGuides>
-					<view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-						<rect key="frame" x="0.0" y="0.0" width="600" height="600" />
-						<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" />
-						<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite" />
-					</view>
-				</viewController>
-				<placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder" />
-			</objects>
-			<point key="canvasLocation" x="53" y="375" />
-		</scene>
-	</scenes>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3" alpha="0.9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" customColorSpace="sRGB" colorSpace="calibratedRGB" red="0.11764705882352941" green="0.68235294117647061" blue="0.996078431372549" alpha="1"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="197" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" image="credigas_logo.jpg">
+                                <rect key="frame" x="87" y="299" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="logo" destination="197" id="name-outlet-197"/>
+                        <outlet property="splash" destination="Ze5-6b-2t3" id="name-outlet-Ze5-6b-2t3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="credigas_logo.jpg" width="720" height="483"/>
+        <image name="pin.jpg" width="555" height="800"/>
+        <image name="security.jpg" width="710" height="800"/>
+        <image name="user.jpg" width="626" height="626"/>
+        <image name="credigas_logo-20.png" width="20" height="20"/>
+        <image name="credigas_logo-29.png" width="29" height="29"/>
+        <image name="credigas_logo-40.png" width="40" height="40"/>
+        <image name="credigas_logo-60.png" width="60" height="60"/>
+        <image name="credigas_logo-76.png" width="76" height="76"/>
+        <image name="credigas_logo-83.5.png" width="83.5" height="83.5"/>
+        <image name="credigas_logo-1024.png" width="1024" height="1024"/>
+        <image name="user_secret.png" width="116" height="162"/>
+        <image name="mfg_lock.png" width="93" height="166"/>
+        <image name="icon_pin.png" width="135" height="136"/>
+        <image name="icons8_menu.png" width="120" height="120"/>
+        <image name="icons8_user_male_circle_filled.png" width="100" height="100"/>
+        <image name="ic_action_add_circle.png" width="36" height="36"/>
+        <image name="ic_action_image.png" width="36" height="36"/>
+        <image name="ic_add_circle.png" width="48" height="48"/>
+        <image name="ic_chevron_right.png" width="48" height="48"/>
+        <image name="ic_exit_to_app.png" width="48" height="48"/>
+        <image name="ic_map.png" width="48" height="48"/>
+        <image name="ic_settings.png" width="48" height="48"/>
+        <image name="ic_sync.png" width="48" height="48"/>
+        <image name="semaphore_green.png" width="50" height="71"/>
+        <image name="semaphore_red.png" width="50" height="71"/>
+    </resources>
 </document>

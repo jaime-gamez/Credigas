@@ -220,6 +220,9 @@
             res = await LoadOrders();
             res = await LoadPayments();
 
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Home.CurrentStatistics = LoadStatistics();
+
             Status = "Ruta cargada al 100%";
 
             await dialogService.ShowMessage( "Crédigas", "Carga completada");
@@ -405,6 +408,12 @@
             dataService.InsertAll<Payment>(Payments);
             Status = "Abonos copiados..";
             return true;
+        }
+
+        Statistics LoadStatistics(){
+            Statistics statistics = new Statistics();
+            statistics = dataService.LoadStatistics();
+            return statistics;
         }
         #endregion
     }

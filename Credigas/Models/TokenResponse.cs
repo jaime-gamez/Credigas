@@ -23,6 +23,9 @@
         [JsonProperty(PropertyName = "userName")]
         public string UserName { get; set; }
 
+        [JsonProperty(PropertyName = "user_id")]
+        public long UserId { get; set; }
+
         [JsonProperty(PropertyName = "login")]
         public string Login { get; set; }
 

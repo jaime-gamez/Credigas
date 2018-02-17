@@ -14,6 +14,7 @@
     using Newtonsoft.Json;
     using SQLiteNetExtensions.Attributes;
     using System.Collections.Generic;
+    using Xamarin.Forms;
 
     public class Order : INotifyPropertyChanged
     {
@@ -22,6 +23,7 @@
         #endregion
 
         #region Services
+        ApiService apiService;
         DataService dataService;
         NavigationService navigationService;
         DialogService dialogService;
@@ -67,7 +69,7 @@
         [JsonProperty(PropertyName = " pagada")]
         public string Closed { get; set; }
 
-
+        public DateTime DateModified { get; set; }
 
         public double Collected
         {
@@ -110,6 +112,7 @@
         #region Constructors
         public Order()
         {
+            apiService = new ApiService();
             dataService = new DataService();
             navigationService = new NavigationService();
             dialogService = new DialogService();
@@ -149,6 +152,9 @@
 
             CopyPayments();
 
+            //Save payment in Server
+            SavePaymentToServer(next);
+
             PropertyChanged?.Invoke(
                         this,
                 new PropertyChangedEventArgs(nameof(Payments)));
@@ -161,18 +167,31 @@
             PropertyChanged?.Invoke(
                         this,
                 new PropertyChangedEventArgs(nameof(OutstandingBalance)));
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Home.CurrentStatistics = LoadStatistics();
+
             return;
         }
         #endregion
 
         #region Methods
 
-        public void CopyPayments(){
+        public bool CopyPayments(){
+            bool isClosed = false;
+            double total = 0.0;
             PaymentsView.Clear();
             foreach (var item in this.Payments)
             {
+                total += item.Total;
                 PaymentsView.Add(item);
             }
+            if (total >= this.Total)
+            {
+                dataService.CloseOrder( this.OrderId);
+                isClosed = true;
+            }
+            return isClosed;
         }
 
         private async Task<double> OpenCancellableMoneyInputAlertDialog()
@@ -219,6 +238,33 @@
             // return user inserted text value
             return result;
         }
-#endregion
+
+        Statistics LoadStatistics()
+        {
+            Statistics statistics = new Statistics();
+            statistics = dataService.LoadStatistics();
+            return statistics;
+        }
+
+        async public void SavePaymentToServer(Payment payment){
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            TokenResponse token = MainViewModel.GetInstance().Token;
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var response = await apiService.Post<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, payment);
+            if(response.IsSuccess){
+                payment.IsSync = 1;
+                dataService.Update<Payment>(payment);
+
+            }
+            return;
+        }
+        #endregion
     }
 }

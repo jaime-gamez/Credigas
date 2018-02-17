@@ -320,6 +320,24 @@
             return result;
         }
 
+        public List<Payment> GetPendingPaymentsWithChildren(DateTime date)
+        {
+            List<Payment> result = new List<Payment>();
+            using (var da = new DataAccess())
+            {
+                var payments = da.GetPendingPayments(date);
+                foreach (var item in payments)
+                {
+                    var payment = da.GetPaymentWithChildren(item.PaymentId);
+                    var client = da.GetCustomer(payment.Order.CustomerId);
+                    payment.Order.Customer = client;
+                    result.Add(payment);
+                }
+            }
+
+            return result;
+        }
+
         public void Update<T>(T model)
         {
             using (var da = new DataAccess())
@@ -366,6 +384,33 @@
             {
                 return da.GetAllCustomers();
             }
+        }
+
+        public Statistics LoadStatistics()
+        {
+            Statistics statistics = new Statistics();
+            using (var da = new DataAccess())
+            {
+                statistics.Date = DateTime.Today;
+                statistics.Portfolio = da.GetPortfolio();
+                statistics.Collected = da.GetCollected();
+                statistics.CollectedToday = da.GetCollectedToday();
+                statistics.OutstandingBalance = statistics.Portfolio - statistics.Collected;
+                statistics.ClosedCards = da.GetClosed();
+
+            }
+
+            return statistics;
+        }
+
+        public void CloseOrder(object pk)
+        {
+            using (var da = new DataAccess())
+            {
+                da.CloseOrder(pk);
+            }
+
+            return;
         }
 
 

@@ -16,6 +16,7 @@
         [JsonProperty(PropertyName = "fk_pedido")]
         public long OrderId { get; set; }
 
+        [JsonIgnore]
         [ManyToOne]  // Many to one relationship with Order
         public Order Order { get; set; }
 
@@ -23,13 +24,14 @@
         public double Total { get; set; }
 
         [JsonProperty(PropertyName = "sincronizado")]
-        public bool IsSync { get; set; }
+        public int IsSync { get; set; }
 
         [JsonProperty(PropertyName = "fecha")]
         public DateTime Date { get; set; }
         #endregion
 
         #region Ignore
+        [JsonIgnore]
         [Ignore]
         public String CardId
         {
@@ -40,6 +42,7 @@
 
         }
 
+        [JsonIgnore]
         [Ignore]
         public String FullName
         {
@@ -50,6 +53,7 @@
 
         }
 
+        [JsonIgnore]
         [Ignore]
         public String Icon
         {

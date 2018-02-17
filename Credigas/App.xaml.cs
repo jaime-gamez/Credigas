@@ -54,14 +54,7 @@
                 mainViewModel.RegisterDevice();
                 mainViewModel.Home = new HomeViewModel();
 
-                mainViewModel.Home.CurrentStatistics = new Statistics
-                {
-                    Date = DateTime.Today,
-                    Portfolio = 50000.00F,
-                    Collected = 15000.00F,
-                    OutstandingBalance = 35000.00F,
-                    ClosedCards = 25
-                };
+                mainViewModel.Home.CurrentStatistics = dataService.LoadStatistics();
 
                 navigationService.SetMainPage("MasterView");
             }

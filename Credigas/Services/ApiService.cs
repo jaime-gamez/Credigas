@@ -359,7 +359,7 @@
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
-                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var url = string.Format("{0}/{1}", servicePrefix, controller);
                 var response = await client.PostAsync(url, content);
                 var result = await response.Content.ReadAsStringAsync();
 

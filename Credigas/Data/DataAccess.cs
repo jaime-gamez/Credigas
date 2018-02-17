@@ -18,24 +18,29 @@
 
         public DataAccess()
         {
+            bool eraseDB = false;
             var config = DependencyService.Get<IConfig>();
             connection = new SQLiteConnection( System.IO.Path.Combine(config.DirectoryDB, "Credigas.db3"));
-            //connection.DropTable<TokenResponse>();
+
+            if (eraseDB)
+            {
+                connection.DropTable<TokenResponse>();
+                connection.DropTable<User>();
+                connection.DropTable<Customer>();
+                connection.DropTable<Order>();
+                connection.DropTable<Payment>();
+            }
+
             connection.CreateTable<TokenResponse>();
 
-            //connection.DropTable<User>();
+
             connection.CreateTable<User>();
 
-            //connection.DropTable<Customer>();
+
+
             connection.CreateTable<Customer>();
-
-            //connection.DropTable<Order>();
             connection.CreateTable<Order>();
-
-            //connection.DropTable<Payment>();
             connection.CreateTable<Payment>();
-
-
         }
 
 
@@ -129,6 +134,15 @@
         {
 
             var list = connection.Query<Payment>("SELECT * FROM [Payment] WHERE Date >= ?", date);
+                                                
+            return list;
+        }
+
+        public List<Payment> GetPendingPayments(DateTime date)
+        {
+
+            var list = connection.Query<Payment>("SELECT * FROM [Payment] WHERE Date >= ? AND IsSync = 0", date);
+
             return list;
         }
 
@@ -203,6 +217,64 @@
             var list = connection.Query<Payment>("SELECT * FROM [Payment]");
             return list;
         }
+
+        public double GetPortfolio()
+        {
+            double portfolio = 0.0;
+            var list = connection.Query<Order>("SELECT * FROM [Order]");
+
+            portfolio = list.AsEnumerable().Sum(o => o.Total);
+
+            return portfolio;
+        }
+
+        public double GetCollected()
+        {
+            double collected = 0.0;
+            var list = connection.Query<Payment>("SELECT * FROM [Payment]");
+
+            collected = list.AsEnumerable().Sum(o => o.Total);
+
+            return collected;
+        }
+
+        public double GetCollectedToday()
+        {
+            double collected = 0.0;
+            var list = connection.Query<Payment>("SELECT * FROM [Payment] WHERE Date >= ?", DateTime.Today);
+
+            collected = list.AsEnumerable().Sum(o => o.Total);
+
+            return collected;
+        }
+
+        public int GetClosed()
+        {
+            int closed = 0;
+            var list = connection.Query<Order>("SELECT * FROM [Order] WHERE Closed = ?", "S");
+
+            closed = list.AsEnumerable().Count();
+
+            return closed;
+        }
+
+        public int GetClosedToday()
+        {
+            int closed = 0;
+            var list = connection.Query<Order>("SELECT * FROM [Order] WHERE Closed = ? AND DateModified >= ?", "S", DateTime.Today);
+
+            closed = list.AsEnumerable().Count();
+
+            return closed;
+        }
+
+        public void CloseOrder(object pk)
+        {
+            var list = connection.Query<Order>("UPDATE [Order] SET Closed = ?, DateModified = ? WHERE OrderId = ?", "S", DateTime.Today, pk);
+
+            return;
+        }
+
 
         /*
         public T First<T>(bool WithChildren) where T : class

@@ -11,22 +11,29 @@
             set => _date = value;
         }
 
-        private float _portfolio;
-        public float Portfolio
+        private double _portfolio;
+        public double Portfolio
         {
             get => _portfolio;
             set => _portfolio = value;
         }
 
-        private float _collected;
-        public float Collected
+        private double _collected;
+        public double Collected
         {
             get => _collected;
             set => _collected = value;
         }
 
-        private float _outstandingBalance;
-        public float OutstandingBalance
+        private double _collectedToday;
+        public double CollectedToday
+        {
+            get => _collectedToday;
+            set => _collectedToday = value;
+        }
+
+        private double _outstandingBalance;
+        public double OutstandingBalance
         {
             get => _outstandingBalance;
             set => _outstandingBalance = value;
@@ -38,5 +45,7 @@
             get => _closedCards;
             set => _closedCards = value;
         }
+
+
     }
 }
