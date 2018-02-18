@@ -1,64 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Credigas.Views.WorkRouteView"
-    BackgroundColor="{StaticResource BackgroundColor}"
-    BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Title="Mi Ruta">
-	<ContentPage.Content>
-        <StackLayout
-            BindingContext="{Binding WorkRoute}"
-            Padding="0,0">
-            <ListView 
-                BackgroundColor="{StaticResource BackgroundColor}" 
-                ItemsSource="{Binding Clients}" 
-                HasUnevenRows="True"
-                SeparatorVisibility="None">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Credigas.Views.WorkRouteView" BackgroundColor="{StaticResource BackgroundColor}" BindingContext="{Binding Main, Source={StaticResource Locator}}" Title="Mi Ruta">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding WorkRoute}" Padding="0,0">
+            <SearchBar BackgroundColor="{StaticResource BackgroundColor}" Placeholder="Buscar" PlaceholderColor="{StaticResource FontColor}" Text="{Binding SearchedText, Mode=TwoWay}"  SearchCommand="{Binding SearchCommand}" />
+            <ListView x:Name="customerList" BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding Clients}" HasUnevenRows="True" SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            
                             <Grid>
-                                
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Image 
-                                    Grid.Column="0"  
-                                    HeightRequest="70"
-                                    Source="{Binding Icon}" 
-                                    WidthRequest="70">
-    
+                                <Image Grid.Column="0" HeightRequest="70" Source="{Binding Icon}" WidthRequest="70">
                                 </Image>
-                                <StackLayout
-                                    Margin="0"
-                                    Grid.Column="1">
-                                        <Label 
-                                            Margin="0"
-                                            FontSize="14"
-                                            FontAttributes="Bold"
-                                            Text="{Binding FullName}"
-                                            TextColor="{StaticResource FontColor}" 
-                                            VerticalOptions="Center">
-                                        </Label>
-                                        <Label 
-                                            Margin="0"
-                                            FontSize="10"
-                                            Text="{Binding Address}"
-                                            TextColor="{StaticResource FontColor}" 
-                                            VerticalOptions="Start">
-                                        </Label>
-                                 </StackLayout>
-                                 <Image 
-                                    Grid.Column="2"
-                                    HorizontalOptions="End" 
-                                    Source="ic_chevron_right">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding NavigateCommand}"/>
-                                        </Image.GestureRecognizers>
+                                <StackLayout Margin="0" Grid.Column="1">
+                                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding FullName}" TextColor="{Binding TextColor}" VerticalOptions="Center">
+                                    </Label>
+                                    <Label Margin="0" FontSize="10" Text="{Binding Address}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                                    </Label>
+                                </StackLayout>
+                                <Image Grid.Column="2" HorizontalOptions="End" Source="ic_chevron_right">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateCommand}" />
+                                    </Image.GestureRecognizers>
                                 </Image>
                             </Grid>
                         </ViewCell>

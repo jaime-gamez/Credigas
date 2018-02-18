@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using SQLiteNetExtensions.Attributes;
+    using Xamarin.Forms;
 
     public class Customer: INotifyPropertyChanged
     {
@@ -112,8 +113,32 @@
         [JsonProperty(PropertyName = "movil")]
         public string Phone2 { get; set; }
 
+        private bool _modified;
+
+        [JsonIgnore]
+        public bool Modified
+        {
+            get => _modified;
+            set
+            {
+                _modified = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Modified)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextColor)));
+            }
+        }
+
         [Ignore]
         public bool Collected { get; set; }
+
+        [Ignore]
+        public Color TextColor { 
+            get{
+                if(Modified){
+                    return Color.FromHex("#FF5521");
+                }
+                return Color.FromHex("#012C40");
+            } 
+        }
 
         [Ignore]
         public string Phones
@@ -198,6 +223,7 @@
             dataService = new DataService();
             navigationService = new NavigationService();
 
+            _modified = false;
             _orders = new List<Order>();
         }
         #endregion

@@ -25,7 +25,10 @@
 
         #region Attributes
         string _status;
+        DateTime _minimumDate;
+        DateTime _maximumdate;
         DateTime _date;
+        DateTime _date2;
         bool _isToggled;
         bool _isRunning;
         bool _isEnabled;
@@ -86,7 +89,7 @@
             }
         }
 
-        public DateTime Date
+        public DateTime StartDate
         {
             get
             {
@@ -99,10 +102,63 @@
                     _date = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(Date)));
+                        new PropertyChangedEventArgs(nameof(StartDate)));
                 }
             }
         }
+
+        public DateTime EndDate
+        {
+            get
+            {
+                return _date2;
+            }
+            set
+            {
+                if (_date2 != value)
+                {
+                    _date2 = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(EndDate)));
+                }
+            }
+        }
+
+        public DateTime MinumumDate
+        {
+            get => _minimumDate;
+            set
+            {
+                if (_minimumDate != value)
+                {
+                    _minimumDate = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(MinumumDate)));
+                }
+            }
+        }
+
+        public DateTime Maximumdate
+        {
+            get
+            {
+                return _maximumdate;
+            }
+            set
+            {
+                if (_maximumdate != value)
+                {
+                    _maximumdate = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(Maximumdate)));
+                }
+            }
+        }
+
+
 
         public string Status
         {
@@ -137,7 +193,10 @@
 
             IsEnabled = true;
             IsToggled = true;
-            Date = System.DateTime.Today;
+            _maximumdate = System.DateTime.Today;
+            _minimumDate = _maximumdate.AddDays(-150);
+            StartDate = _maximumdate.AddDays(-30);
+            EndDate = _maximumdate;
             Status = "Presione Cargar Ruta";
         }
         #endregion
@@ -196,7 +255,11 @@
 
         async void Login()
         {
-            IsRunning = true;
+            if( (EndDate - StartDate).TotalDays > 180 ){
+                await dialogService.ShowMessage("Crédigas", "Rango de fechas muy amplio.");
+                return;
+            }
+            IsRunning = true; 
             IsEnabled = false;
 
             var connection = await apiService.CheckConnection();
@@ -252,9 +315,13 @@
             TokenResponse token = mainViewModel.Token;
 
             var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var filters = new ClientFilters{
+                StartDate = StartDate,
+                EndDate = EndDate,
+            };
 
             //Get all clients for current user
-            var response = await apiService.GetList<Customer>(urlAPI, "clients", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId);
+            var response = await apiService.GetListWithPost<Customer>(urlAPI, "clients", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId, filters);
 
             Status = "Clientes recuperados...";
 
@@ -313,9 +380,14 @@
             TokenResponse token = mainViewModel.Token;
 
             var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var filters = new ClientFilters
+            {
+                StartDate = StartDate,
+                EndDate = EndDate,
+            };
 
             //Get all clients for current user
-            var response = await apiService.GetList<Order>(urlAPI, "orders", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId);
+            var response = await apiService.GetListWithPost<Order>(urlAPI, "orders", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId, filters);
 
             Status = "Pedidos recuperados...";
 
@@ -371,10 +443,14 @@
             TokenResponse token = mainViewModel.Token;
 
             var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var filters = new ClientFilters
+            {
+                StartDate = StartDate,
+                EndDate = EndDate,
+            };
 
             //Get all clients for current user
-            var response = await apiService.GetList<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId);
-
+            var response = await apiService.GetListWithPost<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId, filters);
             Status = "Abonos recuperados...";
 
             if (response == null)

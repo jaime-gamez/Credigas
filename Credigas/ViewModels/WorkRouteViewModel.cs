@@ -8,6 +8,7 @@
     using Credigas.Models;
     using GalaSoft.MvvmLight.Command;
     using Services;
+    using System.Linq;
     using Xamarin.Forms;
 
     public class WorkRouteViewModel : INotifyPropertyChanged
@@ -31,6 +32,8 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
+            _originals = new List<Customer>();
+
             LoadClients();
 
 
@@ -38,6 +41,8 @@
         #endregion
 
         #region Properties
+        private List<Customer> _originals;
+
         private Statistics _statistics;
         public Statistics CurrentStatistics
         {
@@ -56,6 +61,35 @@
             get;
             set;
         }
+
+        private string _searchedText;
+        public string SearchedText
+        {
+            get { return _searchedText; }
+            set { 
+                _searchedText = value; 
+
+                if((_searchedText == null || _searchedText.Length == 0) && _originals.Count() > 0){
+                    //Clients.Clear();
+                    CopyClientsToObservableCollection(_originals);
+                }else{
+                    List<Customer> temps = (from c in _originals
+                                            where c.FullName.ToUpper().Contains(SearchedText.ToUpper())
+                                             || c.Address.ToUpper().Contains(SearchedText.ToUpper())
+                                            || c.CustomerId.ToString().ToUpper().Contains(SearchedText.ToUpper())
+                                            select c).ToList<Customer>();
+                    if (temps != null)
+                    {
+                        
+                        CopyClientsToObservableCollection(temps);
+                        //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SearchedText)));
+                    }
+                }
+
+                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(SearchedText)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Clients)));
+            }
+        }
         #endregion
 
         #region Commands
@@ -73,23 +107,78 @@
                     "Crédigas",
                     "Valide carga de ruta.");
         }
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(FilterCustomer);
+            }
+        }
+
+
+        void FilterCustomer()
+        {
+            if (SearchedText.Length > 0)
+            {
+                
+                List<Customer> temps = (from c in _originals
+                                        where c.FullName.ToUpper().Contains(SearchedText.ToUpper())
+                                         || c.Address.ToUpper().Contains(SearchedText.ToUpper())
+                                        || c.CustomerId.ToString().ToUpper().Contains(SearchedText.ToUpper())
+                                        select c).ToList<Customer>();
+                if (temps != null)
+                {
+                    CopyClientsToObservableCollection(temps);
+                    //Clients.Clear();
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Clients)));
+                }
+
+            }
+            else
+            {
+                CopyClientsToObservableCollection(_originals);
+            }
+        }
         #endregion
 
         #region Methods
         void LoadClients()
         {
             Clients = new ObservableCollection<Customer>();
-            var clients = dataService.GetAllCustomers();
-            CopyClientsToObservableCollection(clients);
+            _originals = dataService.GetAllCustomers();
+            CopyClientsToObservableCollection(_originals);
 
 
         }
 
+        public void UpdateClient(Customer client){
+
+            var item = (from c in Clients
+                        where c.CustomerId == client.CustomerId
+                        select c).FirstOrDefault();
+            if(item != null){
+                var original = (from c in _originals
+                            where c.CustomerId == client.CustomerId
+                            select c).FirstOrDefault();
+                original.Modified = true;
+                item.Modified = true;
+                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(Clients)));
+            }
+            
+        }
+
         void CopyClientsToObservableCollection(List<Customer> clients)
         {
-            foreach (var client in clients)
+            
+            if (clients != null)
             {
-                Clients.Add(client);
+                Clients.Clear();
+                Clients = new ObservableCollection<Customer>();
+                foreach (var client in clients)
+                {
+                    Clients.Add(client);
+                }
             }
 
         }

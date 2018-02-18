@@ -71,6 +71,17 @@
 
         public DateTime DateModified { get; set; }
 
+        private bool _modified;
+
+        [JsonIgnore]
+        public bool Modified{
+            get => _modified;
+            set{
+                value = _modified;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Modified)));
+            } 
+        }
+
         public double Collected
         {
             get
@@ -118,6 +129,7 @@
             dialogService = new DialogService();
 
             PaymentsView = new ObservableCollection<Payment>();
+            _modified = false;
         }
         #endregion
 
@@ -146,7 +158,21 @@
                 //Order = this,
             };
 
-            dataService.Insert<Payment>(next);
+            try
+            {
+                dataService.Insert<Payment>(next);
+                Customer.Modified = true;
+                dataService.Update<Customer>(Customer);
+                WorkRouteViewModel workRoute = MainViewModel.GetInstance().WorkRoute;
+                workRoute.UpdateClient(Customer);
+                //next.Order.Modified = true;
+            }
+            catch (Exception ex)
+            {
+                
+
+            }
+
             
             this.Payments.Add(next);
 
@@ -257,7 +283,7 @@
 
             TokenResponse token = MainViewModel.GetInstance().Token;
             var urlAPI = Application.Current.Resources["URLAPI"].ToString();
-            var response = await apiService.Post<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, payment);
+            var response = await apiService.Put<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, payment);
             if(response.IsSuccess){
                 payment.IsSync = 1;
                 dataService.Update<Payment>(payment);

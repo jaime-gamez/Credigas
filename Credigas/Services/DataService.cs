@@ -8,18 +8,14 @@
 
     public class DataService
     {
-        /*
-        public bool DeleteAll<T>() where T : class
+        
+        public bool DeleteAll<T>(List<T> list) where T : class
         {
             try
             {
                 using (var da = new DataAccess())
                 {
-                    var oldRecords = da.GetAll<T>(false);
-                    foreach (var oldRecord in oldRecords)
-                    {
-                        da.Delete(oldRecord);
-                    }
+                    da.DeleteAll<T>(list);
                 }
 
                 return true;
@@ -30,7 +26,7 @@
                 return false;
             }
         }
-        */
+
 
         /*
         public bool DeleteAll<T>(List<T> list) where T : class

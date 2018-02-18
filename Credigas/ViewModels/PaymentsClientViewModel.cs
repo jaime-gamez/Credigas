@@ -36,6 +36,7 @@
             CurrentCustomer = customer;
             foreach (var item in Orders)
             {
+                item.Customer = customer;
                 item.Payments = dataService.GetPaymentsByOrder(item.OrderId);
             }
             CurrentCustomer.Orders = Orders;

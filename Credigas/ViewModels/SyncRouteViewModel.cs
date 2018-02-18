@@ -4,10 +4,12 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Credigas.Models;
     using GalaSoft.MvvmLight.Command;
     using Services;
+    using System.Linq;
     using Xamarin.Forms;
 
     public class SyncRouteViewModel: INotifyPropertyChanged
@@ -147,18 +149,16 @@
         {
             IsRunning = true;
 
-            foreach (var item in PaymentsForView)
-            {
-             
-                PaymentsForView.Remove(item);
-            }
+            ClearClients();
+
+            IsLoaded = true;
+            IsRunning = false;
+            IsEnabled = false;
 
             await dialogService.ShowMessage(
                     "Crédigas",
                     "Valide no queden pendientes.");
-            IsLoaded = true;
-            IsRunning = false;
-            IsEnabled = false;
+            
 
             //await navigationService.BackOnMaster();
         }
@@ -168,11 +168,50 @@
         void LoadClients()
         {
             Clients = new ObservableCollection<Customer>();
-            PaymentsForView = new ObservableCollection<Payment>();
+            PaymentsForView = new ObservableCollection<Payment>();//
             List<Payment> payments = dataService.GetPendingPaymentsWithChildren(DateTime.Today);
             PaymentsForView.Clear();
             Clients.Clear();
             foreach (var item in payments)
+            {
+                Clients.Add(item.Order.Customer);
+                PaymentsForView.Add(item);
+            }
+        }
+
+        async void ClearClients(){
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+
+            //Task.Delay(1000);
+            var payments = (from p in PaymentsForView
+                            select p).ToList<Payment>();
+
+            TokenResponse token = MainViewModel.GetInstance().Token;
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            List<Payment> pendings = new List<Payment>();
+
+            foreach (var payment in payments)
+            {
+                var response = await apiService.Put<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, payment);
+                if (response.IsSuccess)
+                {
+                    payment.IsSync = 1;
+                    dataService.Update<Payment>(payment);
+
+                }else{
+                    pendings.Add(payment);
+                }
+            }
+            PaymentsForView.Clear();
+            Clients.Clear();
+            foreach (var item in pendings)
             {
                 Clients.Add(item.Order.Customer);
                 PaymentsForView.Add(item);

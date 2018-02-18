@@ -7,10 +7,12 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Text="Fecha:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                <Label Grid.Column="0" Grid.Row="0" Text="Fecha Inicial:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Entry Grid.Column="1" Grid.Row="0" IsEnabled="false" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="End">
-                </Entry>
+                <DatePicker x:Name="StartDatePicker" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Format="dd/MM/yyyy" Date="{Binding StartDate}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}"/>
+                <Label Grid.Column="0" Grid.Row="1"  Text="Fecha Final:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                </Label>
+                <DatePicker x:Name="EndDatePicker" Grid.Column="1" Grid.Row="1" HorizontalOptions="End" Format="dd/MM/yyyy" Date="{Binding EndDate}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}"/>
             </Grid>
             <StackLayout Margin="0,0">
                 <Button Command="{Binding LoginCommand}" BackgroundColor="{StaticResource AccentColor1}" BorderRadius="23" FontAttributes="Bold" HeightRequest="46" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Text="Cagar Ruta" TextColor="White">

@@ -170,6 +170,7 @@
       <DependentUpon>LoadRouteView2.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LoadRouteViewModel2.cs" />
+    <Compile Include="Models\ClientFilters.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight">
