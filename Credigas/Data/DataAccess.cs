@@ -204,6 +204,10 @@
             return list;
         }
 
+        public int GetTotalCustomers(){
+            return GetAllCustomers().Count();
+        }
+
         public List<Order> GetAllOrders()
         {
 
@@ -247,6 +251,24 @@
 
             return collected;
         }
+
+        public int GetCustomersWithPaymentThoday()
+        {
+            var list = connection.Query<Payment>("SELECT * FROM [Payment] WHERE Date >= ?", DateTime.Today);
+            List<Customer> customers = new List<Customer>();
+
+            foreach (var item in list)
+            {
+                var order = connection.GetWithChildren<Order>(item.OrderId);
+                var customer = customers.Find(o => o.CustomerId == order.CustomerId);
+                if( customer == null){
+                    customers.Add(order.Customer);
+                }
+            }
+            return customers.Count();;
+        }
+
+
 
         public int GetClosed()
         {

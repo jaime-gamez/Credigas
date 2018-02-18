@@ -393,6 +393,9 @@
                 statistics.CollectedToday = da.GetCollectedToday();
                 statistics.OutstandingBalance = statistics.Portfolio - statistics.Collected;
                 statistics.ClosedCards = da.GetClosed();
+                statistics.TotalCustomers = da.GetTotalCustomers();
+                statistics.CustomersWithPayment = da.GetCustomersWithPaymentThoday();
+                //statistics.CustomersWithoutPayment = da.GetCustomersWithoutPaymentThoday();
 
             }
 

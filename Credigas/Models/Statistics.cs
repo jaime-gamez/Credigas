@@ -4,6 +4,11 @@
 
     public class Statistics
     {
+        public Statistics(){
+            _totalCustomers = 0;
+            _customersWithPayment = 0;
+        }
+
         private DateTime _date;
         public DateTime Date
         {
@@ -16,6 +21,14 @@
         {
             get => _portfolio;
             set => _portfolio = value;
+        }
+
+        public string PortfolioString
+        {
+            get
+            {
+                return String.Format("{0:C2}({1})",Portfolio,TotalCustomers);
+            }
         }
 
         private double _collected;
@@ -32,6 +45,14 @@
             set => _collectedToday = value;
         }
 
+        public string CollectedTodayString
+        {
+            get
+            {
+                return String.Format("{0:C2}({1})", CollectedToday, CustomersWithPayment);
+            }
+        }
+
         private double _outstandingBalance;
         public double OutstandingBalance
         {
@@ -39,11 +60,41 @@
             set => _outstandingBalance = value;
         }
 
+        public string OutstandingBalanceString
+        {
+            get
+            {
+                return String.Format("{0:C2}({1})", OutstandingBalance, CustomersWithoutPayment);
+            }
+        }
+
         private int _closedCards;
         public int ClosedCards
         {
             get => _closedCards;
             set => _closedCards = value;
+        }
+
+        private int _customersWithPayment;
+        public int CustomersWithPayment
+        {
+            get => _customersWithPayment;
+            set => _customersWithPayment = value;
+        }
+
+
+        public int CustomersWithoutPayment
+        {
+            get {
+                return _totalCustomers - _customersWithPayment;
+            }
+        }
+
+        private int _totalCustomers;
+        public int TotalCustomers
+        {
+            get => _totalCustomers;
+            set => _totalCustomers = value;
         }
 
 

@@ -77,6 +77,7 @@
                                             where c.FullName.ToUpper().Contains(SearchedText.ToUpper())
                                              || c.Address.ToUpper().Contains(SearchedText.ToUpper())
                                             || c.CustomerId.ToString().ToUpper().Contains(SearchedText.ToUpper())
+                                            || Abonado(c.Modified).Contains(SearchedText.ToUpper())
                                             select c).ToList<Customer>();
                     if (temps != null)
                     {
@@ -126,6 +127,7 @@
                                         where c.FullName.ToUpper().Contains(SearchedText.ToUpper())
                                          || c.Address.ToUpper().Contains(SearchedText.ToUpper())
                                         || c.CustomerId.ToString().ToUpper().Contains(SearchedText.ToUpper())
+                                        || Abonado(c.Modified).Contains(SearchedText.ToUpper())
                                         select c).ToList<Customer>();
                 if (temps != null)
                 {
@@ -143,6 +145,13 @@
         #endregion
 
         #region Methods
+        private string Abonado(bool modified){
+
+            if(modified)
+                return "ABONADO";
+
+            return "PENDIENTE";
+        }
         void LoadClients()
         {
             Clients = new ObservableCollection<Customer>();

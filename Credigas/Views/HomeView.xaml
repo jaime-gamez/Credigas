@@ -30,7 +30,7 @@
                 </Label>
                 <Label Grid.Column="0" Grid.Row="3" Text="Cartera:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="3" Text="{Binding Portfolio, StringFormat='{0:C2}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="3" Text="{Binding PortfolioString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
                 <Label Grid.Column="0" Grid.Row="4" Text="Total Cobrado:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
@@ -38,7 +38,7 @@
                 </Label>
                  <Label Grid.Column="0" Grid.Row="5" Text="Cobrado Hoy:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="5" Text="{Binding CollectedToday, StringFormat='{0:C2}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="5" Text="{Binding CollectedTodayString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
                 <Label Grid.Column="0" Grid.Row="6" Text="Tarjetas Cerradas:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
@@ -46,7 +46,7 @@
                 </Label>
                 <Label Grid.Column="0" Grid.Row="7" Text="Saldo Pendiente:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="7" Text="{Binding OutstandingBalance, StringFormat='{0:C2}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="7" Text="{Binding OutstandingBalanceString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
             </Grid>
         </StackLayout>

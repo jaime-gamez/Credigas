@@ -7,11 +7,14 @@
     using System.Collections.ObjectModel;
     using Xamarin.Forms;
     using Credigas.Interfaces;
+    using System.Windows.Input;
+    using GalaSoft.MvvmLight.Command;
 
     public class MainViewModel
     {
         #region Services
         NavigationService navigationService;
+        DialogService dialogService;
         #endregion
 
         #region Constructors
@@ -20,6 +23,7 @@
             instance = this;
 
             navigationService = new NavigationService();
+            dialogService = new DialogService();
 
 
 
@@ -105,6 +109,23 @@
 
 
 
+        #endregion
+
+        #region Commands
+        public ICommand VisitsCommand
+        {
+            get
+            {
+                return new RelayCommand(Visits);
+            }
+        }
+
+        async void Visits()
+        {
+            await dialogService.ShowMessage(
+                    "Crédigas",
+                "Visitas del cliente: "+ this.PaymentsClient.CurrentCustomer.FullName);
+        }
         #endregion
 
         #region Methods
