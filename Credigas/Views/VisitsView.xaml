@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Credigas.Views.VisitsView" BackgroundColor="{StaticResource BackgroundColor}" BindingContext="{Binding Main, Source={StaticResource Locator}}" Title="Visitas al Cliente">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding Visits}" Padding="0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Margin="0" Grid.Row="0" Grid.Column="0" Padding="5" BindingContext="{Binding CurrentCustomer}">
+                    <Image Grid.Column="0" HeightRequest="40" Source="{Binding Icon}" WidthRequest="40">
+                    </Image>
+                    <StackLayout BindingContext="{Binding Order}">
+                        <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding CardId}" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Margin="0" Grid.Row="0" Grid.Column="1" Padding="5" BindingContext="{Binding CurrentCustomer}">
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding FullName}" TextColor="{Binding TextColor}" VerticalOptions="Center">
+                    </Label>
+                    <Label Margin="0" FontSize="10" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding Address}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                    </Label>
+                    <Label Margin="0" FontSize="12" FontAttributes="Bold" Text="{Binding Phones}" TextColor="{StaticResource MainColor}" HorizontalTextAlignment="Start" VerticalOptions="Center">
+                    </Label>
+                </StackLayout>
+                <StackLayout Padding="10,0,10,0" Margin="0" Grid.Row="1" Grid.Column="1" BindingContext="{Binding Order}" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                    <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="Visitas:" TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+            <StackLayout Padding="10,0,10,0" Margin="0">
+                <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding ObservableVisits}">
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource FontColor}">
+                            <Label Text="Fecha" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="Start" />
+                            <Label Text="Notas" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="EndAndExpand" />
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="4*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Margin="0" FontSize="11" FontAttributes="Bold" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                                    </Label>
+                                    <Label Grid.Column="1" Margin="0" FontSize="11" FontAttributes="Bold" Text="{Binding Notes}" TextColor="{StaticResource FontColor}" VerticalOptions="Start" HorizontalOptions="EndAndExpand">
+                                    </Label>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout Padding="10,0,10,0" Margin="5" VerticalOptions="EndAndExpand">
+                <Button Command="{Binding AddVisitCommand}" BackgroundColor="{StaticResource AccentColor1}" BorderRadius="23" FontAttributes="Bold" HeightRequest="46" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Text="Registrar Visita" TextColor="White" VerticalOptions="CenterAndExpand">
+                </Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

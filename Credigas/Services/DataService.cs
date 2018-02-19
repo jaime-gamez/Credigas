@@ -280,6 +280,15 @@
             }
         }
 
+        public List<Visit> GetVisits(object debCollectorPK, object customerPK, object orderPK)
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetVisits(debCollectorPK,customerPK,orderPK);
+
+            }
+        }
+
         public List<Payment> GetPaymentsByOrder(long pk)
         {
             using (var da = new DataAccess())
@@ -371,6 +380,14 @@
             using (var da = new DataAccess())
             {
                 return da.GetNextIdForPayment();
+            }
+        }
+
+        public long GetNextIdForVisit()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetNextIdForVisit();
             }
         }
 

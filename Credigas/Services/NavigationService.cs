@@ -50,6 +50,10 @@
                     await App.Navigator.PushAsync(
                         new PaymentsClientView());
                     break;
+                case "VisitsView":
+                    await App.Navigator.PushAsync(
+                        new VisitsView());
+                    break;
             }
         }
 

@@ -55,7 +55,7 @@
         public int OrderType { get; set; }
 
         [JsonProperty(PropertyName = "fk_cobrador")]
-        public double DebCollector { get; set; }
+        public long DebCollector { get; set; }
 
         [JsonProperty(PropertyName = "estatus")]
         public string Status { get; set; }

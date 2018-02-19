@@ -86,6 +86,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\VisitsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -171,6 +175,11 @@
     </Compile>
     <Compile Include="ViewModels\LoadRouteViewModel2.cs" />
     <Compile Include="Models\ClientFilters.cs" />
+    <Compile Include="Models\Visit.cs" />
+    <Compile Include="Views\VisitsView.xaml.cs">
+      <DependentUpon>VisitsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VisitsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight">

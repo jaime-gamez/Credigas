@@ -29,18 +29,15 @@
                 connection.DropTable<Customer>();
                 connection.DropTable<Order>();
                 connection.DropTable<Payment>();
+                connection.DropTable<Visit>();
             }
 
             connection.CreateTable<TokenResponse>();
-
-
             connection.CreateTable<User>();
-
-
-
             connection.CreateTable<Customer>();
             connection.CreateTable<Order>();
             connection.CreateTable<Payment>();
+            connection.CreateTable<Visit>();
         }
 
 
@@ -57,7 +54,15 @@
 
         public void Insert<T>(T model)
         {
-            connection.Insert(model);
+            try
+            {
+                connection.Insert(model);
+            }
+            catch (Exception ex)
+            {
+               var msg = ex.Message;
+            }
+
         }
 
         public void InsertAll<T>(List<T> list) where T : class
@@ -154,6 +159,13 @@
             return list;
         }
 
+        public List<Visit> GetVisits(object debCollectorPK, object customerPK, object orderPK)
+        {
+
+            var list = connection.Query<Visit>("SELECT * FROM [Visit] WHERE DebCollectorId = ? AND CustomerId = ? AND OrderId = ?", debCollectorPK,customerPK,orderPK);
+            return list;
+        }
+
         public List<TokenResponse> GetAllTokenResponse()
         {
 
@@ -181,6 +193,14 @@
             var list = connection.Query<Payment>("SELECT * FROM [Payment] ORDER BY PaymentId DESC");
             var payment = list.FirstOrDefault();
             return payment.PaymentId >= 0 ? payment.PaymentId  + 1: 1;
+        }
+
+        public long GetNextIdForVisit()
+        {
+
+            var list = connection.Query<Visit>("SELECT * FROM [Visit] ORDER BY VisitId DESC");
+            var visit = list.FirstOrDefault();
+            return visit.VisitId >= 0 ? visit.VisitId + 1 : 1;
         }
 
         public Customer GetCustomer(object pk)
