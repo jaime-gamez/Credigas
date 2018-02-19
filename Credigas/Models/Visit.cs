@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using SQLite;
+using Xamarin.Forms;
 
 namespace Credigas.Models
 {
@@ -32,6 +33,22 @@ namespace Credigas.Models
 
         [JsonProperty(PropertyName = "adeudo")]
         public double Outstanding { get; set; }
+
+        [JsonProperty(PropertyName = "sincronizado")]
+        public int IsSync { get; set; }
+
+        [Ignore]
+        public Color TextColor
+        {
+            get
+            {
+                if (IsSync == 0)
+                {
+                    return Color.FromHex("#FF5521");
+                }
+                return Color.FromHex("#012C40");
+            }
+        }
         #endregion
 
     }

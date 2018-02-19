@@ -50,7 +50,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" Margin="0" FontSize="11" FontAttributes="Bold" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
                                     </Label>
-                                    <Label Grid.Column="1" Margin="0" FontSize="11" FontAttributes="Bold" Text="{Binding Notes}" TextColor="{StaticResource FontColor}" VerticalOptions="Start" HorizontalOptions="EndAndExpand">
+                                    <Label Grid.Column="1" Margin="0" FontSize="11" FontAttributes="Bold" Text="{Binding Notes}" TextColor="{Binding TextColor}" VerticalOptions="Start" HorizontalOptions="EndAndExpand">
                                     </Label>
                                 </Grid>
                             </ViewCell>

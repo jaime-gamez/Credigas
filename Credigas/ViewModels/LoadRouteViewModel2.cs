@@ -181,6 +181,7 @@
         private List<Customer> Clients { get; set; }
         private List<Order> Orders { get; set; }
         private List<Payment> Payments { get; set; }
+        private List<Visit> Visits { get; set; }
         #endregion
 
         #region Constructors
@@ -282,6 +283,7 @@
             var res = await LoadClients();
             res = await LoadOrders();
             res = await LoadPayments();
+            res = await LoadVisits();
 
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Home.CurrentStatistics = LoadStatistics();
@@ -483,6 +485,67 @@
             dataService.DeleteAllPayments();
             dataService.InsertAll<Payment>(Payments);
             Status = "Abonos copiados..";
+            return true;
+        }
+
+        async Task<bool> LoadVisits()
+        {
+            Status = "Validando conexión...";
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                Status = "";
+                await dialogService.ShowMessage("Error", connection.Message);
+                return false;
+            }
+
+            Status = "Recuperando visitas...";
+            var mainViewModel = MainViewModel.GetInstance();
+            User currentUser = mainViewModel.User;
+            TokenResponse token = mainViewModel.Token;
+
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var filters = new ClientFilters
+            {
+                StartDate = StartDate,
+                EndDate = EndDate,
+            };
+
+            //Get all clients for current user
+            var response = await apiService.GetListWithPost<Visit>(urlAPI, "visits", token.City, token.TokenType, token.AccessToken, currentUser.CobradorId, filters);
+            Status = "Visitas recuperados...";
+
+            if (response == null)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                Status = "";
+                await dialogService.ShowMessage("Error", "No se puede contactar al servidor.");
+                return false;
+            }
+
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                Status = "";
+                await dialogService.ShowMessage("Error", response.Message);
+                return false;
+            }
+
+            Visits = (List<Visit>)response.Result;
+            await SaveVisitsOnDB();
+            return true;
+        }
+
+        async Task<bool> SaveVisitsOnDB()
+        {
+            Status = "Copiando visitas...";
+            dataService.DeleteAllVisits();
+            dataService.InsertAll<Visit>(Visits);
+            Status = "Visitas copiados..";
             return true;
         }
 

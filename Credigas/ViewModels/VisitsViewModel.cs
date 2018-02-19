@@ -4,9 +4,13 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Credigas.Models;
+    using Credigas.Popups;
     using GalaSoft.MvvmLight.Command;
+    using Rg.Plugins.Popup.Services;
     using Services;
     using Xamarin.Forms;
 
@@ -90,70 +94,125 @@
 
         async void AddVisit()
         {
-            await dialogService.ShowMessage("Crédigas","Agregar Visita");
+            string result = await OpenCancellableTextInputAlertDialog();
+
+            if (result == null || result.Length == 0)
+                return;
+
+            Visit next = new Visit
+            {
+                VisitId = dataService.GetNextIdForVisit(),
+                DebCollectorId = this.CurrentCustomer.Order.DebCollector,
+                CustomerId = this.CurrentCustomer.CustomerId,
+                OrderId = this.CurrentCustomer.Order.OrderId,
+                Date = DateTime.Now,
+                Notes = result,
+                Outstanding = this.CurrentCustomer.Order.Payments.Select(p => p.Total).Sum(),
+                IsSync = 1,
+            };
+
+            try
+            {
+                dataService.Insert<Visit>(next);
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+
+            this.ObservableVisits.Add(next);
+
+
+            //Save visit in Server
+            var saved = await SaveVisitToServer(next);
+            if(saved){
+                next.IsSync = 1;
+            }
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ObservableVisits)));
+            return;
         }
         #endregion
 
         #region Methods
+        async public Task<bool> SaveVisitToServer(Visit visit)
+        {
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return false;
+            }
+
+            TokenResponse token = MainViewModel.GetInstance().Token;
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var response = await apiService.Put<Visit>(urlAPI, "visits", token.City, token.TokenType, token.AccessToken, visit);
+            if (response.IsSuccess)
+            {
+                visit.IsSync = 1;
+                dataService.Update<Visit>(visit);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private async Task<string> OpenCancellableTextInputAlertDialog()
+        {
+            // create the TextInputView
+            var inputView = new TextInputCancellableView(
+                "Registre notas sobre su visita:", "Capturelo aquí...", "Grabar", "Cancelar", "Ops! Debe ser una cantidad mayor a cero!");
+
+            // create the Transparent Popup Page
+            // of type string since we need a string return
+            var popup = new InputAlertDialogBase<string>(inputView);
+
+            // subscribe to the TextInputView's Button click event
+            inputView.SaveButtonEventHandler +=
+                (sender, obj) =>
+                {
+                    if (((TextInputCancellableView)sender).TextInputResult.Length > 0)
+                    {
+                        ((TextInputCancellableView)sender).IsValidationLabelVisible = false;
+                        popup.PageClosedTaskCompletionSource.SetResult(((TextInputCancellableView)sender).TextInputResult);
+                    }
+                    else
+                    {
+                    ((TextInputCancellableView)sender).IsValidationLabelVisible = true;
+                    }
+                };
+
+            // subscribe to the TextInputView's Button click event
+            inputView.CancelButtonEventHandler +=
+                (sender, obj) =>
+                {
+                    popup.PageClosedTaskCompletionSource.SetResult("");
+                };
+
+            // Push the page to Navigation Stack
+            await PopupNavigation.PushAsync(popup);
+
+            // await for the user to enter the text input
+            var result = await popup.PageClosedTask;
+
+            // Pop the page from Navigation Stack
+            await PopupNavigation.PopAsync();
+
+            // return user inserted text value
+            return result;
+        }
+
         void LoadVisits()
         {
             ObservableVisits.Clear();
-            ObservableVisits = new ObservableCollection<Visit>();
+            ObservableVisits = new ObservableCollection<Visit>(dataService.GetVisits(CurrentCustomer.Order.DebCollector, CurrentCustomer.CustomerId, CurrentCustomer.Order.OrderId));
 
-            ObservableVisits.Add(new Visit
-            {
-                VisitId = 1,
-                DebCollectorId = CurrentCustomer.Order.DebCollector,
-                CustomerId = CurrentCustomer.CustomerId,
-                OrderId = CurrentCustomer.Order.OrderId,
-                Date = DateTime.Now,
-                Notes = "Mis Notas 1 Mis Notas 2 Mis Notas 3 Mis Notas 4 Mis Notas 5 Mis Notas 6 Mis Notas 7 Mis Notas 8 Mis Notas 9 Mis Notas 10 Mis Notas 11 Mis Notas 12 Mis Notas 13.",
-                Outstanding = 100
-            });
-
-            ObservableVisits.Add(new Visit
-            {
-                VisitId = 2,
-                DebCollectorId = CurrentCustomer.Order.DebCollector,
-                CustomerId = CurrentCustomer.CustomerId,
-                OrderId = CurrentCustomer.Order.OrderId,
-                Date = DateTime.Now,
-                Notes = "Mis Notas 2",
-                Outstanding = 101
-            });
-
-            ObservableVisits.Add(new Visit
-            {
-                VisitId = 3,
-                DebCollectorId = CurrentCustomer.Order.DebCollector,
-                CustomerId = CurrentCustomer.CustomerId,
-                OrderId = CurrentCustomer.Order.OrderId,
-                Date = DateTime.Now,
-                Notes = "Mis Notas 3",
-                Outstanding = 101
-            });
-
-            ObservableVisits.Add(new Visit
-            {
-                VisitId = 4,
-                DebCollectorId = CurrentCustomer.Order.DebCollector,
-                CustomerId = CurrentCustomer.CustomerId,
-                OrderId = CurrentCustomer.Order.OrderId,
-                Date = DateTime.Now,
-                Notes = "Mis Notas 4",
-                Outstanding = 101
-            });
-
-            ObservableVisits.Add(new Visit
-            {
-                VisitId = 5,
-                DebCollectorId = CurrentCustomer.Order.DebCollector,
-                CustomerId = CurrentCustomer.CustomerId,
-                OrderId = CurrentCustomer.Order.OrderId,
-                Date = DateTime.Now,
-                Notes = "Mis Notas 5",
-                Outstanding = 101
-            });
+            //List<Visit> visits = dataService.GetVisits(CurrentCustomer.Order.DebCollector, CurrentCustomer.CustomerId, CurrentCustomer.Order.OrderId);
 
             PropertyChanged?.Invoke(
                        this,

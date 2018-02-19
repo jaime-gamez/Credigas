@@ -200,7 +200,10 @@
 
             var list = connection.Query<Visit>("SELECT * FROM [Visit] ORDER BY VisitId DESC");
             var visit = list.FirstOrDefault();
-            return visit.VisitId >= 0 ? visit.VisitId + 1 : 1;
+            if (visit != null)
+                return visit.VisitId >= 0 ? visit.VisitId + 1 : 1;
+            else
+                return 1;
         }
 
         public Customer GetCustomer(object pk)
@@ -239,6 +242,13 @@
         {
 
             var list = connection.Query<Payment>("SELECT * FROM [Payment]");
+            return list;
+        }
+
+        public List<Visit> GetAllVisits()
+        {
+
+            var list = connection.Query<Visit>("SELECT * FROM [Visit]");
             return list;
         }
 

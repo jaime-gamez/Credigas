@@ -62,7 +62,7 @@
 
             // update the Element's textual values
             TitleLabel.Text = titleText;
-            InputEntry.Placeholder = placeHolderText;
+            //InputEntry.Placeholder = placeHolderText;
             SaveButton.Text = saveButtonText;
             CancelButton.Text = cancelButtonText;
             ValidationLabel.Text = validationText;
@@ -71,6 +71,7 @@
             SaveButton.Clicked += SaveButton_Clicked;
             CancelButton.Clicked += CancelButton_Clicked;
             InputEntry.TextChanged += InputEntry_TextChanged;
+            InputEntry.Focus();
         }
 
         private void SaveButton_Clicked(object sender, EventArgs e)

@@ -9,7 +9,7 @@
             HorizontalOptions="CenterAndExpand"
             Spacing="5"
             VerticalOptions="CenterAndExpand"
-            WidthRequest="200">
+            WidthRequest="300">
             <Label
                 x:Name="TitleLabel"
                 FontSize="Medium"
@@ -20,7 +20,7 @@
                 IsVisible="False"
                 Text="You can't leave this field empty!"
                 TextColor="Red" />
-            <Entry x:Name="InputEntry" Placeholder="Enter Here..." />
+            <Editor x:Name="InputEntry" HeightRequest="250" TextColor="{StaticResource FontColor}" BackgroundColor="{StaticResource BackgroundColor}" />
             <Grid>
                 <Button
                     x:Name="SaveButton"

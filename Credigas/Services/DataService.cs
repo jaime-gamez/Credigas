@@ -179,6 +179,25 @@
             }
         }
 
+        public void DeleteAllVisits()
+        {
+            try
+            {
+                using (var da = new DataAccess())
+                {
+                    var oldRecords = da.GetAllVisits();
+                    foreach (var oldRecord in oldRecords)
+                    {
+                        da.Delete(oldRecord);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+        }
+
         /*
         public T InsertOrUpdate<T>(T model) where T : class
         {
