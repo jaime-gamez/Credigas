@@ -9,10 +9,23 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Text="Fecha Inicial:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <DatePicker x:Name="StartDatePicker" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Format="dd/MM/yyyy" Date="{Binding StartDate}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}"/>
-                <Label Grid.Column="0" Grid.Row="1"  Text="Fecha Final:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                <DatePicker x:Name="StartDatePicker" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Format="dd/MM/yyyy" Date="{Binding StartDate}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}" />
+                <Label Grid.Column="0" Grid.Row="1" Text="Fecha Final:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <DatePicker x:Name="EndDatePicker" Grid.Column="1" Grid.Row="1" HorizontalOptions="End" Format="dd/MM/yyyy" Date="{Binding EndDate}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}"/>
+                <DatePicker x:Name="EndDatePicker" Grid.Column="1" Grid.Row="1" HorizontalOptions="End" Format="dd/MM/yyyy" Date="{Binding EndDate}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}" />
+                <Label Grid.Column="0" Grid.Row="2" Text="Día de Visita:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                </Label>
+                <Picker Grid.Column="1" Grid.Row="2" x:Name="diaVisitaPicker" HorizontalOptions="FillAndExpand" SelectedIndex="0" Title="Seleccione Día" SelectedItem="{Binding DiaVisita, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>LUNES</x:String>
+                        <x:String>MARTES</x:String>
+                        <x:String>MIERCOLES</x:String>
+                        <x:String>JUEVES</x:String>
+                        <x:String>VIERNES</x:String>
+                        <x:String>SABADO</x:String>
+                        <x:String>DOMINGO</x:String>
+                    </Picker.Items>
+                </Picker>
             </Grid>
             <StackLayout Margin="0,0">
                 <Button Command="{Binding LoginCommand}" BackgroundColor="{StaticResource AccentColor1}" BorderRadius="23" FontAttributes="Bold" HeightRequest="46" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Text="Cagar Ruta" TextColor="White">

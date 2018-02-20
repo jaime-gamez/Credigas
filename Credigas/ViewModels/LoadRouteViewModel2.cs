@@ -32,6 +32,7 @@
         bool _isToggled;
         bool _isRunning;
         bool _isEnabled;
+        string _diaVisita;
         #endregion
 
         #region Properties
@@ -178,6 +179,24 @@
             }
         }
 
+        public string DiaVisita
+        {
+            get
+            {
+                return _diaVisita;
+            }
+            set
+            {
+                if (_diaVisita != value)
+                {
+                    _diaVisita = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(DiaVisita)));
+                }
+            }
+        }
+
         private List<Customer> Clients { get; set; }
         private List<Order> Orders { get; set; }
         private List<Payment> Payments { get; set; }
@@ -199,6 +218,32 @@
             StartDate = _maximumdate.AddDays(-30);
             EndDate = _maximumdate;
             Status = "Presione Cargar Ruta";
+
+            switch (DateTime.Today.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    _diaVisita = "LUNES";
+                    break;
+                case DayOfWeek.Tuesday:
+                    _diaVisita = "MARTES";
+                    break;
+                case DayOfWeek.Wednesday:
+                    _diaVisita = "MIERCOLES";
+                    break;
+                case DayOfWeek.Thursday:
+                    _diaVisita = "JUEVES";
+                    break;
+                case DayOfWeek.Friday:
+                    _diaVisita = "VIERNES";
+                    break;
+                case DayOfWeek.Saturday:
+                    _diaVisita = "SABADO";
+                    break;
+                case DayOfWeek.Sunday:
+                    _diaVisita = "DOMINGO";
+                    break;
+            }
+
         }
         #endregion
 
@@ -317,9 +362,11 @@
             TokenResponse token = mainViewModel.Token;
 
             var urlAPI = Application.Current.Resources["URLAPI"].ToString();
-            var filters = new ClientFilters{
+            var filters = new ClientFilters
+            {
                 StartDate = StartDate,
                 EndDate = EndDate,
+                VisitDay = DiaVisita,
             };
 
             //Get all clients for current user
@@ -386,6 +433,7 @@
             {
                 StartDate = StartDate,
                 EndDate = EndDate,
+                VisitDay = DiaVisita,
             };
 
             //Get all clients for current user
@@ -449,6 +497,7 @@
             {
                 StartDate = StartDate,
                 EndDate = EndDate,
+                VisitDay = DiaVisita,
             };
 
             //Get all clients for current user

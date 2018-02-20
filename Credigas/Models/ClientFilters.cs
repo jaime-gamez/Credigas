@@ -10,5 +10,8 @@
 
         [JsonProperty(PropertyName = "EndDate")]
         public DateTime EndDate { get; set; }
+
+        [JsonProperty(PropertyName = "DiaVisita")]
+        public string VisitDay { get; set; }
     }
 }
