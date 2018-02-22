@@ -107,8 +107,8 @@
                 OrderId = this.CurrentCustomer.Order.OrderId,
                 Date = DateTime.Now,
                 Notes = result,
-                Outstanding = this.CurrentCustomer.Order.Payments.Select(p => p.Total).Sum(),
-                IsSync = 1,
+                Outstanding = this.CurrentCustomer.Order.Total - this.CurrentCustomer.Order.Payments.Select(p => p.Total).Sum(),
+                IsSync = 0,
             };
 
             try
@@ -141,9 +141,14 @@
         {
 
             var connection = await apiService.CheckConnection();
+            if (connection == null)
+            {
+                await dialogService.ShowMessage("Crédigas", "Solo se guardará local");
+                return false;
+            }
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
+                await dialogService.ShowMessage("Crédigas", "Solo se guardo local la información.");
                 return false;
             }
 

@@ -149,14 +149,11 @@
             if (Math.Abs(result) <= EPSILON)
                 return;
 
-            Payment next = new Payment
-            {
-                OrderId = OrderId,
-                PaymentId = dataService.GetNextIdForPayment(),
-                Total = result,
-                Date = DateTime.Today,
-                //Order = this,
-            };
+            Payment next = new Payment();
+            next.OrderId = this.OrderId;
+            next.PaymentId = dataService.GetNextIdForPayment();
+            next.Date = DateTime.Today;
+            next.Total = result;
 
             try
             {
@@ -275,9 +272,15 @@
         async public void SavePaymentToServer(Payment payment){
 
             var connection = await apiService.CheckConnection();
+            if (connection == null)
+            {
+                await dialogService.ShowMessage("Crédigas", "Solo se guardará local");
+                return;
+            }
+
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
+                await dialogService.ShowMessage("Crédigas", "Solo se guardará local");
                 return;
             }
 

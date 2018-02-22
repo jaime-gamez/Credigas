@@ -308,6 +308,24 @@
             }
         }
 
+        public List<Visit> GetAllVisits()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetAllVisits();
+
+            }
+        }
+
+        public List<Visit> GetAllPendingVisits()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetAllPendingVisits();
+
+            }
+        }
+
         public List<Payment> GetPaymentsByOrder(long pk)
         {
             using (var da = new DataAccess())
@@ -322,6 +340,15 @@
             using (var da = new DataAccess())
             {
                 return da.GetPaymentWithChildren(pk);
+
+            }
+        }
+
+        public Visit GetVisitWithChildren(object pk)
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetVisitWithChildren(pk);
 
             }
         }

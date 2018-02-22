@@ -42,10 +42,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\LoadRouteView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\SyncRouteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -100,7 +96,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\LoadRouteViewModel.cs" />
     <Compile Include="ViewModels\WorkRouteViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\SyncRouteViewModel.cs" />
@@ -123,9 +118,6 @@
     <Compile Include="Interfaces\IRegisterDevice.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\LoadRouteView.xaml.cs">
-      <DependentUpon>LoadRouteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SyncRouteView.xaml.cs">
       <DependentUpon>SyncRouteView.xaml</DependentUpon>

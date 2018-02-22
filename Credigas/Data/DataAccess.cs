@@ -120,6 +120,11 @@
             return connection.GetWithChildren<Payment>(pk,true);
         }
 
+        public Visit GetVisitWithChildren(object pk)
+        {
+            return connection.GetWithChildren<Visit>(pk, true);
+        }
+
         public List<T> GetAll<T>(bool withChildren) where T : class
         {
             List<T> res = new List<T>();
@@ -166,6 +171,20 @@
             return list;
         }
 
+        public List<Visit> GetAllVisits()
+        {
+
+            var list = connection.Query<Visit>("SELECT * FROM [Visit] ");
+            return list;
+        }
+
+        public List<Visit> GetAllPendingVisits()
+        {
+
+            var list = connection.Query<Visit>("SELECT * FROM [Visit] WHERE IsSync = 0");
+            return list;
+        }
+
         public List<TokenResponse> GetAllTokenResponse()
         {
 
@@ -192,7 +211,10 @@
 
             var list = connection.Query<Payment>("SELECT * FROM [Payment] ORDER BY PaymentId DESC");
             var payment = list.FirstOrDefault();
-            return payment.PaymentId >= 0 ? payment.PaymentId  + 1: 1;
+            if(payment != null )
+                return payment.PaymentId >= 0 ? payment.PaymentId  + 1: 1;
+            else
+                return 1;
         }
 
         public long GetNextIdForVisit()
@@ -245,12 +267,7 @@
             return list;
         }
 
-        public List<Visit> GetAllVisits()
-        {
 
-            var list = connection.Query<Visit>("SELECT * FROM [Visit]");
-            return list;
-        }
 
         public double GetPortfolio()
         {

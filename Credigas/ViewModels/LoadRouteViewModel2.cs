@@ -313,7 +313,7 @@
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage("Error", connection.Message);
+                await dialogService.ShowMessage("Crédigas", "Solo se descarga su ruta cuando este conectado a Internet.");
                 return;
             }
             /*
@@ -560,6 +560,7 @@
             {
                 StartDate = StartDate,
                 EndDate = EndDate,
+                VisitDay = DiaVisita,
             };
 
             //Get all clients for current user

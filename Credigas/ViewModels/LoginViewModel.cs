@@ -256,6 +256,14 @@
             IsEnabled = false;
 
             var connection = await apiService.CheckConnection();
+            if (connection == null)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", "No se puede contactar al servidor.");
+                return;
+            }
+
             if (!connection.IsSuccess)
             {
                 IsRunning = false;

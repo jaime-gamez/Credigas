@@ -168,6 +168,20 @@
             }
         }
 
+        private List<Visit> _visits;
+        [OneToMany(CascadeOperations = CascadeOperation.All)]      // One to many relationship with Visits
+        public List<Visit> Visits
+        {
+            get => _visits;
+            set
+            {
+                _visits = value;
+                PropertyChanged?.Invoke(
+                        this,
+                    new PropertyChangedEventArgs(nameof(Visits)));
+            }
+        }
+
         private Order _order;
         [Ignore]
         public Order Order
@@ -225,6 +239,7 @@
 
             _modified = false;
             _orders = new List<Order>();
+            _visits = new List<Visit>();
         }
         #endregion
 

@@ -38,6 +38,8 @@
             IsLoaded = false;
             Date = System.DateTime.Today;
             LoadClients();
+            _observaleVisits = new ObservableCollection<Visit>();
+            LoadVisits();
         }
         #endregion
 
@@ -46,9 +48,35 @@
         bool _isEnabled;
         bool _isLoaded;
         DateTime _date;
+
         #endregion
 
         #region Properties
+        private List<Visit> _visits;
+        public List<Visit> Visits
+        {
+            get => _visits;
+            set
+            {
+                _visits = value;
+                PropertyChanged?.Invoke(
+                        this,
+                    new PropertyChangedEventArgs(nameof(Visits)));
+            }
+        }
+
+        private ObservableCollection<Visit> _observaleVisits;
+        public ObservableCollection<Visit> ObservableVisits
+        {
+            get => _observaleVisits;
+            set
+            {
+                _observaleVisits = value;
+                PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ObservableVisits)));
+            }
+        }
         public DateTime Date
         {
             get
@@ -147,9 +175,19 @@
 
         async void SyncRoute()
         {
+            var connection = await apiService.CheckConnection();
+
+            if ( connection == null || !connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Crédigas", "Debe estar conectado a Internet para sincronizar.");
+                return;
+            }
+
+
             IsRunning = true;
 
             ClearClients();
+            ClearVisits();
 
             IsLoaded = true;
             IsRunning = false;
@@ -216,6 +254,61 @@
                 Clients.Add(item.Order.Customer);
                 PaymentsForView.Add(item);
             }
+        }
+
+        async void ClearVisits()
+        {
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+
+            //Task.Delay(1000);
+            var visits = (from v in ObservableVisits
+                            select v).ToList<Visit>();
+
+            TokenResponse token = MainViewModel.GetInstance().Token;
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            List<Visit> pendings = new List<Visit>();
+
+            foreach (var visit in visits)
+            {
+                var response = await apiService.Put<Visit>(urlAPI, "visits", token.City, token.TokenType, token.AccessToken, visit);
+                if (response.IsSuccess)
+                {
+                    visit.IsSync = 1;
+                    dataService.Update<Visit>(visit);
+
+                }
+                else
+                {
+                    pendings.Add(visit);
+                }
+            }
+            ObservableVisits.Clear();
+            ObservableVisits = new ObservableCollection<Visit>(pendings);
+        }
+
+        void LoadVisits()
+        {
+            ObservableVisits.Clear();
+            ObservableVisits = new ObservableCollection<Visit>(dataService.GetAllPendingVisits());
+            foreach (var item in ObservableVisits)
+            {
+                Visit customer = dataService.GetVisitWithChildren(item.VisitId);
+                item.Customer = customer.Customer;
+            }
+
+
+            //List<Visit> visits = dataService.GetVisits(CurrentCustomer.Order.DebCollector, CurrentCustomer.CustomerId, CurrentCustomer.Order.OrderId);
+
+            PropertyChanged?.Invoke(
+                       this,
+                       new PropertyChangedEventArgs(nameof(ObservableVisits)));
         }
 
         #endregion

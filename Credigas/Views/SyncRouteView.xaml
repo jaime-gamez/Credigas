@@ -3,6 +3,11 @@
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding SyncRoute}" Padding="8" Spacing="16">
             <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding PaymentsForView}" HasUnevenRows="True" SeparatorVisibility="None">
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource FontColor}">
+                        <Label Text="Pagos Pendientes" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -34,13 +39,63 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <ListView BackgroundColor="{StaticResource BackgroundColor}" ItemsSource="{Binding ObservableVisits}" HasUnevenRows="True" SeparatorVisibility="None">
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource FontColor}">
+                        <Label Text="Visitas Pendientes" TextColor="{StaticResource BackgroundColor}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" HeightRequest="50" Source="{Binding Icon}" WidthRequest="50">
+                                </Image>
+                                <StackLayout Margin="0" Grid.Column="1">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding FullName}" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                                        </Label>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" WidthRequest="50" Margin="0" FontSize="14" Text="Fecha:" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                                            </Label>
+                                            <Label Grid.Column="1" Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding Date}" TextColor="{StaticResource AccentColor1}" VerticalOptions="Start">
+                                            </Label>
+                                         </Grid>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" WidthRequest="50" Margin="0" FontSize="14" Text="Notas:" TextColor="{StaticResource FontColor}" VerticalOptions="Start">
+                                            </Label>
+                                            <Label Grid.Column="1" Margin="0" FontSize="14" FontAttributes="Bold" Text="{Binding Notes}" TextColor="{StaticResource AccentColor2}" VerticalOptions="Start" HorizontalOptions="EndAndExpand">
+                                            </Label>
+                                        </Grid>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <ActivityIndicator IsRunning="{Binding IsRunning, Mode=TwoWay}" HorizontalOptions="FillAndExpand" HeightRequest="30" WidthRequest="30">
             </ActivityIndicator>
             <Label VerticalOptions="EndAndExpand" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" TextColor="{StaticResource FontColor}" IsVisible="{Binding IsLoaded, Mode=TwoWay}" Text="Ruta Sincronizada">
             </Label>
             <Button Command="{Binding SyncRouteCommand}" BackgroundColor="{StaticResource AccentColor1}" BorderRadius="23" FontAttributes="Bold" HeightRequest="46" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Text="Sincronizar Ruta" TextColor="White">
             </Button>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -48,6 +48,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Label
+                Text="Versión 0.1 20180221 1100"
+                TextColor="{StaticResource BackgroundColor}">
+            </Label>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>
