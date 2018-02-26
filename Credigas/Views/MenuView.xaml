@@ -49,7 +49,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Label
-                Text="Versión 0.1 20180221 1100"
+                Text="Versión 0.2 20180225 2140"
                 TextColor="{StaticResource BackgroundColor}">
             </Label>
         </StackLayout>

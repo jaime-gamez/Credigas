@@ -301,10 +301,7 @@
 
         async void Login()
         {
-            if( (EndDate - StartDate).TotalDays > 180 ){
-                await dialogService.ShowMessage("Crédigas", "Rango de fechas muy amplio.");
-                return;
-            }
+            
             IsRunning = true; 
             IsEnabled = false;
 

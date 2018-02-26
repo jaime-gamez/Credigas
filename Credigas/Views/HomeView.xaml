@@ -28,25 +28,21 @@
                 </Label>
                 <Label Grid.Column="1" Grid.Row="2" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
-                <Label Grid.Column="0" Grid.Row="3" Text="Cartera:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                <Label Grid.Column="0" Grid.Row="3" Text="Total de Pedidos:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="3" Text="{Binding PortfolioString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="3" Text="{Binding TotalOrders}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
-                <Label Grid.Column="0" Grid.Row="4" Text="Total Cobrado:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                <Label Grid.Column="0" Grid.Row="4" Text="Cobrado Hoy:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="4" Text="{Binding Collected, StringFormat='{0:C2}'}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="4" Text="{Binding CollectedTodayString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
-                 <Label Grid.Column="0" Grid.Row="5" Text="Cobrado Hoy:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                <Label Grid.Column="0" Grid.Row="5" Text="Tarjetas Cerradas:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="5" Text="{Binding CollectedTodayString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="5" Text="{Binding ClosedCards}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
-                <Label Grid.Column="0" Grid.Row="6" Text="Tarjetas Cerradas:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
+                <Label Grid.Column="0" Grid.Row="6" Text="Pedidos por Cobrar:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
                 </Label>
-                <Label Grid.Column="1" Grid.Row="6" Text="{Binding ClosedCards}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
-                </Label>
-                <Label Grid.Column="0" Grid.Row="7" Text="Saldo Pendiente:" TextColor="{StaticResource FontColor}" VerticalOptions="Center">
-                </Label>
-                <Label Grid.Column="1" Grid.Row="7" Text="{Binding OutstandingBalanceString}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                <Label Grid.Column="1" Grid.Row="6" Text="{Binding OrdersWithoutPayment}" TextColor="{StaticResource FontColor}" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                 </Label>
             </Grid>
         </StackLayout>

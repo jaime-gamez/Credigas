@@ -31,5 +31,15 @@
                 "From Gallery",
                 "From Camera");
         }
+
+        public async Task<string> ShowOptions(string title, string[] buttons )
+            {
+            return await Application.Current.MainPage.DisplayActionSheet(
+                title,
+                "Cancelar",
+                null,
+                buttons
+            );
+        }
     }
 }

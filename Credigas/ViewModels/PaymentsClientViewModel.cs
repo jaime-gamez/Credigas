@@ -31,21 +31,16 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
+            _customerTemp = customer;
 
-            Orders = dataService.GetOrdersByCustomer(customer.CustomerId);
-            CurrentCustomer = customer;
-            foreach (var item in Orders)
-            {
-                item.Customer = customer;
-                item.Payments = dataService.GetPaymentsByOrder(item.OrderId);
-            }
-            CurrentCustomer.Orders = Orders;
-            CurrentCustomer.Order = Orders[0];
+
+            SeleccOrder();
 
         }
         #endregion
 
         #region Properties
+        private Customer _customerTemp;
         private List<Order> _orders;
         public List<Order> Orders
         {
@@ -78,7 +73,41 @@
         #endregion
 
         #region Methods
+        async public void SeleccOrder(){
+            Orders = dataService.GetOrdersByCustomer(_customerTemp.CustomerId);
 
+            List<string> orders = new List<string>();
+            foreach (var item in Orders)
+            {
+                orders.Add(item.CardId);
+                item.Customer = _customerTemp;
+                item.Payments = dataService.GetPaymentsByOrder(item.OrderId);
+            }
+            _customerTemp.Orders = Orders;
+
+            /*
+            if (Orders.Count > 1)
+            {
+                var orderSelected = await dialogService.ShowOptions("Seleccione pedido del cliente", orders.ToArray());
+                var current = _customerTemp.Orders.Find(o => o.CardId == orderSelected);
+                if (current != null)
+                    _customerTemp.Order = current;
+                else
+                    _customerTemp.Order = Orders[0];
+
+            }
+            else
+            {
+                _customerTemp.Order = Orders[0];
+            }
+            */
+            _customerTemp.Order = Orders[0];
+            CurrentCustomer = _customerTemp;
+            PropertyChanged?.Invoke(
+                        this,
+                    new PropertyChangedEventArgs(nameof(CurrentCustomer)));
+            
+        }
         #endregion
     }
 }

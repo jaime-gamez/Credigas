@@ -445,6 +445,14 @@
             }
         }
 
+        public List<Order> GetAllOrders()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetAllOrders();
+            }
+        }
+
         public Statistics LoadStatistics()
         {
             Statistics statistics = new Statistics();
@@ -456,8 +464,8 @@
                 statistics.CollectedToday = da.GetCollectedToday();
                 statistics.OutstandingBalance = statistics.Portfolio - statistics.Collected;
                 statistics.ClosedCards = da.GetClosed();
-                statistics.TotalCustomers = da.GetTotalCustomers();
-                statistics.CustomersWithPayment = da.GetCustomersWithPaymentThoday();
+                statistics.TotalOrders = da.GetTotalOrders();
+                statistics.OrdersWithPayment = da.GetOrdersWithPaymentThoday();
                 //statistics.CustomersWithoutPayment = da.GetCustomersWithoutPaymentThoday();
 
             }

@@ -5,8 +5,8 @@
     public class Statistics
     {
         public Statistics(){
-            _totalCustomers = 0;
-            _customersWithPayment = 0;
+            _totalOrders = 0;
+            _ordersWithPayment = 0;
         }
 
         private DateTime _date;
@@ -27,7 +27,7 @@
         {
             get
             {
-                return String.Format("{0:C2}({1})",Portfolio,TotalCustomers);
+                return String.Format("{0:C2}({1})",Portfolio,TotalOrders);
             }
         }
 
@@ -49,7 +49,7 @@
         {
             get
             {
-                return String.Format("{0:C2}({1})", CollectedToday, CustomersWithPayment);
+                return String.Format("{0:C2}({1})", CollectedToday, OrdersWithPayment);
             }
         }
 
@@ -64,7 +64,7 @@
         {
             get
             {
-                return String.Format("{0:C2}({1})", OutstandingBalance, CustomersWithoutPayment);
+                return String.Format("{0:C2}({1})", OutstandingBalance, OrdersWithoutPayment);
             }
         }
 
@@ -75,26 +75,26 @@
             set => _closedCards = value;
         }
 
-        private int _customersWithPayment;
-        public int CustomersWithPayment
+        private int _ordersWithPayment;
+        public int OrdersWithPayment
         {
-            get => _customersWithPayment;
-            set => _customersWithPayment = value;
+            get => _ordersWithPayment;
+            set => _ordersWithPayment = value;
         }
 
 
-        public int CustomersWithoutPayment
+        public int OrdersWithoutPayment
         {
             get {
-                return _totalCustomers - _customersWithPayment;
+                return TotalOrders - OrdersWithPayment;
             }
         }
 
-        private int _totalCustomers;
-        public int TotalCustomers
+        private int _totalOrders;
+        public int TotalOrders
         {
-            get => _totalCustomers;
-            set => _totalCustomers = value;
+            get => _totalOrders;
+            set => _totalOrders = value;
         }
 
 
