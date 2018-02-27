@@ -244,6 +244,13 @@
                     break;
             }
 
+            List<Payment> payments = dataService.GetPendingPaymentsWithChildren(DateTime.Today);
+            List<Visit> visits = dataService.GetAllPendingVisits();
+            if(payments.Count > 0 || visits.Count > 0){
+                Status = "Sincronice pendientes.";
+                IsEnabled = false;
+            }
+
         }
         #endregion
 

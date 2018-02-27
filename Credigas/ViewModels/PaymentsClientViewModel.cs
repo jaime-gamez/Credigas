@@ -85,7 +85,7 @@
             }
             _customerTemp.Orders = Orders;
 
-            /*
+
             if (Orders.Count > 1)
             {
                 var orderSelected = await dialogService.ShowOptions("Seleccione pedido del cliente", orders.ToArray());
@@ -100,8 +100,8 @@
             {
                 _customerTemp.Order = Orders[0];
             }
-            */
-            _customerTemp.Order = Orders[0];
+
+            //_customerTemp.Order = Orders[0];
             CurrentCustomer = _customerTemp;
             PropertyChanged?.Invoke(
                         this,

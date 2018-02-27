@@ -301,15 +301,18 @@
 
         public int GetOrdersWithPaymentThoday()
         {
-            var list = connection.Query<Payment>("SELECT * FROM [Payment] WHERE Date >= ?", DateTime.Today);
+            var list = connection.Query<Payment>("SELECT * FROM [Payment] WHERE Date = ?", DateTime.Today);
             List<Order> _orders = new List<Order>();
 
             foreach (var item in list)
             {
-                var payment = connection.GetWithChildren<Payment>(item.PaymentId);
+                var payment = connection.GetWithChildren<Payment>(item.PaymentId,true);
                 var payed = _orders.Find(o => o.OrderId == payment.OrderId);
                 if( payed == null){
                     _orders.Add(payment.Order);
+                    payment.Order.Customer = this.GetCustomer(payment.Order.CustomerId);
+                    payment.Order.Customer.Modified = true;
+                    this.Update<Customer>(payment.Order.Customer);
                 }
             }
             return _orders.Count();;
