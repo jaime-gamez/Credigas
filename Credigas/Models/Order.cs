@@ -82,6 +82,21 @@
             } 
         }
 
+
+        [JsonIgnore]
+        public bool IsEnabled
+        {
+            get {
+                bool res = true;
+                Payment _payment = this.Payments.Find(p => p.Date == DateTime.Today);
+                if (_payment != null)
+                    res = false;
+                
+                return res;
+            }
+
+        }
+
         public double Collected
         {
             get
@@ -157,11 +172,48 @@
 
             try
             {
-                dataService.Insert<Payment>(next);
-                Customer.Modified = true;
-                dataService.Update<Customer>(Customer);
-                WorkRouteViewModel workRoute = MainViewModel.GetInstance().WorkRoute;
-                workRoute.UpdateClient(Customer);
+                var connection = await apiService.CheckConnection();
+                if (connection == null || !connection.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Crédigas", "Solo se guardará local");
+                    dataService.Insert<Payment>(next);
+                    Customer.Modified = true;
+                    dataService.Update<Customer>(Customer);
+                    WorkRouteViewModel workRoute = MainViewModel.GetInstance().WorkRoute;
+                    workRoute.UpdateClient(Customer);
+                }
+                else
+                {
+
+                    TokenResponse token = MainViewModel.GetInstance().Token;
+                    var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+                    Response response = await apiService.Put<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, next);
+                    if (!response.IsSuccess)
+                    {
+                        await dialogService.ShowMessage("Crédigas", "Solo se guardará local");
+                        dataService.Insert<Payment>(next);
+                        Customer.Modified = true;
+                        dataService.Update<Customer>(Customer);
+                        WorkRouteViewModel workRoute = MainViewModel.GetInstance().WorkRoute;
+                        workRoute.UpdateClient(Customer);
+                    }else if (response.IsSuccess && ((Payment)response.Result).PaymentId > 0 )
+                    {
+                        dataService.Insert<Payment>(next);
+                        Customer.Modified = true;
+                        dataService.Update<Customer>(Customer);
+                        WorkRouteViewModel workRoute = MainViewModel.GetInstance().WorkRoute;
+                        workRoute.UpdateClient(Customer);
+                        next.IsSync = 1;
+                        dataService.Update<Payment>(next);
+
+                    }else if (response.IsSuccess && ((Payment)response.Result).PaymentId == -1){
+                        await dialogService.ShowMessage("Crédigas", "ya existe un abono para este cliente con fecha de hoy.");
+                        return;
+                    }
+
+                }
+
+
                 //next.Order.Modified = true;
             }
             catch (Exception ex)
@@ -176,7 +228,7 @@
             CopyPayments();
 
             //Save payment in Server
-            SavePaymentToServer(next);
+            //SavePaymentToServer(next);
 
             PropertyChanged?.Invoke(
                         this,

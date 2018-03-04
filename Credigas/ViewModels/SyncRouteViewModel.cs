@@ -33,13 +33,18 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
-            IsEnabled = true;
             IsRunning = false;
             IsLoaded = false;
             Date = System.DateTime.Today;
             LoadClients();
             _observaleVisits = new ObservableCollection<Visit>();
             LoadVisits();
+
+            if(this.PaymentsForView.Count > 0 || this.ObservableVisits.Count > 0)
+                IsEnabled = true;
+            else
+                IsEnabled = false;
+
         }
         #endregion
 
@@ -175,16 +180,21 @@
 
         async void SyncRoute()
         {
+            IsRunning = true;
+            IsEnabled = false;
+
             var connection = await apiService.CheckConnection();
 
             if ( connection == null || !connection.IsSuccess)
             {
+                IsRunning = false;
                 await dialogService.ShowMessage("Crédigas", "Debe estar conectado a Internet para sincronizar.");
+                IsEnabled = true;
                 return;
             }
 
 
-            IsRunning = true;
+            //IsRunning = true;
 
             ClearClients();
             ClearVisits();
@@ -220,7 +230,7 @@
         async void ClearClients(){
 
             var connection = await apiService.CheckConnection();
-            if (!connection.IsSuccess)
+            if (connection == null || !connection.IsSuccess)
             {
                 await dialogService.ShowMessage("Error", connection.Message);
                 return;
@@ -238,15 +248,21 @@
             foreach (var payment in payments)
             {
                 var response = await apiService.Put<Payment>(urlAPI, "payments", token.City, token.TokenType, token.AccessToken, payment);
-                if (response.IsSuccess)
+                if (!response.IsSuccess)
+                {
+                    pendings.Add(payment);
+                }
+                else if (response.IsSuccess && ((Payment)response.Result).PaymentId > 0)
                 {
                     payment.IsSync = 1;
                     dataService.Update<Payment>(payment);
-
-                }else{
-                    pendings.Add(payment);
+                }else if (response.IsSuccess && ((Payment)response.Result).PaymentId == -1)
+                {
+                    payment.IsSync = 1;
+                    dataService.Update<Payment>(payment);
                 }
             }
+
             PaymentsForView.Clear();
             Clients.Clear();
             foreach (var item in pendings)
@@ -254,6 +270,7 @@
                 Clients.Add(item.Order.Customer);
                 PaymentsForView.Add(item);
             }
+
         }
 
         async void ClearVisits()
