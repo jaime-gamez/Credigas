@@ -8,7 +8,7 @@
     using Services;
     using Xamarin.Forms;
 
-    public class LoginViewModel : INotifyPropertyChanged
+    public class PasswordChangeViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,6 +26,8 @@
         string _name;
         string _city;
         string _password;
+        string _newpassword;
+        string _newpassword2;
         bool _isToggled;
         bool _isRunning;
         bool _isEnabled;
@@ -104,6 +106,42 @@
             }
         }
 
+        public string NewPassword
+        {
+            get
+            {
+                return _newpassword;
+            }
+            set
+            {
+                if (_newpassword != value)
+                {
+                    _newpassword = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(NewPassword)));
+                }
+            }
+        }
+
+        public string NewPassword2
+        {
+            get
+            {
+                return _newpassword2;
+            }
+            set
+            {
+                if (_newpassword2 != value)
+                {
+                    _newpassword2 = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(NewPassword2)));
+                }
+            }
+        }
+
         public string User
         {
             get
@@ -161,7 +199,7 @@
         #endregion
 
         #region Constructors
-        public LoginViewModel()
+        public PasswordChangeViewModel()
         {
             apiService = new ApiService();
             dataService = new DataService();
@@ -174,6 +212,20 @@
         #endregion
 
         #region Commands
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return new RelayCommand(Cancel);
+            }
+        }
+
+        async void Cancel()
+        {
+            await navigationService.BackOnLogin();
+        }
+
+
         public ICommand ChangePasswordCommand
         {
             get
@@ -183,49 +235,6 @@
         }
 
         async void ChangePassword()
-        {
-            MainViewModel.GetInstance().PasswordChange = new PasswordChangeViewModel();
-            await navigationService.NavigateOnLogin("PasswordChangeView");
-        }
-
-
-        public ICommand LoginWithFacebookCommand
-        {
-            get
-            {
-                return new RelayCommand(LoginWithFacebook);
-            }
-        }
-
-        async void LoginWithFacebook()
-        {
-            await navigationService.NavigateOnLogin("LoginFacebookView");
-        }
-
-        public ICommand RegisterNewUserCommand
-        {
-            get
-            {
-                return new RelayCommand(RegisterNewUser);
-            }
-        }
-
-        async void RegisterNewUser()
-        {
-            MainViewModel.GetInstance().NewUser = new NewUserViewModel();
-            await navigationService.NavigateOnLogin("NewUserView");
-        }
-
-
-        public ICommand LoginCommand
-        {
-            get
-            {
-                return new RelayCommand(Login);
-            }
-        }
-
-        async void Login()
         {
             if (string.IsNullOrEmpty(User))
             {
@@ -240,6 +249,37 @@
                 await dialogService.ShowMessage(
                     "Error",
                     "Debe capturar su contraseña.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(NewPassword))
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    "Debe capturar su nueva contraseña.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(NewPassword2))
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    "Debe capturar repetir su nueva contraseña.");
+                return;
+            }
+
+            if( Password == NewPassword){
+                await dialogService.ShowMessage(
+                    "Error",
+                    "La nueva contraseña no puede ser igual a la actual.");
+                return;
+            }
+
+            if (NewPassword != NewPassword2)
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    "Capture la misma nueva contraseña.");
                 return;
             }
 
@@ -279,12 +319,12 @@
                 User,
                 Password,
                 ToCity());
-            
+
             if (response == null)
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage("Error","No se puede contactar al servidor.");
+                await dialogService.ShowMessage("Error", "No se puede contactar al servidor.");
                 Password = null;
                 return;
             }
@@ -293,19 +333,29 @@
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage("Error",response.ErrorDescription);
+                await dialogService.ShowMessage("Error", response.ErrorDescription);
                 Password = null;
                 return;
             }
 
+            /*
             response.IsRemembered = IsToggled;
             response.Password = Password;
             dataService.DeleteAllTokensAndInsert(response);
+            */
 
+            PasswordChangeData newData = new PasswordChangeData{
+                City = response.City,
+                User = User,
+                Pwd = Password,
+                NewPwd = NewPassword,
+                NewPwd2 = NewPassword2
+            };
 
+            var userResponse = await apiService.Put2<User>(urlAPI, "users", response.City, response.TokenType, response.AccessToken, newData);
 
             //Get all data for current user
-            var userResponse = await apiService.Get<Models.User>(urlAPI, "users", response.City, response.TokenType, response.AccessToken, response.Login);
+            //var userResponse = await apiService.Get<Models.User>(urlAPI, "users", response.City, response.TokenType, response.AccessToken, response.Login);
 
             if (userResponse == null)
             {
@@ -313,6 +363,8 @@
                 IsEnabled = true;
                 await dialogService.ShowMessage("Error", "No se puede contactar al servidor.");
                 Password = null;
+                NewPassword = null;
+                NewPassword2 = null;
                 return;
             }
 
@@ -324,10 +376,10 @@
                 Password = null;
                 return;
             }
-
+            /*
             Models.User CurrentUser = (Models.User)userResponse.Result;
             dataService.DeleteAllUsersAndInsert(CurrentUser);
-                  
+
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = response;
             mainViewModel.User = CurrentUser;
@@ -336,17 +388,20 @@
 
             mainViewModel.Home.CurrentStatistics = dataService.LoadStatistics();
             navigationService.SetMainPage("MasterView");
+            */
 
             User = null;
             Password = null;
 
             IsRunning = false;
             IsEnabled = true;
+            await navigationService.BackOnLogin();
         }
         #endregion
 
         #region Methods
-        private string ToCity(){
+        private string ToCity()
+        {
             string result = "";
 
             switch (City)

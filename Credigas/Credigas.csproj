@@ -86,6 +86,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\PasswordChangeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -172,6 +176,11 @@
       <DependentUpon>VisitsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\VisitsViewModel.cs" />
+    <Compile Include="ViewModels\PasswordChangeViewModel.cs" />
+    <Compile Include="Views\PasswordChangeView.xaml.cs">
+      <DependentUpon>PasswordChangeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PasswordChangeData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight">

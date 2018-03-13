@@ -65,6 +65,10 @@
                     await Application.Current.MainPage.Navigation.PushAsync(
                         new NewUserView());
                     break;
+                case "PasswordChangeView":
+                    await Application.Current.MainPage.Navigation.PushAsync(
+                        new PasswordChangeView());
+                    break;
             }
         }
 

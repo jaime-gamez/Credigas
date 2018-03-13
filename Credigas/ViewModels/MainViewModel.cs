@@ -86,6 +86,12 @@
             set;
         }
 
+        public PasswordChangeViewModel PasswordChange
+        {
+            get;
+            set;
+        }
+
         public NewUserViewModel NewUser
         {
             get;
